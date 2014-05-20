@@ -72,6 +72,8 @@ int main(int argc, char* argv[])
   
   string parSet(argv[1]);
   string runOn(argv[2]);
+
+  std::cout << "Requested to run on " << runOn << ". Cfg file is: " << parSet << endl;
   
   const edm::ParameterSet &pSet = edm::readPSetsFrom(parSet)->getParameter<edm::ParameterSet>("PhysicsAnalysisParSet");
   

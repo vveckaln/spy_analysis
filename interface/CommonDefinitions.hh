@@ -269,6 +269,9 @@ namespace commondefinitions{
    TBH220_URL, 
    TBH250_URL,
    TBH300_URL,
+   TBH400_URL,
+   TBH500_URL,
+   TBH600_URL,
    
    HTB180_URL,  
    HTB190_URL,  

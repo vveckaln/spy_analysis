@@ -147,6 +147,9 @@ void LandSShapesProducer::Init(){
 
   signalNormFactor_ = mFitPars.getParameter<vector<double> >("signalNormFactor");
 
+  for(size_t si=0; si<signalNormFactor_.size(); ++si )
+    cout << "Signal normalization factor " << si << " is " << signalNormFactor_[si] << endl;
+
 
   vector<string>baseDirTemp = mFitPars.getParameter<vector<std::string> >("baseDir");
   for(size_t f=0; f<baseDirTemp.size(); f++)

@@ -26,6 +26,8 @@ namespace tableutils{
   // systset1 -> if enabled include only JES + MET +JER ,  systset2 -> if enabled include only btag unc ,  systset3 -> if enabled only trigger
   // detailed -> select between 1 or 2 floating points
   void TauDileptonTableBuilder::mcTable( int detailed, bool includeSoverB , bool printAllErrors, bool higgs, bool lightH, TString key, TString name, bool systset1, bool systset2, bool systset3){ 
+
+    bool debug(false);
     
     // Multiplier for yields // Must modify and make it clear from python file
     //for(size_t i=0; i<brHtaunu_.size(); ++i)
@@ -108,21 +110,24 @@ namespace tableutils{
     hwEffHitoNames.push_back("TBH220"); 
     hwEffHitoNames.push_back("TBH250");
     hwEffHitoNames.push_back("TBH300");
+    hwEffHitoNames.push_back("TBH400");
+    hwEffHitoNames.push_back("TBH500");
+    hwEffHitoNames.push_back("TBH600");
 
     vector<TString> htbEffHitoNames;
-    htbEffHitoNames.push_back("TBH180"); 
-    htbEffHitoNames.push_back("TBH200"); 
-    htbEffHitoNames.push_back("TBH220"); 
-    htbEffHitoNames.push_back("TBH240"); 
-    htbEffHitoNames.push_back("TBH250");
-    htbEffHitoNames.push_back("TBH260");
-    htbEffHitoNames.push_back("TBH280");
-    htbEffHitoNames.push_back("TBH300");
-    htbEffHitoNames.push_back("TBH350");
+    htbEffHitoNames.push_back("HTB180"); 
+    htbEffHitoNames.push_back("HTB200"); 
+    htbEffHitoNames.push_back("HTB220"); 
+    htbEffHitoNames.push_back("HTB240"); 
+    htbEffHitoNames.push_back("HTB250");
+    htbEffHitoNames.push_back("HTB260");
+    htbEffHitoNames.push_back("HTB280");
+    htbEffHitoNames.push_back("HTB300");
+    htbEffHitoNames.push_back("HTB350");
     //    htbEffHitoNames.push_back("TBH400");
-    htbEffHitoNames.push_back("TBH500");
-    htbEffHitoNames.push_back("TBH600");
-    htbEffHitoNames.push_back("TBH700");
+    htbEffHitoNames.push_back("HTB500");
+    htbEffHitoNames.push_back("HTB600");
+    htbEffHitoNames.push_back("HTB700");
 
 
 
@@ -148,6 +153,9 @@ namespace tableutils{
     tbhFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m220.root"));
     tbhFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m250.root")); 
     tbhFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m300.root"));   
+    tbhFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m400.root"));   
+    tbhFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m500.root"));   
+    tbhFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m600.root"));   
   }
 
   if(htb_contrib){
@@ -760,25 +768,23 @@ namespace tableutils{
 
       if( x >= TAUSTEP){ syst_tauid_e = TAU_ID_ERR*data_tbh_e[x]; syst_tauid_m = TAU_ID_ERR*data_tbh_m[x]; } 
 
-      cout << "DEBUG TBH ME " << "-----------------------------------------------------------------------__" << endl;
-      
-      cout << " syst_plus_e     : " << syst_plus_e     << ", syst_plus_m     : " << syst_plus_m     << endl;    
-      cout << " syst_minus_e    : " << syst_minus_e    << ", syst_minus_m    : " << syst_minus_m    << endl;
-      cout << " syst_uncplus_e  : " << syst_uncplus_e  << ", syst_uncplus_m  : " << syst_uncplus_m  << endl;
-      cout << " syst_uncminus_e : " << syst_uncminus_e << ", syst_uncminus_m : " << syst_uncminus_m << endl;
-      cout << " syst_jerplus_e  : " << syst_jerplus_e  << ", syst_jerplus_m  : " << syst_jerplus_m  << endl;
-      cout << " syst_jerminus_e : " << syst_jerminus_e << ", syst_jerminus_m : " << syst_jerminus_m << endl;
-      cout << " syst_tesplus_e  : " << syst_tesplus_e  << ", syst_tesplus_m  : " << syst_tesplus_m  << endl;
-      cout << " syst_tesminus_e : " << syst_tesminus_e << ", syst_tesminus_m : " << syst_tesminus_m << endl;
-      cout << " syst_bplus_e    : " << syst_bplus_e    << ", syst_bplus_m    : " << syst_bplus_m    << endl;
-      cout << " syst_bminus_e   : " << syst_bminus_e   << ", syst_bminus_m   : " << syst_bminus_m   << endl;
-      cout << " syst_lum_e      : " << syst_lum_e      << ", syst_lum_m      : " << syst_lum_m      << endl;
-      cout << " syst_eff_e      : " << syst_eff_e      << ", syst_eff_m      : " << syst_eff_m      << endl;
-      cout << " syst_ttbar_cs_e : " << syst_ttbar_cs_e << ", syst_ttbar_cs_m : " << syst_ttbar_cs_m << endl;  
-      cout << " syst_trigger_e  : " << syst_trigger_e  << ", syst_trigger_m  : " << syst_trigger_m  << endl;
-      cout << " syst_tauid_e    : " << syst_tauid_e    << ", syst_tauid_m    : " << syst_tauid_m    << endl;
-
-      cout << " END DEBUG " << endl;
+      if(debug) cout << "DEBUG TBH ME " << "-----------------------------------------------------------------------__" << endl;
+      if(debug) cout << " syst_plus_e     : " << syst_plus_e     << ", syst_plus_m     : " << syst_plus_m     << endl;    
+      if(debug) cout << " syst_minus_e    : " << syst_minus_e    << ", syst_minus_m    : " << syst_minus_m    << endl;
+      if(debug) cout << " syst_uncplus_e  : " << syst_uncplus_e  << ", syst_uncplus_m  : " << syst_uncplus_m  << endl;
+      if(debug) cout << " syst_uncminus_e : " << syst_uncminus_e << ", syst_uncminus_m : " << syst_uncminus_m << endl;
+      if(debug) cout << " syst_jerplus_e  : " << syst_jerplus_e  << ", syst_jerplus_m  : " << syst_jerplus_m  << endl;
+      if(debug) cout << " syst_jerminus_e : " << syst_jerminus_e << ", syst_jerminus_m : " << syst_jerminus_m << endl;
+      if(debug) cout << " syst_tesplus_e  : " << syst_tesplus_e  << ", syst_tesplus_m  : " << syst_tesplus_m  << endl;
+      if(debug) cout << " syst_tesminus_e : " << syst_tesminus_e << ", syst_tesminus_m : " << syst_tesminus_m << endl;
+      if(debug) cout << " syst_bplus_e    : " << syst_bplus_e    << ", syst_bplus_m    : " << syst_bplus_m    << endl;
+      if(debug) cout << " syst_bminus_e   : " << syst_bminus_e   << ", syst_bminus_m   : " << syst_bminus_m   << endl;
+      if(debug) cout << " syst_lum_e      : " << syst_lum_e      << ", syst_lum_m      : " << syst_lum_m      << endl;
+      if(debug) cout << " syst_eff_e      : " << syst_eff_e      << ", syst_eff_m      : " << syst_eff_m      << endl;
+      if(debug) cout << " syst_ttbar_cs_e : " << syst_ttbar_cs_e << ", syst_ttbar_cs_m : " << syst_ttbar_cs_m << endl;  
+      if(debug) cout << " syst_trigger_e  : " << syst_trigger_e  << ", syst_trigger_m  : " << syst_trigger_m  << endl;
+      if(debug) cout << " syst_tauid_e    : " << syst_tauid_e    << ", syst_tauid_m    : " << syst_tauid_m    << endl;
+      if(debug) cout << " END DEBUG " << endl;
       
       
 
@@ -912,25 +918,23 @@ namespace tableutils{
 
       if( x >= TAUSTEP){ syst_tauid_e = TAU_ID_ERR*data_htb_e[x]; syst_tauid_m = TAU_ID_ERR*data_htb_m[x]; } 
 
-      cout << "DEBUG HTB ME " << "-----------------------------------------------------------------------__" << endl;
-      
-      cout << " syst_plus_e     : " << syst_plus_e     << ", syst_plus_m     : " << syst_plus_m     << endl;    
-      cout << " syst_minus_e    : " << syst_minus_e    << ", syst_minus_m    : " << syst_minus_m    << endl;
-      cout << " syst_uncplus_e  : " << syst_uncplus_e  << ", syst_uncplus_m  : " << syst_uncplus_m  << endl;
-      cout << " syst_uncminus_e : " << syst_uncminus_e << ", syst_uncminus_m : " << syst_uncminus_m << endl;
-      cout << " syst_jerplus_e  : " << syst_jerplus_e  << ", syst_jerplus_m  : " << syst_jerplus_m  << endl;
-      cout << " syst_jerminus_e : " << syst_jerminus_e << ", syst_jerminus_m : " << syst_jerminus_m << endl;
-      cout << " syst_tesplus_e  : " << syst_tesplus_e  << ", syst_tesplus_m  : " << syst_tesplus_m  << endl;
-      cout << " syst_tesminus_e : " << syst_tesminus_e << ", syst_tesminus_m : " << syst_tesminus_m << endl;
-      cout << " syst_bplus_e    : " << syst_bplus_e    << ", syst_bplus_m    : " << syst_bplus_m    << endl;
-      cout << " syst_bminus_e   : " << syst_bminus_e   << ", syst_bminus_m   : " << syst_bminus_m   << endl;
-      cout << " syst_lum_e      : " << syst_lum_e      << ", syst_lum_m      : " << syst_lum_m      << endl;
-      cout << " syst_eff_e      : " << syst_eff_e      << ", syst_eff_m      : " << syst_eff_m      << endl;
-      cout << " syst_ttbar_cs_e : " << syst_ttbar_cs_e << ", syst_ttbar_cs_m : " << syst_ttbar_cs_m << endl;  
-      cout << " syst_trigger_e  : " << syst_trigger_e  << ", syst_trigger_m  : " << syst_trigger_m  << endl;
-      cout << " syst_tauid_e    : " << syst_tauid_e    << ", syst_tauid_m    : " << syst_tauid_m    << endl;
-
-      cout << " END DEBUG " << endl;
+      if(debug) cout << "DEBUG HTB ME " << "-----------------------------------------------------------------------__" << endl;
+      if(debug) cout << " syst_plus_e     : " << syst_plus_e     << ", syst_plus_m     : " << syst_plus_m     << endl;    
+      if(debug) cout << " syst_minus_e    : " << syst_minus_e    << ", syst_minus_m    : " << syst_minus_m    << endl;
+      if(debug) cout << " syst_uncplus_e  : " << syst_uncplus_e  << ", syst_uncplus_m  : " << syst_uncplus_m  << endl;
+      if(debug) cout << " syst_uncminus_e : " << syst_uncminus_e << ", syst_uncminus_m : " << syst_uncminus_m << endl;
+      if(debug) cout << " syst_jerplus_e  : " << syst_jerplus_e  << ", syst_jerplus_m  : " << syst_jerplus_m  << endl;
+      if(debug) cout << " syst_jerminus_e : " << syst_jerminus_e << ", syst_jerminus_m : " << syst_jerminus_m << endl;
+      if(debug) cout << " syst_tesplus_e  : " << syst_tesplus_e  << ", syst_tesplus_m  : " << syst_tesplus_m  << endl;
+      if(debug) cout << " syst_tesminus_e : " << syst_tesminus_e << ", syst_tesminus_m : " << syst_tesminus_m << endl;
+      if(debug) cout << " syst_bplus_e    : " << syst_bplus_e    << ", syst_bplus_m    : " << syst_bplus_m    << endl;
+      if(debug) cout << " syst_bminus_e   : " << syst_bminus_e   << ", syst_bminus_m   : " << syst_bminus_m   << endl;
+      if(debug) cout << " syst_lum_e      : " << syst_lum_e      << ", syst_lum_m      : " << syst_lum_m      << endl;
+      if(debug) cout << " syst_eff_e      : " << syst_eff_e      << ", syst_eff_m      : " << syst_eff_m      << endl;
+      if(debug) cout << " syst_ttbar_cs_e : " << syst_ttbar_cs_e << ", syst_ttbar_cs_m : " << syst_ttbar_cs_m << endl;  
+      if(debug) cout << " syst_trigger_e  : " << syst_trigger_e  << ", syst_trigger_m  : " << syst_trigger_m  << endl;
+      if(debug) cout << " syst_tauid_e    : " << syst_tauid_e    << ", syst_tauid_m    : " << syst_tauid_m    << endl;
+      if(debug) cout << " END DEBUG " << endl;
       
       
 
@@ -1097,20 +1101,20 @@ namespace tableutils{
       // signal theory unc.
       double syst_theoryeff(0); if( XSECMEASUREMENT && ( y==ETAU_TDCH || y==MUTAU_TDCH )) syst_theoryeff = SIGNAL_EFF_ERR*d[x][y];
 
-      cout << "DEBUG SM ME for sample " << x << " -----------------------------------------------------------------------__" << endl;
-      cout << "  syst_plus      : " <<   syst_plus     << endl;
-      cout << "  syst_minus     : " <<   syst_minus    << endl;
-      cout << "  syst_uncplus   : " <<   syst_uncplus  << endl;
-      cout << "  syst_uncminus  : " <<   syst_uncminus << endl;
-      cout << "  syst_jerplus   : " <<   syst_jerplus  << endl;
-      cout << "  syst_jerminus  : " <<   syst_jerminus << endl;
-      cout << "  syst_bplus     : " <<   syst_bplus    << endl;
-      cout << "  syst_bminus    : " <<   syst_bminus   << endl;
-      cout << "  syst_lum       : " <<   syst_lum      << endl;
-      cout << "  syst_eff_lep   : " <<   syst_eff_lep  << endl;
-      cout << "  syst_trigger   : " <<   syst_trigger  << endl;
-      cout << "  syst_theoryeff : " <<   syst_theoryeff<< endl;
-      cout << " END DEBUG " << endl;
+      if(debug) cout << "DEBUG SM ME for sample " << x << " -----------------------------------------------------------------------__" << endl;
+      if(debug) cout << "  syst_plus      : " <<   syst_plus     << endl;
+      if(debug) cout << "  syst_minus     : " <<   syst_minus    << endl;
+      if(debug) cout << "  syst_uncplus   : " <<   syst_uncplus  << endl;
+      if(debug) cout << "  syst_uncminus  : " <<   syst_uncminus << endl;
+      if(debug) cout << "  syst_jerplus   : " <<   syst_jerplus  << endl;
+      if(debug) cout << "  syst_jerminus  : " <<   syst_jerminus << endl;
+      if(debug) cout << "  syst_bplus     : " <<   syst_bplus    << endl;
+      if(debug) cout << "  syst_bminus    : " <<   syst_bminus   << endl;
+      if(debug) cout << "  syst_lum       : " <<   syst_lum      << endl;
+      if(debug) cout << "  syst_eff_lep   : " <<   syst_eff_lep  << endl;
+      if(debug) cout << "  syst_trigger   : " <<   syst_trigger  << endl;
+      if(debug) cout << "  syst_theoryeff : " <<   syst_theoryeff<< endl;
+      if(debug) cout << " END DEBUG " << endl;
 
 
       if(systset1){ 
@@ -1278,7 +1282,7 @@ namespace tableutils{
    syst_error_plus[x]  = sqrt( pow(temp_syst_plus,2)  + pow(temp_syst_uncplus,2) +  pow(temp_syst_jerplus,2)  + pow(temp_syst_bplus,2)  + pow(temp_syst_tesplus,2)  + temp );
    syst_error_minus[x] = sqrt( pow(temp_syst_minus,2) + pow(temp_syst_uncminus,2) + pow(temp_syst_jerminus,2) + pow(temp_syst_bminus,2) + pow(temp_syst_tesminus,2) + temp );
 
-   cout<<"\n debug : trigger unc = "<<temp_syst_trigger<<" syst plus = "<<syst_error_plus[x]<<endl;
+   if(debug) cout<<"\n debug : trigger unc = "<<temp_syst_trigger<<" syst plus = "<<syst_error_plus[x]<<endl;
   
 
     //BULL SHIT //////////////////////////////////////////////////////////
@@ -1319,8 +1323,8 @@ namespace tableutils{
   fprintf(f,"\\hline \n");
 
   if(APPLY_MT_CUT_) { 
-    if( STARTINGPOINT == STARTING_AT_LJETS_ ){ fprintf(f,"\\multicolumn{1}{| c|}{ } & \\multicolumn{1}{ c|}{ channel } &  \\multicolumn{1}{ c|}{ $N_{lep}=1$ + $N_{jets}\\ge 3$ } & \\multicolumn{1}{ c|}{ $\\not\\!\\!E_T \\ge 40GeV$ }  & \\multicolumn{1}{ c|}{ $M_{T}\\ge 40 GeV/c^{2}$ } & \\multicolumn{1}{ c |}{ $\\ge$ 1btag } & \\multicolumn{1}{ c| }{ $N_{\\tau}=1$ } & \\multicolumn{1}{ c |}{ OS }  & \\multicolumn{1}{ c |}{ $\\ge$ 2btags } &  \\multicolumn{1}{ c|}{ $R \\ge 0.9$ } \\\\ \n"); }
-    else if( STARTINGPOINT == STARTING_AT_LJETSPLUSMET_ ){ fprintf(f,"\\multicolumn{1}{| c|}{ } & \\multicolumn{1}{ c|}{ channel } & \\multicolumn{1}{ c|}{ $N_{lep}=1$ + $\\not\\!\\!E_T$+ $N_{jets}\\ge 3$ } & \\multicolumn{1}{ c|}{ $M_{T}\\ge 40 GeV/c^{2}$ } & \\multicolumn{1}{ c |}{ $\\ge$ 1btag } & \\multicolumn{1}{ c| }{ $N_{\\tau}=1$ } & \\multicolumn{1}{ c |}{ OS } & \\multicolumn{1}{ c |}{ $\\ge$ 2btags } &  \\multicolumn{1}{ c|}{ $R \\ge 0.9$ } \\\\ \n");}
+    if( STARTINGPOINT == STARTING_AT_LJETS_ ){ fprintf(f,"\\multicolumn{1}{| c|}{ } & \\multicolumn{1}{ c|}{ channel } &  \\multicolumn{1}{ c|}{ $N_{lep}=1$ + $N_{jets}\\ge 3$ } & \\multicolumn{1}{ c|}{ $\\not\\!\\!E_T \\ge 40GeV$ }  & \\multicolumn{1}{ c|}{ $M_{T}\\ge 40 GeV$ } & \\multicolumn{1}{ c |}{ $\\ge$ 1btag } & \\multicolumn{1}{ c| }{ $N_{\\tau}=1$ } & \\multicolumn{1}{ c |}{ OS }  & \\multicolumn{1}{ c |}{ $\\ge$ 2btags } &  \\multicolumn{1}{ c|}{ $R \\ge 0.9$ } \\\\ \n"); }
+    else if( STARTINGPOINT == STARTING_AT_LJETSPLUSMET_ ){ fprintf(f,"\\multicolumn{1}{| c|}{ } & \\multicolumn{1}{ c|}{ channel } & \\multicolumn{1}{ c|}{ $N_{lep}=1$ + $\\not\\!\\!E_T$+ $N_{jets}\\ge 3$ } & \\multicolumn{1}{ c|}{ $M_{T}\\ge 40 GeV$ } & \\multicolumn{1}{ c |}{ $\\ge$ 1btag } & \\multicolumn{1}{ c| }{ $N_{\\tau}=1$ } & \\multicolumn{1}{ c |}{ OS } & \\multicolumn{1}{ c |}{ $\\ge$ 2btags } &  \\multicolumn{1}{ c|}{ $R \\ge 0.9$ } \\\\ \n");}
   } else {
     if( STARTINGPOINT == STARTING_AT_LJETS_ ){ fprintf(f,"\\multicolumn{1}{| c|}{ } & \\multicolumn{1}{ c|}{ channel } &  \\multicolumn{1}{ c|}{ $N_{lep}=1$ + $N_{jets}\\ge 3$ } & \\multicolumn{1}{ c|}{ $\\not\\!\\!E_T \\ge 40GeV$ }   & \\multicolumn{1}{ c |}{ $\\ge$ 1btag } & \\multicolumn{1}{ c| }{ $N_{\\tau}=1$ } & \\multicolumn{1}{ c |}{ OS }  & \\multicolumn{1}{ c |}{ $\\ge$ 2btags } &  \\multicolumn{1}{ c|}{ $R \\ge 0.9$ } & \\multicolumn{1}{ c|}{ dummy }  \\\\ \n"); }
     else if( STARTINGPOINT == STARTING_AT_LJETSPLUSMET_ ){ fprintf(f,"\\multicolumn{1}{| c|}{ } & \\multicolumn{1}{ c|}{ channel } & \\multicolumn{1}{ c|}{ $N_{lep}=1$ + $\\not\\!\\!E_T$+ $N_{jets}\\ge 3$ }  & \\multicolumn{1}{ c |}{ $\\ge$ 1btag } & \\multicolumn{1}{ c| }{ $N_{\\tau}=1$ } & \\multicolumn{1}{ c |}{ OS } & \\multicolumn{1}{ c |}{ $\\ge$ 2btags } &  \\multicolumn{1}{ c|}{ $R \\ge 0.9$ } & \\multicolumn{1}{ c|}{ $dummy$ } \\\\ \n");}
@@ -1337,42 +1341,42 @@ namespace tableutils{
 
 
   TString T_HW_mc[] = {
-    "HW, $M_{H}=80 GeV/c^{2}$ &", "HW, $M_{H}=100 GeV/c^{2}$ &","HW, $M_{H}=120 GeV/c^{2}$ &", "HW, $M_{H}=140 GeV/c^{2}$ &",
-    "HW, $M_{H}=150 GeV/c^{2}$ &",   
-    "HW, $M_{H}=155 GeV/c^{2}$ & ",  
-    "HW, $M_{H}=160 GeV/c^{2}$ &",
+    "HW, $M_{H}=80 GeV$ &", "HW, $M_{H}=100 GeV$ &","HW, $M_{H}=120 GeV$ &", "HW, $M_{H}=140 GeV$ &",
+    "HW, $M_{H}=150 GeV$ &",   
+    "HW, $M_{H}=155 GeV$ & ",  
+    "HW, $M_{H}=160 GeV$ &",
   };  
 
   TString T_HH_mc[]      = {
-   "HH $M_{H}=80 GeV/c^{2}$ & ", "HH $M_{H}=100 GeV/c^{2}$ & ", "HH $M_{H}=120 GeV/c^{2}$ & ", "HH $M_{H}=140 GeV/c^{2}$ & ",
-   "HH $M_{H}=150 GeV/c^{2}$ & ", 
-   "HH $M_{H}=155 GeV/c^{2}$ & ", 
-   "HH $M_{H}=160 GeV/c^{2}$ & ",
+   "HH $M_{H}=80 GeV$ & ", "HH $M_{H}=100 GeV$ & ", "HH $M_{H}=120 GeV$ & ", "HH $M_{H}=140 GeV$ & ",
+   "HH $M_{H}=150 GeV$ & ", 
+   "HH $M_{H}=155 GeV$ & ", 
+   "HH $M_{H}=160 GeV$ & ",
   }; 
 
   TString T_TBH_mc[]      = {
-   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=180 GeV/c^{2}$ & ",
-   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=190 GeV/c^{2}$ & ",
-   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=200 GeV/c^{2}$ & ", 
-   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=220 GeV/c^{2}$ & ",
-   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=250 GeV/c^{2}$ & ", 
-   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=300 GeV/c^{2}$ & ", 
+   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=180 GeV$ & ",
+   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=190 GeV$ & ",
+   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=200 GeV$ & ", 
+   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=220 GeV$ & ",
+   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=250 GeV$ & ", 
+   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=300 GeV$ & ", 
   }; 
 
   TString T_HTB_mc[]      = {
-   "$H^{+}\\rightarrow tb, M_{H}=180 GeV/c^{2}$ & ",
-   "$H^{+}\\rightarrow tb, M_{H}=200 GeV/c^{2}$ & ",
-   "$H^{+}\\rightarrow tb, M_{H}=220 GeV/c^{2}$ & ", 
-   "$H^{+}\\rightarrow tb, M_{H}=240 GeV/c^{2}$ & ",
-   "$H^{+}\\rightarrow tb, M_{H}=250 GeV/c^{2}$ & ", 
-   "$H^{+}\\rightarrow tb, M_{H}=260 GeV/c^{2}$ & ", 
-   "$H^{+}\\rightarrow tb, M_{H}=280 GeV/c^{2}$ & ", 
-   "$H^{+}\\rightarrow tb, M_{H}=300 GeV/c^{2}$ & ", 
-   "$H^{+}\\rightarrow tb, M_{H}=350 GeV/c^{2}$ & ", 
-   //   "$H^{+}\\rightarrow tb, M_{H}=400 GeV/c^{2}$ & ", 
-   "$H^{+}\\rightarrow tb, M_{H}=500 GeV/c^{2}$ & ", 
-   "$H^{+}\\rightarrow tb, M_{H}=600 GeV/c^{2}$ & ", 
-   "$H^{+}\\rightarrow tb, M_{H}=700 GeV/c^{2}$ & " 
+   "$H^{+}\\rightarrow tb, M_{H}=180 GeV$ & ",
+   "$H^{+}\\rightarrow tb, M_{H}=200 GeV$ & ",
+   "$H^{+}\\rightarrow tb, M_{H}=220 GeV$ & ", 
+   "$H^{+}\\rightarrow tb, M_{H}=240 GeV$ & ",
+   "$H^{+}\\rightarrow tb, M_{H}=250 GeV$ & ", 
+   "$H^{+}\\rightarrow tb, M_{H}=260 GeV$ & ", 
+   "$H^{+}\\rightarrow tb, M_{H}=280 GeV$ & ", 
+   "$H^{+}\\rightarrow tb, M_{H}=300 GeV$ & ", 
+   "$H^{+}\\rightarrow tb, M_{H}=350 GeV$ & ", 
+   //   "$H^{+}\\rightarrow tb, M_{H}=400 GeV$ & ", 
+   "$H^{+}\\rightarrow tb, M_{H}=500 GeV$ & ", 
+   "$H^{+}\\rightarrow tb, M_{H}=600 GeV$ & ", 
+   "$H^{+}\\rightarrow tb, M_{H}=700 GeV$ & " 
   }; 
 
   fprintf(f,"\\hline \n");
@@ -1511,7 +1515,7 @@ namespace tableutils{
 
            //DEBUG 
 	  //          if(k==1){ // OS step
-	  cout<<"\n DEBUG HH : k="<<k<<" ->"<<(hh_m[k][COL5])<<" stat error after OS +-"<<(hh_m_err[k][COL5])<<" syst + "<<(hh_m_syst_plus[k][COL5])<<" syst - "<<(hh_m_syst_minus[k][COL5])<<endl;
+	  if(debug) cout<<"\n DEBUG HH : k="<<k<<" ->"<<(hh_m[k][COL5])<<" stat error after OS +-"<<(hh_m_err[k][COL5])<<" syst + "<<(hh_m_syst_plus[k][COL5])<<" syst - "<<(hh_m_syst_minus[k][COL5])<<endl;
 	  //}
 	  
          
@@ -1646,7 +1650,7 @@ namespace tableutils{
             ); 
           }
 
-	  cout<<"\n DEBUG HW : k="<<k<<" ->"<<(hw_m[k][COL5])<<" stat error after OS +-"<<(hw_m_err[k][COL5])<<" syst + "<<(hw_m_syst_plus[k][COL5])<<" syst - "<<(hw_m_syst_minus[k][COL5])<<endl;
+	  if(debug) cout<<"\n DEBUG HW : k="<<k<<" ->"<<(hw_m[k][COL5])<<" stat error after OS +-"<<(hw_m_err[k][COL5])<<" syst + "<<(hw_m_syst_plus[k][COL5])<<" syst - "<<(hw_m_syst_minus[k][COL5])<<endl;
         } 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         fprintf(f,"\\hline \n\n"); 
@@ -1772,7 +1776,7 @@ namespace tableutils{
 
            //DEBUG 
 	  //          if(k==1){ // OS step
-	  cout<<"\n DEBUG TBH : k="<<k<<" ->"<<(tbh_m[k][COL5])<<" stat error after OS +-"<<(tbh_m_err[k][COL5])<<" syst + "<<(tbh_m_syst_plus[k][COL5])<<" syst - "<<(tbh_m_syst_minus[k][COL5])<<endl;
+	  if(debug) cout<<"\n DEBUG TBH : k="<<k<<" ->"<<(tbh_m[k][COL5])<<" stat error after OS +-"<<(tbh_m_err[k][COL5])<<" syst + "<<(tbh_m_syst_plus[k][COL5])<<" syst - "<<(tbh_m_syst_minus[k][COL5])<<endl;
 	  //}
 	  
          
@@ -1901,7 +1905,7 @@ namespace tableutils{
 
            //DEBUG 
 	  //          if(k==1){ // OS step
-	  cout<<"\n DEBUG HTB : k="<<k<<" ->"<<(htb_m[k][COL5])<<" stat error after OS +-"<<(htb_m_err[k][COL5])<<" syst + "<<(htb_m_syst_plus[k][COL5])<<" syst - "<<(htb_m_syst_minus[k][COL5])<<endl;
+	  if(debug) cout<<"\n DEBUG HTB : k="<<k<<" ->"<<(htb_m[k][COL5])<<" stat error after OS +-"<<(htb_m_err[k][COL5])<<" syst + "<<(htb_m_syst_plus[k][COL5])<<" syst - "<<(htb_m_syst_minus[k][COL5])<<endl;
 	  //}
 	  
          
@@ -2045,7 +2049,7 @@ namespace tableutils{
                               e[COL8][k], systErrPlus[COL8][k], systErrMinus[COL8][k]);}
             
           }
-	cout<<"\n DEBUG SM: k="<<k<<" ->"<<(d[COL5][k])<<" stat error after OS +-"<<(e[k][COL5])<<" syst + "<<(systErrPlus[COL5][k])<<" syst - "<<(systErrMinus[COL5][k])<<endl;
+	if(debug) cout<<"\n DEBUG SM: k="<<k<<" ->"<<(d[COL5][k])<<" stat error after OS +-"<<(e[k][COL5])<<" syst + "<<(systErrPlus[COL5][k])<<" syst - "<<(systErrMinus[COL5][k])<<endl;
       
         }         
       }
@@ -2192,7 +2196,7 @@ namespace tableutils{
 // systset2 -> if enabled include only btag unc
 // systset3 -> if enabled include only trigger
   void TauDileptonTableBuilder::summaryTable( int detailed, bool higgs, bool lightH, bool systset1, bool systset2, bool systset3, bool produceDatacards, bool withShapes, bool withStatShapes, bool unsplit){ 
-
+    bool debug(false);
 
 //    if(!produceDatacards){ // 100 times the cross section*BR
 //      for(size_t i=0; i<brHtaunu_.size(); ++i)
@@ -2473,6 +2477,9 @@ namespace tableutils{
     tbhFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m220.root"));
     tbhFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m250.root"));
     tbhFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m300.root"));
+    tbhFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m400.root"));
+    tbhFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m500.root"));
+    tbhFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m600.root"));
   }
   if( processHTB ){
     if(produceDatacards){
@@ -2500,7 +2507,7 @@ namespace tableutils{
       htbFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-htb-pythia-m280.root")); // for tables
       htbFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-htb-pythia-m300.root")); // for tables
       htbFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-htb-pythia-m350.root")); // for tables
-      //      htbFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-htb-pythia-m400.root")); // for tables
+      // htbFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-htb-pythia-m400.root")); // for tables
       htbFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-htb-pythia-m500.root")); // for tables
       htbFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-htb-pythia-m600.root")); // for tables
       htbFiles.push_back(outputArea_+TString("nomt-2012-V1-mc-MU-20GeV/out-htb-pythia-m700.root")); // for tables
@@ -2602,7 +2609,7 @@ namespace tableutils{
     for(uint i = 0; i< tbhFiles.size(); i++ ){ 
       if(processedTBHFiles[i]){ 
         TH1D *h;     
-	cout << "Now opening histo" << endl;
+	cout << "Now opening histo" << processedTBHFiles[i]->GetName() << endl;
         h=(TH1D *)(processedTBHFiles[i])->Get(hName_higgs_m[algo]);          h->Scale(scalefactor); v_tbh.push_back(h); 
 	cout << "open first histo" << endl;
         h=(TH1D *)(processedTBHFiles[i])->Get(hName_higgs_plus_m[algo]);     h->Scale(scalefactor); v_tbh_plus.push_back(h);
@@ -3157,13 +3164,13 @@ namespace tableutils{
  
 
   TString  T_HW_mc[] = {
-    "HW, $M_{H^{+}}=80GeV/c^{2}$ &",  "HW, $M_{H^{+}}=100GeV/c^{2}$ &", "HW, $M_{H^{+}}=120GeV/c^{2}$ &",  "HW, $M_{H^{+}}=140GeV/c^{2}$ &",
-    "HW, $M_{H^{+}}=150GeV/c^{2}$ &", "HW, $M_{H^{+}}=155GeV/c^{2}$ &", "HW, $M_{H^{+}}=160GeV/c^{2}$ &"
+    "HW, $M_{H^{+}}=80GeV$ &",  "HW, $M_{H^{+}}=100GeV$ &", "HW, $M_{H^{+}}=120GeV$ &",  "HW, $M_{H^{+}}=140GeV$ &",
+    "HW, $M_{H^{+}}=150GeV$ &", "HW, $M_{H^{+}}=155GeV$ &", "HW, $M_{H^{+}}=160GeV$ &"
   };
 
   TString  T_HH_mc[] = {
-    "HH, $M_{H^{+}}=80GeV/c^{2}$ &",  "HH, $M_{H^{+}}=100GeV/c^{2}$ &", "HH, $M_{H^{+}}=120GeV/c^{2}$ &", "HH, $M_{H^{+}}=140GeV/c^{2}$ &",
-    "HH, $M_{H^{+}}=150GeV/c^{2}$ &", "HH, $M_{H^{+}}=155GeV/c^{2}$ &", "HH, $M_{H^{+}}=160GeV/c^{2}$ &"
+    "HH, $M_{H^{+}}=80GeV$ &",  "HH, $M_{H^{+}}=100GeV$ &", "HH, $M_{H^{+}}=120GeV$ &", "HH, $M_{H^{+}}=140GeV$ &",
+    "HH, $M_{H^{+}}=150GeV$ &", "HH, $M_{H^{+}}=155GeV$ &", "HH, $M_{H^{+}}=160GeV$ &"
   }; 
 
   TString  T_TBH_mc[] = {
@@ -3172,7 +3179,10 @@ namespace tableutils{
     "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=200GeV$ &",
     "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=220GeV$ &",
     "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=250GeV$ &",
-    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=300GeV$ &"
+    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=300GeV$ &",
+    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=400GeV$ &",
+    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=500GeV$ &",
+    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=600GeV$ &"
   };
 
   TString  T_HTB_mc[] = {
@@ -3646,20 +3656,20 @@ namespace tableutils{
     double xsec_stat = getErrorFraction( num,den,num_stat,den_stat);
     double xsec_syst = getErrorFraction( num,den,num_syst,den_syst);
 
-    cout<<endl<<" debug  XSECTION "<<endl;
-    cout<<"---------------------------------------------------------------------------------------------"<<endl;
-    cout<<" tau fakes   : "<<tau_fakes<<" stat2 : "<<tau_fakes_stat2<<" syst2 : "<<tau_fakes_syst2<<endl;
-    cout<<" other bkg   : "<<other_bkg<<" stat2 : "<<other_bkg_stat2<<" syst2 : "<<other_bkg_syst2<<endl;
-    cout<<"---------------------------------------------------------------------------------------------"<<endl;
-    cout<<" total bkg   : "<<bkg<<" stat2 : "<<bkg_stat2<<" syst2 : "<<bkg_syst2<<endl;
-    cout<<"---------------------------------------------------------------------------------------------"<<endl;
-    cout<<" data yields : "<<data_yields<<endl;
-    cout<<"---------------------------------------------------------------------------------------------"<<endl;
-    cout<<" XSEC "<<endl;
-    cout<<" num  "<<num<<" +- "<<num_stat<<" +- "<<num_syst<<endl;
-    cout<<" den  "<<den<<" +- "<<den_stat<<" +- "<<den_syst<<endl;
-    cout<<" acceptance  : "<<acceptance<<" +- "<<acceptance_stat<<" +- "<<acceptance_syst<<endl;
-    cout<<" xsec        : "<<xsec<<" +- "<<xsec_stat<<" +- "<<xsec_syst<<endl;
+    if(debug) cout<<endl<<" debug  XSECTION "<<endl;
+    if(debug) cout<<"---------------------------------------------------------------------------------------------"<<endl;
+    if(debug) cout<<" tau fakes   : "<<tau_fakes<<" stat2 : "<<tau_fakes_stat2<<" syst2 : "<<tau_fakes_syst2<<endl;
+    if(debug) cout<<" other bkg   : "<<other_bkg<<" stat2 : "<<other_bkg_stat2<<" syst2 : "<<other_bkg_syst2<<endl;
+    if(debug) cout<<"---------------------------------------------------------------------------------------------"<<endl;
+    if(debug) cout<<" total bkg   : "<<bkg<<" stat2 : "<<bkg_stat2<<" syst2 : "<<bkg_syst2<<endl;
+    if(debug) cout<<"---------------------------------------------------------------------------------------------"<<endl;
+    if(debug) cout<<" data yields : "<<data_yields<<endl;
+    if(debug) cout<<"---------------------------------------------------------------------------------------------"<<endl;
+    if(debug) cout<<" XSEC "<<endl;
+    if(debug) cout<<" num  "<<num<<" +- "<<num_stat<<" +- "<<num_syst<<endl;
+    if(debug) cout<<" den  "<<den<<" +- "<<den_stat<<" +- "<<den_syst<<endl;
+    if(debug) cout<<" acceptance  : "<<acceptance<<" +- "<<acceptance_stat<<" +- "<<acceptance_syst<<endl;
+    if(debug) cout<<" xsec        : "<<xsec<<" +- "<<xsec_stat<<" +- "<<xsec_syst<<endl;
 
 
 
