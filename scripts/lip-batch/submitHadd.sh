@@ -12,9 +12,9 @@ if [ "${2}" = "1" ]; then
     qsub batchHadd.sh ${1} mc1_8
     qsub batchHadd.sh ${1} mc1_9
     qsub batchHadd.sh ${1} mc1_10
-    qsub batchHadd.sh ${1} mc1_11
-    qsub batchHadd.sh ${1} mc1_12
-    qsub batchHadd.sh ${1} mc1_13
+#    qsub batchHadd.sh ${1} mc1_11
+#    qsub batchHadd.sh ${1} mc1_12
+#    qsub batchHadd.sh ${1} mc1_13
     qsub batchHadd.sh ${1} mc1_14
 elif [ "${2}" = "2" ]; then
     qsub batchHadd.sh ${1} mc2_1

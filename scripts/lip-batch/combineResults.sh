@@ -140,9 +140,9 @@ if [ "${2}" = "hadd" ]; then
 	hadd -f $DATAPLACE/out-heavyHiggs-pythia-m300.root $DATAPLACE/out-tbh-pythia-m300.root $DATAPLACE/out-htb-pythia-m300.root 
 	cp  $DATAPLACE/out-htb-pythia-m350.root $DATAPLACE/out-heavyHiggs-pythia-m350.root                                         
     elif [ "${3}" = "mc2_8" ]; then
-	cp  $DATAPLACE/out-htb-pythia-m400.root $DATAPLACE/out-heavyHiggs-pythia-m400.root                                         
-	cp  $DATAPLACE/out-htb-pythia-m500.root $DATAPLACE/out-heavyHiggs-pythia-m500.root                                         
-	cp  $DATAPLACE/out-htb-pythia-m600.root $DATAPLACE/out-heavyHiggs-pythia-m600.root                                         
+	hadd -f $DATAPLACE/out-heavyHiggs-pythia-m400.root $DATAPLACE/out-tbh-pythia-m400.root $DATAPLACE/out-htb-pythia-m400.root 
+	hadd -f $DATAPLACE/out-heavyHiggs-pythia-m500.root $DATAPLACE/out-tbh-pythia-m500.root $DATAPLACE/out-htb-pythia-m500.root 
+	hadd -f $DATAPLACE/out-heavyHiggs-pythia-m600.root $DATAPLACE/out-tbh-pythia-m600.root $DATAPLACE/out-htb-pythia-m600.root 
 	cp  $DATAPLACE/out-htb-pythia-m700.root $DATAPLACE/out-heavyHiggs-pythia-m700.root                                         
     elif [ "${3}" = "mc2_9" ]; then
 	hadd -f $DATAPLACE/out-wmultijets.root $DATAPLACE/out-wjets.root $DATAPLACE/out-qcd.root
