@@ -14,10 +14,11 @@ PhysicsAnalysisParSet = cms.PSet(
     # inputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/top_forTttbarReweighting_notWorking/"),
     # new
     #    outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_preapp2/"),
-    ## outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_noTopPtRew/"),
+    ##outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_noTopPtRew/"),
+    outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_May/"),
     # Take care: you should not rewrite in the same directory with eChONmuChOFF differently set. Use two different output directories
     eChONmuChOFF  = cms.bool(False),
-    outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew_2/"),
+##################    outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew_2/"),
     #basepreapp
     #outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test2/"),
     puFileName = cms.string("/exper-sw/cmst3/cmssw/users/vischia/chiggs/CMSSW_5_3_9/src/LIP/TopTaus/data/pileup/MyDataPileupHistogram_70300_100bins.root"),
@@ -37,7 +38,10 @@ PhysicsAnalysisParSet = cms.PSet(
         1.27996,
         1.02709,
         0.7624495,
-        0.464345
+        0.464345,
+        0.0188167,
+        0.00827089,
+        0.00389719
         ),
     brHtb = cms.vdouble(
 #1,1,1,1,1,1,1,1,1,1,1,1
@@ -50,6 +54,7 @@ PhysicsAnalysisParSet = cms.PSet(
     0.564418,
     0.464345,
     0.2942245,
+#    0.0188167,
     0.0827089,
     0.0389719,
     0.02
