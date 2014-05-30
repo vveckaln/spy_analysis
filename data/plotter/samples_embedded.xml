@@ -3,6 +3,16 @@
 
 
 
+   <process isstack="1" isdata="0" name="#splitline{Z#rightarrow #tau#tau}{(embedded)}" color="867" width="1" fill="1001" fillcolor="867" markercolor="867" line="1" linecolor="867" marker="1" >
+     <file weight="5.4">nomt-2012-V1-data-MU-20GeV/out-embedded-data.root</file>
+   </process>
+
+   <process isstack="1" isdata="0" name="Z #rightarrow ll" color="831" width="1" fill="1001" fillcolor="831" markercolor="831" line="1" linecolor="831" marker="1" >
+     <file weight="0.07">nomt-2012-V1-mc-MU-20GeV/out-zjets.root</file>
+   </process>
+
+
+
    <process isstack="1" isdata="0" name="t#bar{t} #rightarrow #mu#tau_{h}" color="614" width="1" fill="1001" fillcolor="614" markercolor="614" line="1"  linecolor="614" marker="1" >
      <file weight="0.949">nomt-2012-V1-mc-MU-20GeV/out-ttbar-mutau.root</file>
    </process>
@@ -38,10 +48,6 @@
      <file weight="1">nomt-2012-V1-mc-MU-20GeV/out-dibosons.root</file>
    </process>
 
-
-   <process isstack="1" isdata="0" name="DY+jets" color="831" width="1" fill="1001" fillcolor="831" markercolor="831" line="1" linecolor="831" marker="1" >
-     <file weight="1">nomt-2012-V1-mc-MU-20GeV/out-zjets.root</file>
-   </process>
 
 
 

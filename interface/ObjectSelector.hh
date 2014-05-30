@@ -50,6 +50,7 @@ class ObjectSelector{
   // see if this event has other loose muons
   // note if selectedMuon is -1 it will run over all muons else it will skip the selectedMuon
   bool LooseMuonVeto( int, const vector<PhysicsObject> &);
+  bool UltraLooseMuonVeto( int, const vector<PhysicsObject> &);
 
   // setting new cuts 
   inline void Emf_Jet( double emf )          { JET_EMF_MIN_ =  emf;    }
@@ -64,6 +65,7 @@ class ObjectSelector{
   // preselection of objects
   void PreSelectElectrons(event::Reader*, vector<int>*, const vector<PhysicsObject>&, PhysicsObject&);
   void PreSelectMuons(    event::Reader*, vector<int>*, const vector<PhysicsObject>&, PhysicsObject&);
+  void PreSelectUltraLooseMuons(    event::Reader*, vector<int>*, const vector<PhysicsObject>&, PhysicsObject&);
   void PreSelectJets( bool, vector<double>&,  double, JetCorrectionUncertainty*, int, vector<int>*, const vector<PhysicsObject>&);
   void PreSelectTaus( vector<int>*, const vector<PhysicsObject>&, int , TString&, PhysicsObject&, double);
   

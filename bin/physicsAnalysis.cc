@@ -72,10 +72,13 @@ int main(int argc, char* argv[])
   
   string parSet(argv[1]);
   string runOn(argv[2]);
+
+  std::cout << "Requested to run on " << runOn << ". Cfg file is: " << parSet << endl;
   
   const edm::ParameterSet &pSet = edm::readPSetsFrom(parSet)->getParameter<edm::ParameterSet>("PhysicsAnalysisParSet");
   
   double tauPtCut = pSet.getParameter<double>("tauPtCut");
+  bool eChONmuChOFF = pSet.getParameter<bool>("eChONmuChOFF");
   bool noUncertainties = pSet.getParameter<bool>("noUncertainties");
   bool doWPlusJetsAnalysis = pSet.getParameter<bool>("doWPlusJetsAnalysis");
   TString inputArea = TString(pSet.getParameter<string>("inputArea"));
@@ -85,9 +88,12 @@ int main(int argc, char* argv[])
   std::vector<double> brHtaunu = pSet.getParameter<std::vector<double> >("brHtaunu");
   std::vector<double> brHtb    = pSet.getParameter<std::vector<double> >("brHtb");
   
-  CutflowAnalyzer* analyzer = new CutflowAnalyzer( tauPtCut, noUncertainties, doWPlusJetsAnalysis, inputArea, outputArea, puFileName, runRange, brHtaunu, brHtb /*parSet*/ );
+  CutflowAnalyzer* analyzer = new CutflowAnalyzer( tauPtCut, noUncertainties, doWPlusJetsAnalysis, inputArea, outputArea, puFileName, runRange, brHtaunu, brHtb /*parSet*/, eChONmuChOFF );
   
   std::cout << "Analyzer has been set with a cut on tau pt of " << tauPtCut << " GeV/c " << std::endl;
+
+  
+  if(runOn == "testEmbedding") analyzer->process_embeddedData();
 
 
   for(int i=0; i<400; ++i){
@@ -95,12 +101,20 @@ int main(int argc, char* argv[])
     sidx<<i;
     string idx=sidx.str();
     // 50 from 0
+    
     if      (runOn == "data_muonA_"+idx)  analyzer->process_data_RunA( i);
     else if (runOn == "data_muonB_"+idx)  analyzer->process_data_RunB( i);
     else if (runOn == "data_muonC1_"+idx) analyzer->process_data_RunC1(i);
     else if (runOn == "data_muonC2_"+idx) analyzer->process_data_RunC2(i);
     else if (runOn == "data_muonD1_"+idx) analyzer->process_data_RunD1(i);
     else if (runOn == "data_muonD2_"+idx) analyzer->process_data_RunD2(i);
+
+    else if (runOn == "data_missingmuonB_"+idx)  analyzer->process_data_MissingRunB( i);
+    else if (runOn == "data_missingmuonC1_"+idx) analyzer->process_data_MissingRunC1(i);
+    else if (runOn == "data_missingmuonC2_"+idx) analyzer->process_data_MissingRunC2(i);
+    else if (runOn == "data_missingmuonD1_"+idx) analyzer->process_data_MissingRunD1(i);
+    else if (runOn == "data_missingmuonD2_"+idx) analyzer->process_data_MissingRunD2(i);
+
     else if(runOn == "ww_"+idx)            analyzer->process_diboson(0, i);
     else if(runOn == "wz_"+idx)            analyzer->process_diboson(1, i);
     else if(runOn == "zz_"+idx)            analyzer->process_diboson(2, i);
@@ -144,6 +158,16 @@ int main(int argc, char* argv[])
     else if(runOn == "hhhtautaubb_higgs_260_"+idx)           analyzer->process_hhhtautaubb_higgs(260, i);
     else if(runOn == "hhhtautaubb_higgs_300_"+idx)           analyzer->process_hhhtautaubb_higgs(300, i);
     else if(runOn == "hhhtautaubb_higgs_350_"+idx)           analyzer->process_hhhtautaubb_higgs(350, i);
+
+
+    // 10 from 0
+    else if (runOn == "data_embedA_"+idx)  analyzer->process_data_EmbeddedRunA(i);
+    else if (runOn == "data_embedB_"+idx)  analyzer->process_data_EmbeddedRunB(i);
+    else if (runOn == "data_embedC1_"+idx) analyzer->process_data_EmbeddedRunC1(i);
+    else if (runOn == "data_embedC2_"+idx) analyzer->process_data_EmbeddedRunC2(i);
+    else if (runOn == "data_embedD1_"+idx) analyzer->process_data_EmbeddedRunD1(i);
+    else if (runOn == "data_embedD2_"+idx) analyzer->process_data_EmbeddedRunD2(i);
+    else if (runOn == "ttbar_embed_"+idx) analyzer->process_ttbar_Embedded(i);
 
     // 30 from 0
     else if(runOn == "qcd_10_"+idx)                 analyzer->process_qcd(10, i)                ;
@@ -195,12 +219,13 @@ int main(int argc, char* argv[])
   else if(runOn == "doTables"){
     cout << "Doing tables" << endl;
     bool onlyhiggs(true), heavyhiggs(false), sm(false), doNotPrintAllErrors(false), printAllErrors(true), includeSoverB(true), doNotincludeSoverB(false), produceDatacards(false), withShapes(true), withStatShapes(false), unsplit(false);
-    int detailed(2), notDetailed(1);      
-    analyzer->mcTable(notDetailed, includeSoverB, printAllErrors, heavyhiggs, sm, "PFlow", "yields-mc-", false, false, false); 
+    int myDetail(0), detailed(2), notDetailed(1), baseDetail(0);      
+    myDetail = detailed;
+    analyzer->mcTable(myDetail, includeSoverB, printAllErrors, heavyhiggs, sm, "PFlow", "yields-mc-", false, false, false); 
     cout << "Done SM table" << endl;
-    analyzer->mcTable(notDetailed, includeSoverB, printAllErrors, onlyhiggs, heavyhiggs, "PFlow", "yields-mc-", false, false, false); 
+    analyzer->mcTable(myDetail, includeSoverB, printAllErrors, onlyhiggs, heavyhiggs, "PFlow", "yields-mc-", false, false, false); 
     cout << "Done TBH table" << endl;
-    analyzer->summaryTable( notDetailed, true, heavyhiggs, false, false, false, produceDatacards, withShapes, withStatShapes, unsplit);
+    analyzer->summaryTable( myDetail, true, heavyhiggs, false, false, false, produceDatacards, withShapes, withStatShapes, unsplit);
     cout << "Done summary table" << endl;
   }
   else if(runOn == "doDatacards"){
@@ -214,9 +239,17 @@ int main(int argc, char* argv[])
       
     TString samples("data/plotter/samples.xml");
     TString samples_datadriven("data/plotter/samples_datadriven.xml"); 
+    TString samples_embedded("data/plotter/samples_embedded.xml"); 
+    TString samples_tautaubb("data/plotter/samples_embedded_hhhtautaubb.xml");
     TString outFolder("plots/"); // move to input line
+    TString outFolderEmbedded("plotsEmbedded/"); // move to input line
+    TString outFolderTautaubb("plotsTautaubb/");
     TString cmd = "mkdir -p "+outFolder+"; cp data/plotter/index.html+"+outFolder+";";
+    TString cmdEmbedded = "mkdir -p "+outFolderEmbedded;
+    TString cmdTautaubb = "mkdir -p "+outFolderTautaubb;
     gSystem->Exec(cmd);
+    gSystem->Exec(cmdEmbedded);
+    gSystem->Exec(cmdTautaubb);
     TString limits("data/plotter/limits.xml");
     TString leptons("data/plotter/leptons.xml");
     TString met("data/plotter/met.xml");
@@ -241,6 +274,24 @@ int main(int argc, char* argv[])
     a.parse(samples,jets,outFolder); 
     a.parse(samples,yields,outFolder);
     a.parse(samples_datadriven,wplusjets,outFolder);
+
+
+    a.parse(samples_embedded,vertex,outFolderEmbedded);
+    a.parse(samples_embedded,met,outFolderEmbedded);      
+    a.parse(samples_embedded,leptons,outFolderEmbedded);  
+    a.parse(samples_embedded,mt,outFolderEmbedded);      
+    a.parse(samples_embedded,jets,outFolderEmbedded); 
+    a.parse(samples_embedded,yields,outFolderEmbedded);
+    //    a.parse(samples_embedded,yields,outFolderEmbedded);
+
+    a.parse(samples_tautaubb,vertex,outFolderTautaubb);
+    a.parse(samples_tautaubb,met,outFolderTautaubb);      
+    a.parse(samples_tautaubb,leptons,outFolderTautaubb);  
+    a.parse(samples_tautaubb,mt,outFolderTautaubb);      
+    a.parse(samples_tautaubb,jets,outFolderTautaubb); 
+    a.parse(samples_tautaubb,yields,outFolderTautaubb);
+
+
     //a.parse(samples,limits,outFolder);      
     //a.parse(samples,debug,outFolder);  
     //a.parse(samples,afterR,outFolder);

@@ -27,9 +27,11 @@
 class FitVar{
   
 public:
-  FitVar(std::string, double, double, int, double, double, Int_t, Int_t);
+  FitVar(std::string, double, double, int, double, double, Int_t, Int_t, bool, Int_t);
   void setFancyName(std::string);
   void setBinNames(std::vector<std::string>);
+  bool getToNorm();
+  Int_t getDoLogy();
   std::string getVarName();
   std::string getFancyName();
   double getMin();
@@ -52,6 +54,8 @@ private:
   double hmax_;
   Int_t unbinned_;
   Int_t smoothOrder_;
+  bool toNorm_;
+  Int_t doLogy_;
 };
 
 #endif //_FitVar_hh

@@ -252,8 +252,8 @@ void TauFakesHelper::ComputeFakeRate(TString myKey, bool passing, bool isAntiBTa
 	int nTriggEvent = 0;
 	int nProcEvents = 0;
 	int nToProcess = nEntries;
-	//	if(nToProcess > 10000000) nToProcess = 10000000;
-	if(nToProcess > 50000) nToProcess = 50000;
+	if(nToProcess > 10000000) nToProcess = 10000000;
+	//if(nToProcess > 50000) nToProcess = 50000;
 	for(int i=0; i<nToProcess; ++i)
 	  {
 	    nProcEvents++;
@@ -302,14 +302,16 @@ void TauFakesHelper::ComputeFakeRate(TString myKey, bool passing, bool isAntiBTa
 	    PhysicsObject met = mets[0];
 	    JetCorrectionUncertainty * junc(0);
 	    vector<double> jerFactors; jerFactors.clear();
+	    
 	    doPropagations( jerFactors, 0, 0, junc, jets, met, isDATA);
 	    mets[0]=met;
-
+	    
 	    // preselect objects /////////////////////////////////
 	    DisableLtkCutOnJets(); Pt_Jet(MIN_JET_PT_CUT_); // select hard jets
 	    //pt_Tau(MIN_TAU_PT_CUT_);  //select tau pT
 	    vector<int> e_init, m_init, j_init, t_init;
-	    PreSelectMuons( evReader,&m_init,muons, primaryVertex ); 
+	    //PreSelectMuons( evReader,&m_init,muons, primaryVertex ); 
+	    PreSelectUltraLooseMuons( evReader,&m_init,muons, primaryVertex ); 
 	    PreSelectElectrons(  evReader,&e_init,electrons, primaryVertex );
 	    PreSelectJets(false, jerFactors, JES_, junc, jetAlgo,&j_init,jets);
 	    PreSelectTaus( &t_init,taus, TAUPRONGS_, myKey, primaryVertex, 0.);
@@ -501,6 +503,7 @@ void TauFakesHelper::ComputeFakeRate(TString myKey, bool passing, bool isAntiBTa
 	  
 	  JetCorrectionUncertainty * junc(0);
 	  vector<double> jerFactors; jerFactors.clear();
+
 	  doPropagations( jerFactors, 0, 0, junc, jets, met, isDATA);
 	  mets[0]=met;
 
@@ -508,7 +511,8 @@ void TauFakesHelper::ComputeFakeRate(TString myKey, bool passing, bool isAntiBTa
 	  DisableLtkCutOnJets(); Pt_Jet(MIN_JET_PT_CUT_); // select hard jets
 	  //pt_Tau(MIN_TAU_PT_CUT_);  //select tau pT
 	  vector<int> e_init, m_init, j_init, t_init;
-	  PreSelectMuons( evReader,&m_init,muons, primaryVertex ); 
+	  //PreSelectMuons( evReader,&m_init,muons, primaryVertex ); 
+	  PreSelectUltraLooseMuons( evReader,&m_init,muons, primaryVertex ); 
 	  PreSelectElectrons(  evReader,&e_init,electrons, primaryVertex );
 	  PreSelectJets(isDATA, jerFactors, JES_, junc, jetAlgo,&j_init,jets);
 	  PreSelectTaus( &t_init,taus, TAUPRONGS_, myKey, primaryVertex, 0.);
@@ -521,7 +525,8 @@ void TauFakesHelper::ComputeFakeRate(TString myKey, bool passing, bool isAntiBTa
 	    //      std::cout << "nLepton: " << nLepton << std::endl;
 	    if(nLepton != 1)continue;
 	    if(e_init.size() > 0)continue;
-	    if( LooseMuonVeto( m_init[0], muons ))continue;
+	    //if( LooseMuonVeto( m_init[0], muons ))continue;
+	    if( UltraLooseMuonVeto( m_init[0], muons ))continue;
 	    if( LooseElectronVeto(evReader,-1,electrons))continue;
 	    //Apply MET cut for W+jet selection
 	    //if(met.Pt() < MET_CUT_) continue;
@@ -535,9 +540,12 @@ void TauFakesHelper::ComputeFakeRate(TString myKey, bool passing, bool isAntiBTa
 	    //if(mt < MET_CUT_) continue;
 	    nSelEvents++;
 	    ///////////////////////////////////////////////////////
+	  } else{
+	    if(m_init.size()>0){
+	      if( UltraLooseMuonVeto( m_init[0], muons ))continue;
+	    }
 	  }
-	  
-	  
+	  	  
 	  // only accept jets if dr > drmin in respect to electrons and muons /////////////////////
 	  vector<int> emptyColl, j_toRemove; 
 	  vector<int> j_afterLeptonRemoval;

@@ -10,7 +10,7 @@ LandSShapesProducerParSetTb = cms.PSet(
     # tb
     outFolder        = cms.string("shapes_tb/"),
     datacardsBaseName  = cms.string("datacard_mutau_tb"),
-    massPointName   = cms.vstring("m180","m200","m220","m240","m250","m260","m280","m300","m350","m500","m600","m700"),
+    massPointName   = cms.vstring("m180","m200","m220","m240","m250","m260","m280","m300","m400","m500","m600","m700"),
     inputFileName      = cms.vstring( "out-data.root", "out-htb-pythia-",  "out-data_rescaled.root", "out-ttbar-mutau.root", "out-ttbar-mcbkg.root", "out-singletop.root", "out-dibosons.root" ),
     sampleName      = cms.vstring( "data_obs", "HTB",  "tau_fake", "tt_ltau", "tt_ll", "singleTop","di_boson", "Z_tautau",  "Z_eemumu" ),
     fancySampleName      = cms.vstring("data", "#splitline{H^{+}#rightarrow tb}{[250 GeV]}", "#splitline{#tau_{h} misID}{DD}", "t#bar{t} #rightarrow #mu#tau_{h}", "other t#bar{t}", "Single t", "Diboson","Z #rightarrow #tau#tau", "Z #rightarrow ee,#mu#mu"),
@@ -18,7 +18,8 @@ LandSShapesProducerParSetTb = cms.PSet(
     #sampleColour    = cms.vint32( 1,  616, 799, 614, 8, 824,  596, 831, 809),
     sampleFillStyle = cms.vint32( 1001, 0, 1001, 1001, 1001,  1001, 1001, 1001, 1001),
     baseDir = cms.vstring("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-data-MU-20GeV/",
-                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew_2/nomt-2012-V1-mc-MU-20GeV/",
+                          #                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
                           "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-data-MU-20GeV/",
                           "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
                           "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
@@ -38,22 +39,21 @@ LandSShapesProducerParSetTb = cms.PSet(
     isSignal    = cms.vint32( 0, 1, 0, 0, 0, 0, 0, 0, 0),
     # htb
     signalNormFactor = cms.vdouble(
-    1/22.6975/(1 - 0.831852   ),
-    # 190:    1/20.4088/(1 - 0.407966   ),   200
-    1/18.4811/(1 - 0.228564   ),
-    1/15.4027/(1 - 0.106446   ),
-    1/12.9842/(1 - 0.04902523 ),
-    1/11.9413/(1 - 0.04129783 ),
-    1/10.9879/(1 - 0.0361988  ),
-    1/09.31608/(1 - 0.02984434 ),
-    1/07.91902/(1 - 0.02514242 ),
-    1/0.0536621/(1.-0.01838561  ),
-    1/0.0371904/(1.-0.01402549  ),
-    1/0.0187822/(1.-0.006268037 ),
-    1/0.0100715/(1.-0.004805924 ),
-    1/0.0056681/(1.-0.004234392 ),
+    1./ 0.081662,
+    # 190: 1./ 1.      ,  
+    1./ 0.455760,  
+    1./ 0.625690, 
+    1./ 0.692009,
+    1./ 0.705360,
+    1./ 0.717428, 
+    1./ 0.733824,
+    1./ 0.744171,
+#    1./ 0.750776,
+    1./ 0.722967,
+    1./ 0.563428,
+    1./ 0.495196,
+    1./ 0.459958,
     ),
-
 
 
     ###################
@@ -99,7 +99,7 @@ LandSShapesProducerParSetTb = cms.PSet(
     ####### VARIABLE(s) ########
     ############################
 
-
+    ###    toNorm      = cms.bool(True),
     ###    vars        = cms.vstring( "rc_t"    ),
     ###    fancyName  = cms.vstring("R = p_{T}^{lead.track}/E^{#tau}"),
     ###    mins        = cms.vdouble(   -0.099  ),
@@ -110,7 +110,7 @@ LandSShapesProducerParSetTb = cms.PSet(
     ###    hmax        = cms.vdouble(    200    ),
     ###    unbinned    = cms.vint32(       0    ),
     ###    smoothOrder = cms.vint32(       3    ),   
-    
+    ###    doLogy      = cms.vint32(     0      ),
 
     #    vars        = cms.vstring( "Dphi_tau_met"   ),
     #    mins        = cms.vdouble(      0           ),
@@ -120,7 +120,8 @@ LandSShapesProducerParSetTb = cms.PSet(
     #    hmax        = cms.vdouble(    200          ),
     #    unbinned    = cms.vint32(       0          ),
     #    smoothOrder = cms.vint32(       3          ),   
-    
+
+    toNorm      = cms.bool(False),
     vars        = cms.vstring("btagmultiplicity_j" ),
     fancyName   = cms.vstring("N_{b-tagged jets}"  ),
     mins        = cms.vdouble(     1               ),
@@ -131,7 +132,7 @@ LandSShapesProducerParSetTb = cms.PSet(
     hmax        = cms.vdouble(   600               ),
     unbinned    = cms.vint32(      0               ),
     smoothOrder = cms.vint32(      0               ),                
-    
+    doLogy      = cms.vint32(     1                ),
     # vars        = cms.vstring(    "pt_t"  ),
     # mins        = cms.vdouble(         0  ),
     # maxs        = cms.vdouble(       500  ),
@@ -211,7 +212,7 @@ LandSShapesProducerParSetTaunu = cms.PSet(
     # taunu
     outFolder        = cms.string("shapes_taunu/"),
     datacardsBaseName  = cms.string("datacard_mutau_taunu"),
-    massPointName   = cms.vstring("m180", "m200", "m220", "m250", "m300"),
+    massPointName   = cms.vstring("m180", "m200", "m220", "m250", "m300","m400","m500","m600"),
     inputFileName      = cms.vstring( "out-data.root", "out-tbh-pythia-", "out-data_rescaled.root", "out-ttbar-mutau.root", "out-ttbar-mcbkg.root", "out-singletop.root", "out-dibosons.root" ),
     sampleName      = cms.vstring( "data_obs", "TBH", "tau_fake", "tt_ltau", "tt_ll", "singleTop","di_boson", "Z_tautau",  "Z_eemumu" ),
     fancySampleName      = cms.vstring("data", "#splitline{H^{+}#rightarrow#tau#nu}{[250 GeV]}", "#splitline{#tau_{h} misID}{DD}", "t#bar{t} #rightarrow #mu#tau_{h}", "other t#bar{t}", "Single t", "Diboson","Z #rightarrow #tau#tau", "Z #rightarrow ee,#mu#mu"),
@@ -219,7 +220,8 @@ LandSShapesProducerParSetTaunu = cms.PSet(
     #sampleColour    = cms.vint32( 1,  616, 799, 614, 8, 824,  596, 831, 809),
     sampleFillStyle = cms.vint32( 1001, 0, 1001, 1001, 1001,  1001, 1001, 1001, 1001),
     baseDir = cms.vstring("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-data-MU-20GeV/",
-                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew_2/nomt-2012-V1-mc-MU-20GeV/",
+#                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
                           "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-data-MU-20GeV/",
                           "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
                           "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
@@ -239,22 +241,17 @@ LandSShapesProducerParSetTaunu = cms.PSet(
     isSignal    = cms.vint32( 0, 1, 0, 0, 0, 0, 0, 0, 0),
     # htb
     signalNormFactor = cms.vdouble(
-    1/22.6975/(1 - 0.831852   ),
-    # 190:     1/20.4088/(1 - 0.407966   ),   
-    1/18.4811/(1 - 0.228564   ),   
-    1/15.4027/(1 - 0.106446   ),  
-    # 240: 1/12.9842/(1 - 0.04902523 ), 
-    1/11.9413/(1 - 0.04129783 ), 
-    # 260: 1/10.9879/(1 - 0.0361988  ),  
-    # 280: 1/09.31608/(1 - 0.02984434 ), 
-    1/07.91902/(1 - 0.02514242 ), 
-    # 350: 1/0.0536621/(1.-0.01838561  ), 
-    # 400: 1/0.0371904/(1.-0.01402549  ), 
-    # 500: 1/0.0187822/(1.-0.006268037 ), 
-    # 600: 1/0.0100715/(1.-0.004805924 ), 
-    # 700: 1/0.0056681/(1.-0.004234392 ),
+    1./ 0.901490, 
+    1./ 0.534418,   
+    1./ 0.367483,  
+    1./ 0.257198, 
+    1./ 0.192875,
+    0.98/0.151062,
+    0.97/0.110921,
+    0.96/0.095882, 
     ),
     
+
 
     ###################
     # Common parameters
@@ -288,7 +285,7 @@ LandSShapesProducerParSetTaunu = cms.PSet(
     
     #osCutEff               = cms.double(0.69*220.92/242.915), #    osCutEff               = cms.double(0.577749097), #223.82/387.4),
     #    osCutEff               = cms.double(2054.99/4232.500009), #FIXME: subtract residual shape 0.699), # // FIXME: fixme 220.92/242.915), #    osCutEff               = cms.double(0.577749097), #223.82/387.4),
-    osCutEff = cms.double(1767.14*1767.14/202.1/2045.11),
+    osCutEff = cms.double(1386*1386/202.1/2045.11),
 
 
     #2810.89/5736.58),
@@ -299,7 +296,7 @@ LandSShapesProducerParSetTaunu = cms.PSet(
     ####### VARIABLE(s) ########
     ############################
 
-
+    ###    toNorm      = cms.bool(True),
     ###    vars        = cms.vstring( "rc_t"    ),
     ###    fancyName  = cms.vstring("R = p_{T}^{lead.track}/E^{#tau}"),
     ###    mins        = cms.vdouble(   -0.099  ),
@@ -310,7 +307,7 @@ LandSShapesProducerParSetTaunu = cms.PSet(
     ###    hmax        = cms.vdouble(    200    ),
     ###    unbinned    = cms.vint32(       0    ),
     ###    smoothOrder = cms.vint32(       3    ),   
-    
+    ###    doLogy      = cms.vint32(     0        ),    
 
     #    vars        = cms.vstring( "Dphi_tau_met"   ),
     #    mins        = cms.vdouble(      0           ),
@@ -320,7 +317,8 @@ LandSShapesProducerParSetTaunu = cms.PSet(
     #    hmax        = cms.vdouble(    200          ),
     #    unbinned    = cms.vint32(       0          ),
     #    smoothOrder = cms.vint32(       3          ),   
-    
+
+    toNorm      = cms.bool(False),
     vars        = cms.vstring("btagmultiplicity_j" ),
     fancyName   = cms.vstring("N_{b-tagged jets}"  ),
     mins        = cms.vdouble(     1               ),
@@ -331,6 +329,7 @@ LandSShapesProducerParSetTaunu = cms.PSet(
     hmax        = cms.vdouble(   600               ),
     unbinned    = cms.vint32(      0               ),
     smoothOrder = cms.vint32(      0               ),                
+    doLogy      = cms.vint32(     1                ),
     
     # vars        = cms.vstring(    "pt_t"  ),
     # mins        = cms.vdouble(         0  ),
@@ -622,7 +621,8 @@ LandSShapesProducerParSetMhmax = cms.PSet(
     #sampleColour    = cms.vint32( 1,  616, 799, 614, 8, 824,  596, 831, 809),
     sampleFillStyle = cms.vint32( 1001, 0, 1001, 1001, 1001,  1001, 1001, 1001, 1001),
     baseDir = cms.vstring("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-data-MU-20GeV/",
-                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew_2/nomt-2012-V1-mc-MU-20GeV/",
+#                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
                           "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-data-MU-20GeV/",
                           "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
                           "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
@@ -695,7 +695,7 @@ LandSShapesProducerParSetMhmax = cms.PSet(
     
     #osCutEff               = cms.double(0.69*220.92/242.915), #    osCutEff               = cms.double(0.577749097), #223.82/387.4),
     #    osCutEff               = cms.double(2054.99/4232.500009), #FIXME: subtract residual shape 0.699), # // FIXME: fixme 220.92/242.915), #    osCutEff               = cms.double(0.577749097), #223.82/387.4),
-    osCutEff = cms.double(1767.14*1767.14/202.1/2045.11),
+    osCutEff = cms.double(1386*1386/202.1/2045.11),
 
 
     #2810.89/5736.58),
@@ -706,7 +706,7 @@ LandSShapesProducerParSetMhmax = cms.PSet(
     ####### VARIABLE(s) ########
     ############################
 
-
+    ###    toNorm      = cms.bool(True),
     ###    vars        = cms.vstring( "rc_t"    ),
     ###    fancyName  = cms.vstring("R = p_{T}^{lead.track}/E^{#tau}"),
     ###    mins        = cms.vdouble(   -0.099  ),
@@ -717,7 +717,7 @@ LandSShapesProducerParSetMhmax = cms.PSet(
     ###    hmax        = cms.vdouble(    200    ),
     ###    unbinned    = cms.vint32(       0    ),
     ###    smoothOrder = cms.vint32(       3    ),   
-    
+    ###    doLogy      = cms.vint32(     0        ),    
 
     #    vars        = cms.vstring( "Dphi_tau_met"   ),
     #    mins        = cms.vdouble(      0           ),
@@ -727,7 +727,8 @@ LandSShapesProducerParSetMhmax = cms.PSet(
     #    hmax        = cms.vdouble(    200          ),
     #    unbinned    = cms.vint32(       0          ),
     #    smoothOrder = cms.vint32(       3          ),   
-    
+
+    toNorm      = cms.bool(False),
     vars        = cms.vstring("btagmultiplicity_j" ),
     fancyName   = cms.vstring("N_{b-tagged jets}"  ),
     mins        = cms.vdouble(     1               ),
@@ -738,6 +739,7 @@ LandSShapesProducerParSetMhmax = cms.PSet(
     hmax        = cms.vdouble(   600               ),
     unbinned    = cms.vint32(      0               ),
     smoothOrder = cms.vint32(      0               ),                
+    doLogy      = cms.vint32(     1                ),
     
     # vars        = cms.vstring(    "pt_t"  ),
     # mins        = cms.vdouble(         0  ),
@@ -810,6 +812,279 @@ LandSShapesProducerParSetMhmax = cms.PSet(
     )
 
 
+LandSShapesProducerParSetMhmodp_tanb5 = cms.PSet(
+    #    outFolder        = cms.string("shapesForDatacard/"),
+
+    # mixed
+    outFolder        = cms.string("shapes_mhmodp_tanb5/"),
+    datacardsBaseName  = cms.string("datacard_mutau_mhmodp_tanb5"),
+    massPointName   = cms.vstring("m180","m200","m220","m250","m300","m400","m500","m600"),
+    inputFileName      = cms.vstring( "out-data.root", "out-heavyHiggs-pythia-", "out-data_rescaled.root", "out-ttbar-mutau.root", "out-ttbar-mcbkg.root", "out-singletop.root", "out-dibosons.root" ),
+    sampleName      = cms.vstring( "data_obs", "HTB", "tau_fake", "tt_ltau", "tt_ll", "singleTop","di_boson", "Z_tautau",  "Z_eemumu" ),
+    fancySampleName      = cms.vstring("data", "#splitline{H^{+}#rightarrow tb,#tau#nu}{[250 GeV]}", "#splitline{#tau_{h} misID}{DD}", "t#bar{t} #rightarrow #mu#tau_{h}", "other t#bar{t}", "Single t", "Diboson","Z #rightarrow #tau#tau", "Z #rightarrow ee,#mu#mu"),
+    sampleColour    = cms.vint32( 1,  2, 799,  614,    8,   824,  596, 831, 809),
+    #sampleColour    = cms.vint32( 1,  616, 799, 614, 8, 824,  596, 831, 809),
+    sampleFillStyle = cms.vint32( 1001, 0, 1001, 1001, 1001,  1001, 1001, 1001, 1001),
+    baseDir = cms.vstring("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-data-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew_2/nomt-2012-V1-mc-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-data-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/"
+                          ),
+    minitree = cms.vstring("m_tau_Selected",
+                           "m_tau_Selected",
+                           "m_tau_DataDriven",
+                           "m_tau_Selected",
+                           "m_tau_Selected",
+                           "m_tau_Selected",
+                           "m_tau_Selected"
+                           ),
+    isFromData  = cms.vint32( 1, 0, 1, 0, 0, 0, 0, 0, 0),
+    isDDbkg     = cms.vint32( 0, 0, 1, 0, 0, 0, 0, 0, 0),
+    isSignal    = cms.vint32( 0, 1, 0, 0, 0, 0, 0, 0, 0),
+    
+    signalNormFactor = cms.vdouble(
+    1.,
+    # 190: 1./100.,
+    1.,
+    1.,
+    1.,
+    1.,
+    1.,
+    1.,
+    1.,
+    1., 
+    1., 
+    1., 
+    1., 
+    1.
+    ),
+
+
+
+
+
+    ###################
+    # Common parameters
+    ###################
+    outputFileName  = cms.string("shapes"),
+    doMultiDimensionalShapes = cms.bool(False),
+    unsplitUncertainties = cms.bool(False),
+
+    
+    
+    # jes +/-, met +/-, jer +/-
+    systComponents = cms.vstring(
+    "_plus"    , "_minus"    ,
+    "_uncplus" , "_uncminus" ,
+    "_jerplus" , "_jerminus" ,
+    "_bplus"   , "_bminus"   ,
+    "_unbplus" , "_unbminus",
+    "_topptuncplus", "_topptuncminus",
+    "_tesplus", "_tesminus"
+    ),
+
+    systFancyComponents = cms.vstring(
+    "_jesUp"    , "_jesDown"    ,
+    "_umetUp" , "_umetDown" ,
+    "_jerUp" , "_jerDown" ,
+    "_btagUp"   , "_btagDown"   ,
+    "_unbtagUp" , "_unbtagDown",
+    "_topptuncUp", "_topptuncDown",
+    "_tesUp", "_tesDown"
+    ),
+    
+    
+    #osCutEff               = cms.double(0.69*220.92/242.915), #    osCutEff               = cms.double(0.577749097), #223.82/387.4),
+    #    osCutEff               = cms.double(2054.99/4232.500009), #FIXME: subtract residual shape 0.699), # // FIXME: fixme 220.92/242.915), #    osCutEff               = cms.double(0.577749097), #223.82/387.4),
+    osCutEff = cms.double(1386*1386/202.1/2045.11),
+
+
+    #2810.89/5736.58),
+
+
+
+    ############################
+    ####### VARIABLE(s) ########
+    ############################
+
+    ###    toNorm      = cms.bool(True),
+    ###    vars        = cms.vstring( "rc_t"    ),
+    ###    fancyName  = cms.vstring("R = p_{T}^{lead.track}/E^{#tau}"),
+    ###    mins        = cms.vdouble(   -0.099  ),
+    ###    maxs        = cms.vdouble(    1.001  ),
+    ###    bins        = cms.vint32(      11    ),
+    ###    binNames    = cms.vstring( ), 
+    ###    hmin        = cms.vdouble(      0    ),
+    ###    hmax        = cms.vdouble(    200    ),
+    ###    unbinned    = cms.vint32(       0    ),
+    ###    smoothOrder = cms.vint32(       3    ),   
+    ###    doLogy      = cms.vint32(     0        ),    
+
+    #    vars        = cms.vstring( "Dphi_tau_met"   ),
+    #    mins        = cms.vdouble(      0           ),
+    #    maxs        = cms.vdouble(    4.8           ),
+    #    bins        = cms.vint32(     5             ),
+    #    hmin        = cms.vdouble(      0          ),
+    #    hmax        = cms.vdouble(    200          ),
+    #    unbinned    = cms.vint32(       0          ),
+    #    smoothOrder = cms.vint32(       3          ),   
+
+    toNorm      = cms.bool(False),
+    vars        = cms.vstring("btagmultiplicity_j" ),
+    fancyName   = cms.vstring("N_{b-tagged jets}"  ),
+    mins        = cms.vdouble(     1               ),
+    maxs        = cms.vdouble(   5                 ),
+    bins        = cms.vint32(     4                ),
+    binNames    = cms.vstring("0", "1","2","3","#geq4"),
+    hmin        = cms.vdouble(     0               ),
+    hmax        = cms.vdouble(   600               ),
+    unbinned    = cms.vint32(      0               ),
+    smoothOrder = cms.vint32(      0               ),                
+    doLogy      = cms.vint32(     1                ),
+    
+    
+    )
+
+
+LandSShapesProducerParSetMhmodp_tanb30 = cms.PSet(
+    #    outFolder        = cms.string("shapesForDatacard/"),
+
+    # mixed
+    outFolder        = cms.string("shapes_mhmodp_tanb30/"),
+    datacardsBaseName  = cms.string("datacard_mutau_mhmodp_tanb30"),
+    massPointName   = cms.vstring("m180","m200","m220","m250","m300","m400","m500","m600"),
+    inputFileName      = cms.vstring( "out-data.root", "out-heavyHiggs-pythia-", "out-data_rescaled.root", "out-ttbar-mutau.root", "out-ttbar-mcbkg.root", "out-singletop.root", "out-dibosons.root" ),
+    sampleName      = cms.vstring( "data_obs", "HTB", "tau_fake", "tt_ltau", "tt_ll", "singleTop","di_boson", "Z_tautau",  "Z_eemumu" ),
+    fancySampleName      = cms.vstring("data", "#splitline{H^{+}#rightarrow tb,#tau#nu}{[250 GeV]}", "#splitline{#tau_{h} misID}{DD}", "t#bar{t} #rightarrow #mu#tau_{h}", "other t#bar{t}", "Single t", "Diboson","Z #rightarrow #tau#tau", "Z #rightarrow ee,#mu#mu"),
+    sampleColour    = cms.vint32( 1,  2, 799,  614,    8,   824,  596, 831, 809),
+    #sampleColour    = cms.vint32( 1,  616, 799, 614, 8, 824,  596, 831, 809),
+    sampleFillStyle = cms.vint32( 1001, 0, 1001, 1001, 1001,  1001, 1001, 1001, 1001),
+    baseDir = cms.vstring("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-data-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew_2/nomt-2012-V1-mc-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-data-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/"
+                          ),
+    minitree = cms.vstring("m_tau_Selected",
+                           "m_tau_Selected",
+                           "m_tau_DataDriven",
+                           "m_tau_Selected",
+                           "m_tau_Selected",
+                           "m_tau_Selected",
+                           "m_tau_Selected"
+                           ),
+    isFromData  = cms.vint32( 1, 0, 1, 0, 0, 0, 0, 0, 0),
+    isDDbkg     = cms.vint32( 0, 0, 1, 0, 0, 0, 0, 0, 0),
+    isSignal    = cms.vint32( 0, 1, 0, 0, 0, 0, 0, 0, 0),
+
+        signalNormFactor = cms.vdouble(
+    1.,
+    # 190: 1./100.,
+    1.,
+    1.,
+    1.,
+    1.,
+    1,
+    1,
+    1,
+    1.,
+    1.,
+    1.,
+    1., 
+    1., 
+    1., 
+    1., 
+    1.
+    ),
+
+    ###################
+    # Common parameters
+    ###################
+    outputFileName  = cms.string("shapes"),
+    doMultiDimensionalShapes = cms.bool(False),
+    unsplitUncertainties = cms.bool(False),
+
+    
+    
+    # jes +/-, met +/-, jer +/-
+    systComponents = cms.vstring(
+    "_plus"    , "_minus"    ,
+    "_uncplus" , "_uncminus" ,
+    "_jerplus" , "_jerminus" ,
+    "_bplus"   , "_bminus"   ,
+    "_unbplus" , "_unbminus",
+    "_topptuncplus", "_topptuncminus",
+    "_tesplus", "_tesminus"
+    ),
+
+    systFancyComponents = cms.vstring(
+    "_jesUp"    , "_jesDown"    ,
+    "_umetUp" , "_umetDown" ,
+    "_jerUp" , "_jerDown" ,
+    "_btagUp"   , "_btagDown"   ,
+    "_unbtagUp" , "_unbtagDown",
+    "_topptuncUp", "_topptuncDown",
+    "_tesUp", "_tesDown"
+    ),
+    
+    
+    #osCutEff               = cms.double(0.69*220.92/242.915), #    osCutEff               = cms.double(0.577749097), #223.82/387.4),
+    #    osCutEff               = cms.double(2054.99/4232.500009), #FIXME: subtract residual shape 0.699), # // FIXME: fixme 220.92/242.915), #    osCutEff               = cms.double(0.577749097), #223.82/387.4),
+    osCutEff = cms.double(1386*1386/202.1/2045.11),
+
+
+    #2810.89/5736.58),
+
+
+
+    ############################
+    ####### VARIABLE(s) ########
+    ############################
+
+    ###    toNorm      = cms.bool(True),
+    ###    vars        = cms.vstring( "rc_t"    ),
+    ###    fancyName  = cms.vstring("R = p_{T}^{lead.track}/E^{#tau}"),
+    ###    mins        = cms.vdouble(   -0.099  ),
+    ###    maxs        = cms.vdouble(    1.001  ),
+    ###    bins        = cms.vint32(      11    ),
+    ###    binNames    = cms.vstring( ), 
+    ###    hmin        = cms.vdouble(      0    ),
+    ###    hmax        = cms.vdouble(    200    ),
+    ###    unbinned    = cms.vint32(       0    ),
+    ###    smoothOrder = cms.vint32(       3    ),   
+    ###    doLogy      = cms.vint32(     0        ),    
+
+    #    vars        = cms.vstring( "Dphi_tau_met"   ),
+    #    mins        = cms.vdouble(      0           ),
+    #    maxs        = cms.vdouble(    4.8           ),
+    #    bins        = cms.vint32(     5             ),
+    #    hmin        = cms.vdouble(      0          ),
+    #    hmax        = cms.vdouble(    200          ),
+    #    unbinned    = cms.vint32(       0          ),
+    #    smoothOrder = cms.vint32(       3          ),   
+
+    toNorm      = cms.bool(False),
+    vars        = cms.vstring("btagmultiplicity_j" ),
+    fancyName   = cms.vstring("N_{b-tagged jets}"  ),
+    mins        = cms.vdouble(     1               ),
+    maxs        = cms.vdouble(   5                 ),
+    bins        = cms.vint32(     4                ),
+    binNames    = cms.vstring("0", "1","2","3","#geq4"),
+    hmin        = cms.vdouble(     0               ),
+    hmax        = cms.vdouble(   600               ),
+    unbinned    = cms.vint32(      0               ),
+    smoothOrder = cms.vint32(      0               ),                
+    doLogy      = cms.vint32(     1                ),
+    
+    
+    )
+
+
 LandSShapesProducerParSetPlot = cms.PSet(
     #    outFolder        = cms.string("shapesForDatacard/"),
 
@@ -820,12 +1095,14 @@ LandSShapesProducerParSetPlot = cms.PSet(
     massPointName = cms.vstring("m250"),
     inputFileName      = cms.vstring( "out-data.root", "out-htb-pythia-", "out-tbh-pythia-", "out-data_rescaled.root", "out-ttbar-mutau.root", "out-ttbar-mcbkg.root", "out-singletop.root", "out-dibosons.root" ),
     sampleName      = cms.vstring( "data_obs", "HTB", "TBH", "tau_fake", "tt_ltau", "tt_ll", "singleTop","di_boson", "Z_tautau",  "Z_eemumu" ),
+#    fancySampleName      = cms.vstring("data", "#splitline{100#times H^{+}#rightarrow tb}{[250 GeV]}","#splitline{100#times H^{+}#rightarrow#tau#nu}{[250 GeV]}", "#splitline{#tau_{h} misID}{DD}", "t#bar{t} #rightarrow #mu#tau_{h}", "other t#bar{t}", "Single t", "Diboson","Z #rightarrow #tau#tau", "Z #rightarrow ee,#mu#mu"),
     fancySampleName      = cms.vstring("data", "#splitline{H^{+}#rightarrow tb}{[250 GeV]}","#splitline{H^{+}#rightarrow#tau#nu}{[250 GeV]}", "#splitline{#tau_{h} misID}{DD}", "t#bar{t} #rightarrow #mu#tau_{h}", "other t#bar{t}", "Single t", "Diboson","Z #rightarrow #tau#tau", "Z #rightarrow ee,#mu#mu"),
     sampleColour    = cms.vint32( 1,  2, 1, 799,  614,    8,   824,  596, 831, 809),
     #sampleColour    = cms.vint32( 1,  616, 799, 614, 8, 824,  596, 831, 809),
     sampleFillStyle = cms.vint32( 1001, 0, 0, 1001, 1001, 1001,  1001, 1001, 1001, 1001),
     baseDir = cms.vstring("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-data-MU-20GeV/",
-                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
+                          "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew_2/nomt-2012-V1-mc-MU-20GeV/",
+                          #"/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
                           "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
                           "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-data-MU-20GeV/",
                           "/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew/nomt-2012-V1-mc-MU-20GeV/",
@@ -847,20 +1124,20 @@ LandSShapesProducerParSetPlot = cms.PSet(
     isSignal    = cms.vint32( 0, 1, 1, 0, 0, 0, 0, 0, 0, 0),
     # htb
     signalNormFactor = cms.vdouble(
-    1/22.6975/(1 - 0.831852   ),
-    # 190: 1/20.4088/(1 - 0.407966   ),   
-    1/18.4811/(1 - 0.228564   ),   
-    1/15.4027/(1 - 0.106446   ),  
-    1/12.9842/(1 - 0.04902523 ), 
-    1/11.9413/(1 - 0.04129783 ), 
-    1/10.9879/(1 - 0.0361988  ),  
-    1/09.31608/(1 - 0.02984434 ), 
-    1/07.91902/(1 - 0.02514242 ), 
-    1/0.0536621/(1.-0.01838561  ), 
-    1/0.0371904/(1.-0.01402549  ), 
-    1/0.0187822/(1.-0.006268037 ), 
-    1/0.0100715/(1.-0.004805924 ), 
-    1/0.0056681/(1.-0.004234392 ),
+    1./ 0.081662,
+    # 190: 1./ 1.      ,  
+    1./ 0.455760,  
+    1./ 0.625690, 
+    1./ 0.692009,
+    1./ 0.705360,
+    1./ 0.717428, 
+    1./ 0.733824,
+    1./ 0.744171,
+    1./ 0.750776,
+    1./ 0.722967,
+    1./ 0.563428,
+    1./ 0.495196,
+    1./ 0.459958,
     ),
     
 
@@ -897,7 +1174,7 @@ LandSShapesProducerParSetPlot = cms.PSet(
     
     #osCutEff               = cms.double(0.69*220.92/242.915), #    osCutEff               = cms.double(0.577749097), #223.82/387.4),
     #    osCutEff               = cms.double(2054.99/4232.500009), #FIXME: subtract residual shape 0.699), # // FIXME: fixme 220.92/242.915), #    osCutEff               = cms.double(0.577749097), #223.82/387.4),
-    osCutEff = cms.double(1767.14*1767.14/202.1/2045.11),
+    osCutEff = cms.double(1386*1386/202.1/2045.11),
 
 
     #2810.89/5736.58),
@@ -908,18 +1185,18 @@ LandSShapesProducerParSetPlot = cms.PSet(
     ####### VARIABLE(s) ########
     ############################
 
-
-    ###    vars        = cms.vstring( "rc_t"    ),
-    ###    fancyName  = cms.vstring("R = p_{T}^{lead.track}/E^{#tau}"),
-    ###    mins        = cms.vdouble(   -0.099  ),
-    ###    maxs        = cms.vdouble(    1.001  ),
-    ###    bins        = cms.vint32(      11    ),
-    ###    binNames    = cms.vstring( ), 
-    ###    hmin        = cms.vdouble(      0    ),
-    ###    hmax        = cms.vdouble(    200    ),
-    ###    unbinned    = cms.vint32(       0    ),
-    ###    smoothOrder = cms.vint32(       3    ),   
-    
+       toNorm      = cms.bool(True),
+       vars        = cms.vstring( "rc_t"    ),
+       fancyName  = cms.vstring("R = p_{T}^{lead.track}/E^{#tau}"),
+       mins        = cms.vdouble(   -0.099  ),
+       maxs        = cms.vdouble(    1.001  ),
+       bins        = cms.vint32(      11    ),
+       binNames    = cms.vstring( ), 
+       hmin        = cms.vdouble(      0    ),
+       hmax        = cms.vdouble(    200    ),
+       unbinned    = cms.vint32(       0    ),
+       smoothOrder = cms.vint32(       3    ),   
+       doLogy      = cms.vint32(     0                ),    
 
     #    vars        = cms.vstring( "Dphi_tau_met"   ),
     #    mins        = cms.vdouble(      0           ),
@@ -929,17 +1206,20 @@ LandSShapesProducerParSetPlot = cms.PSet(
     #    hmax        = cms.vdouble(    200          ),
     #    unbinned    = cms.vint32(       0          ),
     #    smoothOrder = cms.vint32(       3          ),   
-    
-    vars        = cms.vstring("btagmultiplicity_j" ),
-    fancyName   = cms.vstring("N_{b-tagged jets}"  ),
-    mins        = cms.vdouble(     1               ),
-    maxs        = cms.vdouble(   5                 ),
-    bins        = cms.vint32(     4                ),
-    binNames    = cms.vstring("0", "1","2","3","#geq4"),
-    hmin        = cms.vdouble(     0               ),
-    hmax        = cms.vdouble(   600               ),
-    unbinned    = cms.vint32(      0               ),
-    smoothOrder = cms.vint32(      0               ),                
+
+    ### toNorm      = cms.bool(False),
+    ### vars        = cms.vstring("btagmultiplicity_j" ),
+    ### fancyName   = cms.vstring("N_{b-tagged jets}"  ),
+    ### mins        = cms.vdouble(     1               ),
+    ### maxs        = cms.vdouble(   5                 ),
+    ### bins        = cms.vint32(     4                ),
+    ### binNames    = cms.vstring("0", "1","2","3","#geq4"),
+    ### hmin        = cms.vdouble(     0               ),
+    ### hmax        = cms.vdouble(   600               ),
+    ### unbinned    = cms.vint32(      0               ),
+    ### smoothOrder = cms.vint32(      0               ),                
+    ### doLogy      = cms.vint32(     1                ),
+
     
     # vars        = cms.vstring(    "pt_t"  ),
     # mins        = cms.vdouble(         0  ),

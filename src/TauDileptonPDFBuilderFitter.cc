@@ -188,7 +188,7 @@ void TauDileptonPDFBuilderFitter::Init(){
   nVars_ = vars_.size();
   
   for(size_t i=0; i<nVars_; i++)
-    fitVars_.push_back(new FitVar(vars_[i], mins_[i], maxs_[i], bins_[i], hmin_[i], hmax_[i], unbinned_[i], smoothOrder_[i]));
+    fitVars_.push_back(new FitVar(vars_[i], mins_[i], maxs_[i], bins_[i], hmin_[i], hmax_[i], unbinned_[i], smoothOrder_[i], false, 1));
       
   // Set canvas
   SetTDRStyle();

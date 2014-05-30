@@ -11,11 +11,12 @@
 
 using namespace std;
 
-CutflowAnalyzer::CutflowAnalyzer( double tauPtCut, bool noUncertainties, bool doWPlusJetsAnalysis, TString inputArea, TString outputArea, TString puFileName, TString runRange, vector<double> brHtaunu, vector<double> brHtb) :
+CutflowAnalyzer::CutflowAnalyzer( double tauPtCut, bool noUncertainties, bool doWPlusJetsAnalysis, TString inputArea, TString outputArea, TString puFileName, TString runRange, vector<double> brHtaunu, vector<double> brHtb, bool eChONmuChOFF) :
   UncertaintyCalculator(),  
   AnalysisMonitoring(tauPtCut, inputArea, outputArea), 
   ObjectSelector(tauPtCut),
   noUncertainties_(noUncertainties),
+
   doWPlusJetsAnalysis_(doWPlusJetsAnalysis),
   testMe_(0),
   testMe_Nev_(0)
@@ -23,6 +24,7 @@ CutflowAnalyzer::CutflowAnalyzer( double tauPtCut, bool noUncertainties, bool do
 {    
   brHtaunu_ = brHtaunu;
   brHtb_    = brHtb;
+  commondefinitions::eChONmuChOFF_  = eChONmuChOFF;
 
   cout << "------- BR(H+->taunu) -------" << endl;
   for(size_t i=0; i<brHtaunu_.size(); ++i)
@@ -35,7 +37,7 @@ CutflowAnalyzer::CutflowAnalyzer( double tauPtCut, bool noUncertainties, bool do
   puFileName_ = puFileName ;
 
   // Default is ABCD in CommonDefinitions.cc
-  if(runRange=="ABCD")     LUM_ = 19258.225; // 2012 ABCD 539 ReReco.
+  if(runRange=="ABCD")     LUM_ = 19696.; // 2012 ABCD 539 ReReco.
   //  if(runRange=="ABCD")     LUM_ = 18282; // 2012 BCD 539 ReReco.
 
   // RunA: 876.225
@@ -269,7 +271,7 @@ void CutflowAnalyzer::process(bool isData, urlCodes urlCode, TString path, TStri
   }
 
   //SPY /////////////// FIXME: examine this
-  //evR_->EndSpyEvents();
+  evR_->EndSpyEvents();
   /////////////////////
 
 
@@ -375,7 +377,6 @@ void CutflowAnalyzer::eventAnalysis(bool newPhys,
     if(tausColl[iorigtau][17] == tauType ){ taus.push_back(tausColl[iorigtau]); }
   }
 
-
   if(i_ == 45){ // Debug event
     cout<<endl<< "JETS IN EVENT " << i_ << endl;
     for(size_t ijet=0; ijet<jets.size(); ++ijet){
@@ -397,6 +398,15 @@ void CutflowAnalyzer::eventAnalysis(bool newPhys,
   PhysicsObject & primaryVertex = vertices[0];
 
   TVectorD *classif = (TVectorD *)ev->eventClassif->At(0);
+
+
+
+  if( (url_ == EMBEDDED_DATA_URL || url_ == EMBEDDED_TTBAR_URL) && i_ == 45){ // Debug event
+    // Debugging temporary lines
+    cout << "Event: " << i_ << ", New embedded weight: " << (*classif)[9] << "           old embedded weight: " << (*classif)[10] << endl;
+  }
+
+
 
   if(! isData_ ) if(classif==0) return;  
 
@@ -568,6 +578,10 @@ void CutflowAnalyzer::eventAnalysis(bool newPhys,
   if( hasEGtrig ){ numb_e = e_init.size(); if(numb_e){ evType_ = ETAU_ ; if(!isData_) w_ = intimepuWeight_*scale_; }}
   if( hasMutrig ){ numb_m = m_init.size(); if(numb_m){ evType_ = MUTAU_; if(!isData_) w_ = intimepuWeight_*scale_; }}
   
+
+  // Tau embedding weight
+  if(url_ == EMBEDDED_DATA_URL || url_ == EMBEDDED_TTBAR_URL) w_ *= (*classif)[9];
+
   TVectorD * classifMC(0);
   // PDF Uncertainties ////////////////////////////////////////////////////////////////////////////////////////////////////
   // fill weighted events and reset selected events vector weights
@@ -624,279 +638,6 @@ void CutflowAnalyzer::eventAnalysis(bool newPhys,
 
 }
 
-
-
-// to be removed //void CutflowAnalyzer::dileptonAnalysis(bool newPhys, TString myKey, event::MiniEvent_t *ev, double jes , double unc, double jer, double btagunc, double unbtagunc, double tes){
-// to be removed //
-// to be removed //
-// to be removed //  jes_=jes; unc_=unc; jer_=jer, btagunc_=btagunc; unbtagunc_=unbtagunc; tes_=tes;
-// to be removed //
-// to be removed //
-// to be removed //  // see if we run with systematics...////////////////////////////////////////// 
-// to be removed //  if( jes_|| unc_|| jer_|| btagunc_|| unbtagunc_) sys_ = true; else sys_= false;
-// to be removed //  ///////////////////////////////////////////////////////////////////////////////
-// to be removed //
-// to be removed //
-// to be removed //  // Set default lepton + jet selection (inherited from ObjectSelector)
-// to be removed //  // SetLeptonPlusJetsSelection();
-// to be removed //  // Set default dilepton selection (inherited from ObjectSelector)
-// to be removed //  SetDileptonSelection();
-// to be removed //  setSelectionParameters();
-// to be removed //  //////////////////////////////////////
-// to be removed //
-// to be removed //  //trigger ///////////////////////////////////////////////////////
-// to be removed //  TVectorD *trig = (TVectorD *)ev->triggerColl->At(0);
-// to be removed //  bool hasMutrig = ((*trig)[0]>0); bool hasEGtrig = ((*trig)[1]>0);
-// to be removed //  /////////////////////////////////////////////////////////////////
-// to be removed //
-// to be removed //  //cout<<" trigger bits : "<<hasMutrig<<endl;
-// to be removed //
-// to be removed //  
-// to be removed //  unsigned int jetAlgo,tauType, leptonType;
-// to be removed //  TString mcTag("");
-// to be removed //  
-// to be removed //  JetCorrectionUncertainty * junc(0);   JetResolution  * jerc(0);
-// to be removed //  //  unsigned int metAlgo;  // unused
-// to be removed //  
-// to be removed //  if( myKey.Contains("PFlow")   ) { // Moved up for optimization
-// to be removed //    jetAlgo=event::AK5PFLOW, leptonType=event::PFLOWLEPTON; tauType = PFLOWTAU; if(!isData_){junc=jecUnc_ak5_pf_;  jerc = jerUnc_ak5_pf_pt_;  } else{junc=jecUnc_data_ak5_pf_ ;}// metAlgo=event::PFLOWMET;  
-// to be removed //  } 
-// to be removed //  else if( myKey=="PF"               ) { 
-// to be removed //    jetAlgo=event::AK5PF;  leptonType=event::STDLEPTON;    tauType = PFTAU;    if(!isData_){junc=jecUnc_ak5_pf_;  jerc = jerUnc_ak5_pf_pt_;  } else{junc=jecUnc_data_ak5_pf_ ;}// metAlgo=event::PF;   
-// to be removed //  }
-// to be removed //  else if( myKey.Contains("TaNC")    ) { 
-// to be removed //    jetAlgo=event::AK5PF;   leptonType=event::STDLEPTON;   tauType = PFTAU;    if(!isData_){junc=jecUnc_ak5_pf_;  jerc = jerUnc_ak5_pf_pt_;  } else{junc=jecUnc_data_ak5_pf_ ;}// metAlgo=event::PF;  
-// to be removed //  }
-// to be removed //  else if( myKey.Contains("HPS")     ) { 
-// to be removed //    jetAlgo=event::AK5PF,    leptonType=event::STDLEPTON;   tauType = HPSTAU;   if(!isData_){junc=jecUnc_ak5_pf_;  jerc = jerUnc_ak5_pf_pt_;  } else{junc=jecUnc_data_ak5_pf_ ;}// metAlgo=event::PF;  
-// to be removed //  } 
-// to be removed //  
-// to be removed //  
-// to be removed //  unsigned int jetCorr;
-// to be removed //  if(isData_){ jetCorr = event::Reader::VTXCONSTRAINED | event::Reader::RESJECCORR; }
-// to be removed //  else       { jetCorr = event::Reader::VTXCONSTRAINED;                             }
-// to be removed //  
-// to be removed //  
-// to be removed //  // get physics objects ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //  std::vector<PhysicsObject> vertices                 = evR_->GetVertexCollection(ev);
-// to be removed //  std::vector<PhysicsObject> jets_without_arbitration = evR_->GetPhysicsObjectsFrom(ev,event::JET, jetAlgo  ); 
-// to be removed //  std::vector<PhysicsObject> jets                     = evR_->GetJetsWithArbitration( jets_without_arbitration, jetCorr); 
-// to be removed //  std::vector<PhysicsObject> muons                    = evR_->GetPhysicsObjectsFrom(ev,event::MUON, leptonType);     
-// to be removed //  std::vector<PhysicsObject> electrons                = evR_->GetPhysicsObjectsFrom(ev,event::ELECTRON, leptonType); 
-// to be removed //  std::vector<PhysicsObject> tausColl                 = evR_->GetPhysicsObjectsFrom(ev,event::TAU);
-// to be removed //  std::vector<PhysicsObject> taus; 
-// to be removed //  //  cout << "PFLOWTAU: " << PFLOWTAU << ", PFTAU: " << PFTAU << "HPSTAU: " << HPSTAU << endl; // Debug
-// to be removed //  for(size_t iorigtau=0; iorigtau<tausColl.size(); ++iorigtau){ // Get taus from leptons collection
-// to be removed //    //cout << tausColl[iorigtau][17] << ", " << tauType << endl; // Debug 
-// to be removed //    if(tausColl[iorigtau][17] == tauType ){ taus.push_back(tausColl[iorigtau]); }
-// to be removed //  }
-// to be removed //  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //  
-// to be removed //  
-// to be removed //  
-// to be removed //  
-// to be removed //
-// to be removed //  if(vertices.size()==0){ cout<<endl<<" Vertex was zero ???????"<<endl; return; }
-// to be removed //  PhysicsObject & primaryVertex = vertices[0];
-// to be removed //  
-// to be removed //  TVectorD *classif = (TVectorD *)ev->eventClassif->At(0);
-// to be removed //  
-// to be removed //  if(! isData_ ) if(classif==0) return;  
-// to be removed //  
-// to be removed //  // pileup reweighting /////////////////////////////////////////////////////////////////////////
-// to be removed //  if(! isData_ ){ 
-// to be removed //    outtimepuWeight_= 1;     /*outtimepuWeight_ = eventPUWeight( (*classif)[3] );*/ 
-// to be removed //    int npv = (*classif)[2]; //intime pu vertices
-// to be removed //    intimepuWeight_ = LumiWeights_.ITweight(npv);
-// to be removed //    
-// to be removed //    // why outtime pu? why this formula
-// to be removed //    //int ave_nvtx = int((*classif)[2] + (*classif)[3])/3;
-// to be removed //    int ave_nvtx = npv;
-// to be removed //    if     ( pu_ == PUPLUS  ) intimepuWeight_ = intimepuWeight_*PShiftUp_.ShiftWeight( ave_nvtx );
-// to be removed //    else if( pu_ == PUMINUS ) intimepuWeight_ = intimepuWeight_*PShiftDown_.ShiftWeight( ave_nvtx );
-// to be removed //  } 
-// to be removed //  else  { intimepuWeight_ = 1;  outtimepuWeight_= 1; }
-// to be removed //  //////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //
-// to be removed //  //jet energy corrections ////////////////////////////////////////////////////////////////////////////////
-// to be removed //  vector<double> jerFactors;
-// to be removed //  vector<PhysicsObject> newJets;
-// to be removed //  
-// to be removed //  jerFactors.clear();
-// to be removed //  newJets.clear();
-// to be removed //  for(unsigned int i=0;i<jets.size();++i){ 
-// to be removed //    double corr_jer(1.);
-// to be removed //    if(!isData_){
-// to be removed //      if(jer_== 0) newJets.push_back( smearedJet(jets[i], jets[i][34], 0/* 0=genpt, 1=random */, 0 /* 0=base, 1=jerup, 2=jerdown*/, corr_jer) );
-// to be removed //      if(jer_> 0)  newJets.push_back( smearedJet(jets[i], jets[i][34], 0/* 0=genpt, 1=random */, 1 /* 0=base, 1=jerup, 2=jerdown*/, corr_jer) );
-// to be removed //      if(jer_< 0)  newJets.push_back( smearedJet(jets[i], jets[i][34], 0/* 0=genpt, 1=random */, 2 /* 0=base, 1=jerup, 2=jerdown*/, corr_jer) );
-// to be removed //    }
-// to be removed //    jerFactors.push_back(1.);
-// to be removed //  }
-// to be removed //  jets=newJets;
-// to be removed //
-// to be removed //
-// to be removed //  ///////////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //  
-// to be removed //  
-// to be removed //  //preselect low energy jets (this is used for MHT computation in the electron channel) /////////
-// to be removed //  if(hasEGtrig){
-// to be removed //    DisableLtkCutOnJets(); Pt_Jet(15); 
-// to be removed //    jetsForTrigger_.clear();
-// to be removed //    PreSelectJets( isData_, jerFactors, jes, junc,jetAlgo,&jetsForTrigger_,jets);
-// to be removed //  } else jetsForTrigger_.clear();
-// to be removed //  ///////////////////////////////////////////////////////////////////////////
-// to be removed //  
-// to be removed //  
-// to be removed //  // preselect main objects ///////////////////////////////////////////////
-// to be removed //  vector<int> e_init, m_init, j_init, t_init;
-// to be removed //  PreSelectMuons(     evR_, &m_init, muons    , primaryVertex ); 
-// to be removed //  PreSelectElectrons( evR_, &e_init, electrons, primaryVertex );
-// to be removed //  DisableLtkCutOnJets(); 
-// to be removed //  Pt_Jet( JET_PT_CUT_ );     
-// to be removed //  PreSelectJets( isData_, jerFactors, jes, junc,jetAlgo,&j_init,jets );
-// to be removed //  PreSelectTaus( &t_init,taus,TAUPRONGS_, myKey, primaryVertex, tes );
-// to be removed //  ////////////////////////////////////////////////////////////////////////
-// to be removed //  
-// to be removed //
-// to be removed //  // only accept jets if dr > drmin in respect to electrons and muons //////////////////////////////////////////////////
-// to be removed //  vector<int> emptyColl, j_toRemove; 
-// to be removed //  vector<int> j_afterLeptonRemoval;
-// to be removed //  ProcessCleaning(&j_init, &j_toRemove, &e_init, &emptyColl, jets, electrons, DRMIN_JET_E_ );
-// to be removed //  ProcessCleaning(&j_init, &j_toRemove, &m_init, &emptyColl, jets, muons,     DRMIN_JET_M_ );
-// to be removed //  ApplyCleaning(  &j_init, &j_toRemove, &j_afterLeptonRemoval);
-// to be removed //  // do the same cleaning for jets that will be used in MHT computation 
-// to be removed //  vector<int> jetsForMHT_emptyColl, jetsForMHT_toRemove; 
-// to be removed //  vector<int> jetsForMHT_afterLeptonRemoval;
-// to be removed //  if(hasEGtrig){ // only for electron channel
-// to be removed //    ProcessCleaning(&jetsForTrigger_, &jetsForMHT_toRemove, &e_init, &jetsForMHT_emptyColl, jets, electrons, DRMIN_JET_E_ );
-// to be removed //    ProcessCleaning(&jetsForTrigger_, &jetsForMHT_toRemove, &m_init, &jetsForMHT_emptyColl, jets, muons,     DRMIN_JET_M_ );
-// to be removed //    ApplyCleaning(  &jetsForTrigger_, &jetsForMHT_toRemove, &jetsForMHT_afterLeptonRemoval);  
-// to be removed //  } else{
-// to be removed //    jetsForMHT_emptyColl.clear();
-// to be removed //    jetsForMHT_toRemove.clear(); 
-// to be removed //    jetsForMHT_afterLeptonRemoval.clear();
-// to be removed //  }
-// to be removed //  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //  
-// to be removed //  
-// to be removed //  // only accept taus if dr > drmin in respect to electrons and muons /////////////////////
-// to be removed //  vector<int> t_toRemove;
-// to be removed //  vector<int> t_afterLeptonRemoval; 
-// to be removed //  ProcessCleaning(&t_init, &t_toRemove, &e_init, &emptyColl, taus, electrons, DRMIN_T_E_ );
-// to be removed //  ProcessCleaning(&t_init, &t_toRemove, &m_init, &emptyColl, taus, muons,     DRMIN_T_M_ );
-// to be removed //  ApplyCleaning(&t_init, &t_toRemove, &t_afterLeptonRemoval);
-// to be removed //  /////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //  
-// to be removed //  
-// to be removed //  // remove jets if dr < drmin in respect to taus ////////////////////////////////////////////////////////////
-// to be removed //  j_toRemove.clear(); t_toRemove.clear();
-// to be removed //  vector<int> j_final;
-// to be removed //  ProcessCleaning(&j_afterLeptonRemoval, &j_toRemove, &t_afterLeptonRemoval, &t_toRemove, jets, taus, DRMIN_T_J_ );
-// to be removed //  ApplyCleaning(&j_afterLeptonRemoval, &j_toRemove, &j_final);
-// to be removed //  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //
-// to be removed //
-// to be removed //
-// to be removed //  // extra jet collection //////////////////////////////////////////////////////////////////////////////////////
-// to be removed //  Pt_Jet(TAU_PT_MIN_); 
-// to be removed //  vector<int> j_init2;
-// to be removed //  PreSelectJets( isData_, jerFactors, jes, junc,jetAlgo,&j_init2,jets);
-// to be removed //  // only accept jets if dr > drmin in respect to electrons and muons 
-// to be removed //  vector<int> emptyColl2, j_toRemove2; 
-// to be removed //  vector<int> j_afterLeptonRemoval2;
-// to be removed //  ProcessCleaning(&j_init2, &j_toRemove2, &e_init, &emptyColl2, jets, electrons, DRMIN_JET_E_ );
-// to be removed //  ProcessCleaning(&j_init2, &j_toRemove2, &m_init, &emptyColl2, jets, muons,     DRMIN_JET_M_ );
-// to be removed //  ApplyCleaning(&j_init2, &j_toRemove2, &j_afterLeptonRemoval2);
-// to be removed //  int numbJets(0);
-// to be removed //  // number of jets between TAU_PT_MIN_ and jet pt cut....
-// to be removed //  if( j_afterLeptonRemoval2.size() > j_final.size()){ numbJets = j_afterLeptonRemoval2.size() - j_final.size(); }
-// to be removed //  if(TAU_PT_MIN_< JET_PT_CUT_ ) Pt_Jet(JET_PT_CUT_); 
-// to be removed //  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //
-// to be removed //  // DEBUG *****************************************************************************
-// to be removed //  /*
-// to be removed //  cout<<"\n Physics object debug     : "<<endl; 
-// to be removed //  cout<<"\n vertices                 : "<<vertices.size()                         <<endl; 
-// to be removed //  cout<<"\n jets_without_arbitration : "<<jets_without_arbitration.size()         <<endl;
-// to be removed //  cout<<"\n jets                     : "<<jets.size()                             <<" jets after Lepton Removal --> "<<j_afterLeptonRemoval.size()<<endl;
-// to be removed //  cout<<"\n muons                    : "<<muons.size()                            <<" selected muons            --> "<<m_init.size()<<endl;
-// to be removed //  cout<<"\n electrons                : "<<electrons.size()                        <<" selected electrons        --> "<<e_init.size()<<endl;
-// to be removed //  cout<<"\n tausColl                 : "<<tausColl.size()                         <<endl;
-// to be removed //  cout<<"\n taus                     : "<<taus.size()                             <<" taus after Lepton removal --> "<<t_afterLeptonRemoval.size()<<endl;
-// to be removed //  */
-// to be removed //  //////////////////////////////////////////////////////////////////////////////////////
-// to be removed //
-// to be removed //  ////////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //  int numb_e(0), numb_m(0);
-// to be removed //  bool lepReq(true);
-// to be removed //
-// to be removed //  // To measure ttbar efficiencies we force EGTrig and hasMuTrig to true (it will be applied later on) // FIXME: what the fuck?? Must check why, whenever doing that
-// to be removed //  if(trigEffStudy_ ){ hasEGtrig = true; hasMutrig = true; }
-// to be removed //  ////////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //
-// to be removed //  if( hasEGtrig ){ numb_e = e_init.size(); if(numb_e){ evType_ = ETAU_ ; if(!isData_) w_ = intimepuWeight_*scale_; }}
-// to be removed //  if( hasMutrig ){ numb_m = m_init.size(); if(numb_m){ evType_ = MUTAU_; if(!isData_) w_ = intimepuWeight_*scale_; }}
-// to be removed //  
-// to be removed //  
-// to be removed //  TVectorD * classifMC(0);
-// to be removed //  // PDF Uncertainties ////////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //  // fill weighted events and reset selected events vector weights
-// to be removed //  if( !isData_ && pdfweights_ && !jes && !unc && !jer && !btagunc){
-// to be removed //    event::MiniEvent_t *evMC = evRMC_->GetNewMiniEvent(i_,"mc");  if( evMC == 0 ){ cout<<"\n empty event"<<endl; return;}
-// to be removed //    classifMC = (TVectorD *)evMC->eventClassif->At(0);
-// to be removed //    //originalPDFEvents_ += 1.*w_;
-// to be removed //    originalPDFEvents_ += 1.;  
-// to be removed //    if( weightedPDFEvents_.size() == 0 ){
-// to be removed //      for(int i=14; i<classifMC->GetNoElements();++i ){
-// to be removed //	//weightedPDFEvents_.push_back( ( (*classifMC)[i])*w_  );
-// to be removed //        weightedPDFEvents_.push_back( ( (*classifMC)[i]) );
-// to be removed //	weightedPDFSelectedEvents_.push_back(0);
-// to be removed //        weighted2PDFSelectedEvents_.push_back(0);
-// to be removed //      }
-// to be removed //    }
-// to be removed //    else{ for(int i=14; i<classifMC->GetNoElements();++i ){ weightedPDFEvents_[i-14] += (*classifMC)[i] ; } }
-// to be removed //  }
-// to be removed //  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //  
-// to be removed //  // see if we are processing electron channel or muon channel /////////////////////////////////
-// to be removed //  if (  ( !eChONmuChOFF_ && evType_ == ETAU_) || (eChONmuChOFF_ && evType_ == MUTAU_  ) ) return;
-// to be removed //  //////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //  
-// to be removed //  
-// to be removed //  // are triggers exclusive ?///////////////////////////////////////////////////
-// to be removed //  //if( hasEGtrig && hasMuTrig ){ if( num_e==1 && numb_m== 1 ){ evType_ = EMU_; }
-// to be removed //  //////////////////////////////////////////////////////////////////////////////
-// to be removed //  
-// to be removed //  // is muon/electron veto satisfied? ///////////////////////////////////////////////////////////////////
-// to be removed //  if( numb_e + numb_m != 1){  lepReq=false; }
-// to be removed //  if(      lepReq && evType_ == MUTAU_){
-// to be removed //    if( LooseMuonVeto( m_init[0], muons )           ){ lepReq=false; }   //see if we have loose muons
-// to be removed //    if( LooseElectronVeto(evR_,-1,electrons)        ){ lepReq=false; }   //see if we have loose electrons
-// to be removed //  }   
-// to be removed //  else if( lepReq && evType_ == ETAU_){
-// to be removed //    //see if we have loose muons
-// to be removed //    if( LooseMuonVeto(-1,muons) )                    { lepReq=false; }   //see if we have loose muons
-// to be removed //    if( LooseElectronVeto(evR_,e_init[0],electrons) ){ lepReq=false; }   //see if we have loose electrons
-// to be removed //  }
-// to be removed //  ////////////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //  
-// to be removed //  
-// to be removed //  // MHT computation ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //  mht_=-2; mhtb_=-2; //initial value 
-// to be removed //  if     (   lepReq && evType_ == MUTAU_ ){ computeMHT( jets, jetsForMHT_afterLeptonRemoval, muons[0]);      computeMHTb( jets, jetsForMHT_afterLeptonRemoval); }
-// to be removed //  else if(   lepReq && evType_ == ETAU_  ){ computeMHT( jets, jetsForMHT_afterLeptonRemoval, electrons[0]);  computeMHTb( jets, jetsForMHT_afterLeptonRemoval); }
-// to be removed //  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// to be removed //  
-// to be removed //
-// to be removed //  if(newPhys){ newPhysics(vertices, muons,m_init,electrons,e_init,taus,t_afterLeptonRemoval,jets,j_final,numbJets,junc,jerFactors,myKey,ev);}
-// to be removed //  
-// to be removed //  dileptonEventAnalysis(lepReq, vertices, muons,m_init,electrons,e_init,taus,t_afterLeptonRemoval,jets,j_final,numbJets,junc,jerFactors,myKey,ev);
-// to be removed //
-// to be removed //
-// to be removed //}
-// to be removed //
-// to be removed //
 
 void CutflowAnalyzer::tauDileptonSelection(
   bool lepReq,
@@ -1122,7 +863,8 @@ void CutflowAnalyzer::tauDileptonSelection(
     for(uint j=0; j<j_final.size(); ++j){  
       int j_ind = j_final[j]; 
       double btagvalue = jets[j_ind][BTAGIND_] ;
-      if( btagvalue>BTAG_CUT_){nbtags_taus++;} 
+      if( btagvalue>BTAG_CUT_){nbtags_taus++; }
+      cout << "DEBUG: jet number " << j << " has btag discriminator " << btagvalue << ". Currently we have already selected " << nbtags_taus << " btags" << endl; 
     }
   }
   else {
@@ -1627,7 +1369,7 @@ void CutflowAnalyzer::tauDileptonSelection(
     fillTauDileptonObjHistograms(junc,v,mets[0],tauDilCh,myKey,"OS",m_init,muons,e_init,electrons,t_afterLeptonRemoval,taus,j_final,jets,jerFactors,metValue,nbtags_taus);
 
     //SPY AFTER TAU ID AND OS /////////////////////////////////////////////////////////////////////////
-    //if(jes_== 0 && unc_== 0 && jer_== 0 && btagunc_==0 && pu_ == NOPU ) listOfReaders_[0]->SpyEvent();
+    if(jes_== 0 && unc_== 0 && jer_== 0 && btagunc_==0 && pu_ == NOPU ) listOfReaders_[0]->SpyEvent();
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
    
@@ -3786,6 +3528,8 @@ void CutflowAnalyzer::wPlusJetAnalysis(TString myKey, event::MiniEvent_t *ev,dou
   for(size_t itag=0; itag<evTags.size(); ++itag){
     mon_.fillHisto("recow_pt", evTags[itag], thewpt, w_);
   }
+  
+  // Recoiling jets
   
 // manipulate for w //  if( url_ == TTBAR_URL){
 // manipulate for w //    double tPt(99999.), tbarPt(99999.);

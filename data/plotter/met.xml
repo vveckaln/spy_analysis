@@ -10,7 +10,7 @@
 
 
 
-  <id tag="muCh_met_OS" doratio="1" logy="1" cmspublic="y" opt="e1"  uflow="0" title="" ytitle="Events / 40 GeV" xtitle="E_{T}^{miss} [GeV]" yrange="1,20000" oflow="1" xbin="40" xrange="40,500" >
+  <id tag="muCh_met_OS" doratio="1" logy="1" cmspublic="y" opt="e1"  uflow="0" title="" ytitle="Events / 40 GeV" xtitle="E_{T}^{miss} [GeV]" yrange="1,10000" oflow="1" xbin="40" xrange="40,500" >
       <item dir="PFlow/RecoSteps/lep_tau/OS" >pt_met_9</item>
       </id>
       

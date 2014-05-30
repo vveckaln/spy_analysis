@@ -181,7 +181,8 @@ private:
   vector<double> hmax_;
   vector<Int_t> unbinned_;
   vector<Int_t> smoothOrder_;
-
+  vector<Int_t> doLogy_;
+  
   TCanvas* canvas_;
 
   // RooFit stuff

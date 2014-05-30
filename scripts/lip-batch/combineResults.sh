@@ -16,12 +16,33 @@ if [ "${2}" = "hadd" ]; then
 #    elif ["${3}" = "ABCD" ]; then
  #   hadd -f out-data.root out-Muon_RunA_*.root out-Muon_RunB_*.root out-Muon_RunC_1_*.root out-Muon_RunC_2_*.root out-Muon_RunD_1_*.root out-Muon_RunD_2_*.root &
 	
-	
-	hadd -f out-data.root out-Muon_RunB_*.root out-Muon_RunC_1_*.root out-Muon_RunC_2_*.root out-Muon_RunD_1_*.root out-Muon_RunD_2_*.root 
-	
-	
+	if [ "${4}" = "muon" ]; then
+	    hadd -f out-data.root out-Muon_RunA_*.root out-Muon_RunB_*.root out-Muon_RunC_1_*.root out-Muon_RunC_2_*.root out-Muon_RunD_1_*.root out-Muon_RunD_2_*.root out-MuonMissing_RunB_*.root out-MuonMissing_RunC_1_*.root out-MuonMissing_RunC_2_*.root out-MuonMissing_RunD_1_*.root out-MuonMissing_RunD_2_*.root 
+	elif [ "${4}" = "electron" ]; then
+	    hadd -f out-data.root out-Electron_RunA_*.root out-Electron_RunB_*.root out-Electron_RunC_leg1_*.root out-Electron_RunC_leg2_*.root out-Electron_RunD_leg1_*.root out-Electron_RunD_leg2_*.root out-Electron_MisB_*.root out-Electron_RunC_mis1_*.root out-Electron_RunC_mis2_*.root out-Electron_RunD_mis1_*.root out-Electron_RunD_mis2_*.root   
+	fi
+	    
 #    fi
 	
+    fi
+
+    if [ "${3}" = "embed" ]; then
+	DATAPLACE="${1}/nomt-2012-V1-data-MU-20GeV/"
+     #DATAPLACE="/lustre/data3/cmslocal/vischia/tau_dilepton/outputFiles444_3/mt-2011-V1-data-MU-20GeV/"
+	cd $DATAPLACE
+#    if [ "${3}" = "AB" ]; then
+#    	hadd -f out-data.root out-Muon_RunA.root out-Muon_RunA_06AugRecover.root out-Muon_RunB_*.root
+#    elif ["${3}" = "ABC" ]; then
+#        hadd -f out-data.root out-Muon_RunA.root out-Muon_RunA_06AugRecover.root out-Muon_RunB_*.root out-Muon_RunC1.root out-Muon_RunC2_*.root
+#    elif ["${3}" = "ABCD" ]; then
+ #   hadd -f out-data.root out-Muon_RunA_*.root out-Muon_RunB_*.root out-Muon_RunC_1_*.root out-Muon_RunC_2_*.root out-Muon_RunD_1_*.root out-Muon_RunD_2_*.root &
+	
+	hadd -f out-embedded-data.root out-Embedded_RunA_*.root out-Embedded_RunB_*.root out-Embedded_RunC_1_*.root out-Embedded_RunC_2_*.root out-Embedded_RunD_1_*.root out-Embedded_RunD_2_*.root 	
+#    fi
+
+	DATAPLACE="${1}/nomt-2012-V1-mc-MU-20GeV/"
+	cd $DATAPLACE
+        hadd -f out-embedded-ttbar.root out-embedded-ttbar_*.root
     fi
 
     DATAPLACE="${1}/nomt-2012-V1-mc-MU-20GeV/"
@@ -119,10 +140,12 @@ if [ "${2}" = "hadd" ]; then
 	hadd -f $DATAPLACE/out-heavyHiggs-pythia-m300.root $DATAPLACE/out-tbh-pythia-m300.root $DATAPLACE/out-htb-pythia-m300.root 
 	cp  $DATAPLACE/out-htb-pythia-m350.root $DATAPLACE/out-heavyHiggs-pythia-m350.root                                         
     elif [ "${3}" = "mc2_8" ]; then
-	cp  $DATAPLACE/out-htb-pythia-m400.root $DATAPLACE/out-heavyHiggs-pythia-m400.root                                         
-	cp  $DATAPLACE/out-htb-pythia-m500.root $DATAPLACE/out-heavyHiggs-pythia-m500.root                                         
-	cp  $DATAPLACE/out-htb-pythia-m600.root $DATAPLACE/out-heavyHiggs-pythia-m600.root                                         
+	hadd -f $DATAPLACE/out-heavyHiggs-pythia-m400.root $DATAPLACE/out-tbh-pythia-m400.root $DATAPLACE/out-htb-pythia-m400.root 
+	hadd -f $DATAPLACE/out-heavyHiggs-pythia-m500.root $DATAPLACE/out-tbh-pythia-m500.root $DATAPLACE/out-htb-pythia-m500.root 
+	hadd -f $DATAPLACE/out-heavyHiggs-pythia-m600.root $DATAPLACE/out-tbh-pythia-m600.root $DATAPLACE/out-htb-pythia-m600.root 
 	cp  $DATAPLACE/out-htb-pythia-m700.root $DATAPLACE/out-heavyHiggs-pythia-m700.root                                         
+    elif [ "${3}" = "mc2_9" ]; then
+	hadd -f $DATAPLACE/out-wmultijets.root $DATAPLACE/out-wjets.root $DATAPLACE/out-qcd.root
     fi
 	
 elif [ "${2}" = "clean" ]; then

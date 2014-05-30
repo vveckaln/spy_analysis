@@ -48,6 +48,14 @@ if [ "${1}" = "1" ]; then
 elif [ "${1}" = "2" ]; then
 ### #####qsub -v LIPCMS_BASE${LIPCMS_BASE}/    ./job-ttbar-unc.sh
 
+    for i in $(seq 0 9); do
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-data-MissingRunB.sh ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-data-MissingRunC1.sh ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-data-MissingRunC2.sh ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-data-MissingRunD1.sh ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-data-MissingRunD2.sh ${i}
+    done
+
     for i in $(seq 0 99); do
     # 700 jobs
 	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-qcd.sh 1 ${i}
@@ -62,22 +70,22 @@ elif [ "${1}" = "2" ]; then
     for i in $(seq 0 29); do
     # 510 jobs
 	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-qcd.sh 10 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 180 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 200 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 220 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 240 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 250 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 260 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 280 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 300 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 180 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 200 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 220 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 240 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 250 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 260 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 280 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 300 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 180 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 200 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 220 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 240 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 250 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 260 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 280 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 300 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 180 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 200 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 220 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 240 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 250 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 260 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 280 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 300 ${i}
     done
     
     qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-qcd.sh 14 0
@@ -85,8 +93,8 @@ elif [ "${1}" = "2" ]; then
     qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-wh-higgs.sh
     qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-hh-higgs-bychannel.sh
     qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-hh-higgs.sh
-    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-tbh-higgs.sh
-    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-tbh-higgs-bychannel.sh
+###    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-tbh-higgs.sh
+###    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-tbh-higgs-bychannel.sh
     
 
 ### #qsub -v LIPCMS_BASE${LIPCMS_BASE}/    ./job-trigger-mht.sh
@@ -97,19 +105,19 @@ elif [ "${1}" = "2" ]; then
 	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-zjets_from50.sh ${i}
     done
     
-    for i in $(seq 0 30); do
-    # 300 jobs
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 350 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 400 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 500 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 600 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 700 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 350 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 400 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 500 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 600 ${i}
-	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 700 ${i}
-    done
+###    for i in $(seq 0 30); do
+###    # 300 jobs
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 350 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 400 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 500 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 600 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 700 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 350 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 400 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 500 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 600 ${i}
+###	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 700 ${i}
+###    done
     
     for i in $(seq 0 19); do 
     # 60 jobs
@@ -117,8 +125,45 @@ elif [ "${1}" = "2" ]; then
 	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-hhhtautaubb-higgs.sh 300 0
 	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-hhhtautaubb-higgs.sh 350 0
     done
-    
-
+elif [ "${1}" = "embed" ]; then
+    echo "Submitting embedding jobs..." 
+    for i in $(seq 0 9); do
+        # tau embedding jobs
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-embed-data-RunA.sh ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-embed-data-RunB.sh ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-embed-data-RunC1.sh ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-embed-data-RunC2.sh ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-embed-data-RunD1.sh ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-embed-data-RunD2.sh ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-embed-ttbar.sh ${i}
+    done    
+elif [ "${1}" = "higgsonly" ]; then
+    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-tbh-higgs.sh
+    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-tbh-higgs-bychannel.sh
+    for i in $(seq 0 30); do
+    # 300 jobs
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 180 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 200 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 220 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 250 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 300 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 350 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 400 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 500 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 600 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs.sh 700 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 180 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 200 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 220 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 250 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 300 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 350 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 400 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 500 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 600 ${i}
+	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-htb-higgs-bychannel.sh 700 ${i}
+    done
+elif [ "${1}" = "tbhonly" ]; then
+    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-tbh-higgs.sh
+    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-tbh-higgs-bychannel.sh
 fi
-
-exit 0

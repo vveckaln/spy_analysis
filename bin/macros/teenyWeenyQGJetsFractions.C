@@ -112,7 +112,7 @@ void teenyWeenyQGJetsFractions(){
   tdrStyle->SetTitleSize(0.05, "XYZ");
   // tdrStyle->SetTitleXSize(Float_t size = 0.02); // Another way to set the size?
   // tdrStyle->SetTitleYSize(Float_t size = 0.02);
-  tdrStyle->SetTitleXOffset(0.9);
+  tdrStyle->SetTitleXOffset(1.1);
   tdrStyle->SetTitleYOffset(1.25);
   // tdrStyle->SetTitleOffset(1.1, "Y"); // Another way to set the Offset
 //  tdrStyle->SetTitleOffset(.3, "X"); // Another way to set the Offset
@@ -176,10 +176,14 @@ void teenyWeenyQGJetsFractions(){
 //   TFile* ttll = new TFile("/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_7_patch4/chiggs//nomt-2012-V1-mc-MU-20GeV/out-ttbar_ddbkg.root");
 //   TFile* wjet = new TFile("/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_7_patch4/chiggs//nomt-2012-V1-mc-MU-20GeV/out-wjets.root");
 
+  TFile* signal = new TFile("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_noTopPtRew//nomt-2012-V1-mc-MU-20GeV/out-htb-pythia-m250.root");
   TFile* ttll = new TFile("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_noTopPtRew//nomt-2012-V1-mc-MU-20GeV/out-ttbar-ddbkg.root");
   TFile* wjet = new TFile("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_noTopPtRew//nomt-2012-V1-mc-MU-20GeV/out-wjets.root");
 
 
+  TH1F* hsignalq = (TH1F*) ((TH1F*) signal->Get("PFlow/Bkg/m_tau/wplusjets_pt_allquark_3"))->Clone("hsignalq_wplusjets_pt");	       
+  TH1F* hsignalg = (TH1F*) ((TH1F*) signal->Get("PFlow/Bkg/m_tau/wplusjets_pt_gluon_3"))->Clone("hsignalg_wplusjets_pt");	       
+  TH1F* hsignala = (TH1F*) ((TH1F*) signal->Get("PFlow/Bkg/m_tau/wplusjets_pt_3"))->Clone("hsignala_wplusjets_pt");	       
 
   
   TH1F* httllq = (TH1F*) ((TH1F*) ttll->Get("PFlow/Bkg/m_tau/wplusjets_pt_allquark_3"))->Clone("httllq_wplusjets_pt");	       
@@ -192,6 +196,9 @@ void teenyWeenyQGJetsFractions(){
   TH1F* hwjeta = (TH1F*) ((TH1F*) wjet->Get("PFlow/Bkg/m_tau/wplusjets_pt_3")         )->Clone("hwjeta_wplusjets_pt");	       
 
   hwjetg->Add(hwjetu,1.);
+
+  double signalfq = hsignalq->Integral() / (hsignalq->Integral() + hsignalg->Integral());
+  double signalfg = hsignalg->Integral() / (hsignalq->Integral() + hsignalg->Integral());
 
   double ttllfq = httllq->Integral() / (httllq->Integral() + httllg->Integral());
   double ttllfg = httllg->Integral() / (httllq->Integral() + httllg->Integral());
@@ -344,10 +351,14 @@ void teenyWeenyQGJetsFractions(){
     myCanva->cd();
 
     if(i<2){
+      numQ->GetXaxis()->SetTitleOffset(1.0);
+      numQ->GetYaxis()->SetTitleOffset(1.0);
       numQ->Draw("hist");
       numG->Draw("histsame");
     }
     else{
+      numG->GetXaxis()->SetTitleOffset(1.0);
+      numG->GetYaxis()->SetTitleOffset(1.0);
       numG->Draw("hist");
       numQ->Draw("histsame");
     }
@@ -375,8 +386,13 @@ void teenyWeenyQGJetsFractions(){
 
   TH1F* finalNum_qf = (TH1F*) httllq->Clone("finalNum_qf");
   TH1F* finalNum_gf = (TH1F*) httllg->Clone("finalNum_gf");
+
+  TH1F* signalFinalNum_qf = (TH1F*) hsignalq->Clone("signalFinalNum_qf");
+  TH1F* signalFinalNum_gf = (TH1F*) hsignalg->Clone("signalFinalNum_gf");
   
   TH1F* finalDen = (TH1F*) httllq->Clone("finalDen_qf"); finalDen_qf->Add(httllg);
+
+  TH1F* signalFinalDen = (TH1F*) hsignalq->Clone("signalFinalDen_qf"); signalFinalDen_qf->Add(hsignalg);
 
 
   finalNum_qf->Divide(finalDen);
@@ -388,6 +404,17 @@ void teenyWeenyQGJetsFractions(){
   
   finalNum_qf->SetLineWidth(3);    
   finalNum_gf->SetLineWidth(3);    
+
+
+  signalFinalNum_qf->Divide(signalFinalDen);
+  signalFinalNum_gf->Divide(signalFinalDen);
+
+
+  signalFinalNum_qf->SetLineColor(2);    
+  signalFinalNum_gf->SetLineColor(4);
+  
+  signalFinalNum_qf->SetLineWidth(3);    
+  signalFinalNum_gf->SetLineWidth(3);    
   
   //    TLegend* leg_ = new TLegend(0.15,0.65,0.62,0.80,NULL,"brNDC");
   TLegend* leg_ = new TLegend(0.40,0.50,0.80,0.70,NULL,"brNDC");
@@ -411,7 +438,13 @@ void teenyWeenyQGJetsFractions(){
   //  TText *text = pt1->AddText("#splitline{m_{H^{#pm}} = 120 GeV/c^{2},}{BR(t #rightarrow H^{+}b) = 0.05}");
   TCanvas* myCanva = new TCanvas("mainsel","Main selection",2000,2000);
   myCanva->cd();
-  
+
+  finalNum_qf->GetYaxis()->SetTitle("Jet content");	 
+  finalNum_qf->GetXaxis()->SetTitleSize(0.05);	 
+  finalNum_qf->GetYaxis()->SetTitleSize(0.05);	 
+  finalNum_qf->GetXaxis()->SetTitleOffset(1.0);
+  finalNum_qf->GetYaxis()->SetTitleOffset(1.0);
+    
   finalNum_qf->Draw("hist");
   finalNum_gf->Draw("histsame");
   
@@ -422,6 +455,29 @@ void teenyWeenyQGJetsFractions(){
   myCanva->SaveAs("finalSelection.root");
   myCanva->SaveAs("finalSelection.C");
   myCanva->Clear();
+
+
+  TCanvas* myCanva2 = new TCanvas("signal","Signal",2000,2000);
+  myCanva2->cd();
+  signalFinalNum_qf->GetYaxis()->SetTitle("Jet content");	 
+  signalFinalNum_qf->GetXaxis()->SetTitleSize(0.05);	 
+  signalFinalNum_qf->GetYaxis()->SetTitleSize(0.05);	 
+  signalFinalNum_qf->GetXaxis()->SetTitleOffset(1.0);
+  signalFinalNum_qf->GetYaxis()->SetTitleOffset(1.0);
+    
+  signalFinalNum_qf->Draw("hist");
+  signalFinalNum_gf->Draw("histsame");
+  
+  leg_->Draw();
+  //    pt1->Draw("same");
+  myCanva2->SaveAs("signalFinalSelection.pdf");
+  myCanva2->SaveAs("signalFinalSelection.png");
+  myCanva2->SaveAs("signalFinalSelection.root");
+  myCanva2->SaveAs("signalFinalSelection.C");
+  myCanva2->Clear();
+  delete myCanva2;
+
+
   delete myCanva;
   delete pt1;
   delete finalNum_qf;

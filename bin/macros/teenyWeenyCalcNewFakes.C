@@ -4,11 +4,9 @@ void teenyWeenyCalcNewFakes(){
   double 
 // preapp //     mcExp(2567.7+210.0),//2690.7),
 // preapp //     mcErr(sqrt(39.1*39.1+60.3*60.3));//77.3);
+    mcExp(1563+141),//1448+137),//2690.7),
+    mcErr(sqrt(32+32+38+38));//29*29+37*37));//77.3);
 
-     mcExp(1448+137),//2690.7),
-     mcErr(sqrt(29*29+37*37));//77.3);
-  
-  
   double
     // Fractions
      a1(0.62),
@@ -96,8 +94,22 @@ void teenyWeenyCalcNewFakes(){
 // preapp //     i1(2903.62),//3650.0),  // W+jets
 // preapp //     i2(2449.51);//2538.0);  // QCD
     
-    i1(2451), // W+jets
-    i2(1815); // QCD
+    i1(2593),//2451), // W+jets
+    i2(1927);//1815); // QCD
+
+
+
+//  \begin{tabular}{c|c|c|c}
+//  \multicolumn{4}{c}{ } \\
+//\hline
+//Sample &  MC expectation & Estimated from MC & Estimated from data  \\\hline
+//\hline
+//			  QCD multi-jet & \multirow{3}{*}{740.16$\pm$21.4709} & 2031.81 & 1927.16 \\\cline{1-1} \cline{3-4}
+//  W+jets &   & 2704.95 & 2593.24 \\\cline{1-1} \cline{3-4}
+//Average &  & 2368.38$\pm$14.211\% & 2260.2$\pm$14.7349\%  \\\hline
+//\hline
+//  \end{tabular}
+//  
 
 
 //

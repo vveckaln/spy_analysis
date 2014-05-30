@@ -9,6 +9,20 @@
     <item dir="PFlow/RecoSteps/lep_tau/#geq 3 jet">eta_m_4</item>
   </id>
 
+  <!-- DeltaR between lepton and jet (After lepton + 3jets) -->
+   <id tag="muCh_DR1_m_jet" doratio="1" logy="1" cmspublic="y" opt="e1" oflow="0" uflow="0" title="" ytitle="Events" xrange="0,6" xtitle="#Delta R (#mu, jet)" yrange="10,2000000"  >
+    <item dir="PFlow/RecoSteps/lep_tau/#geq 3 jet">DR1_lepton_jet_4</item>
+  </id>
+   <id tag="muCh_DR2_m_jet" doratio="1" logy="1" cmspublic="y" opt="e1" oflow="0" uflow="0" title="" ytitle="Events" xrange="0,6" xtitle="#Delta R (#mu, jet)" yrange="10,2000000" >
+    <item dir="PFlow/RecoSteps/lep_tau/#geq 3 jet">DR2_lepton_jet_4</item>
+  </id>
+   <id tag="muCh_DR3_m_jet" doratio="1" logy="1" cmspublic="y" opt="e1" oflow="0" uflow="0" title="" ytitle="Events" xrange="0,6" xtitle="#Delta R (#mu, jet)" yrange="10,2000000"  >
+    <item dir="PFlow/RecoSteps/lep_tau/#geq 3 jet">DR3_lepton_jet_4</item>
+  </id>
+   <id tag="muCh_DRALL_m_jet" doratio="1" logy="1" cmspublic="y" opt="e1" oflow="0" uflow="0" title="" ytitle="Events" xrange="0,6" xtitle="#Delta R (#mu, jet)" yrange="10,2000000" >
+    <item dir="PFlow/RecoSteps/lep_tau/#geq 3 jet">DRALL_lepton_jet_4</item>
+  </id>
+
 
   <!-- tau pt and eta distrubition (After 1tau ) -->
 

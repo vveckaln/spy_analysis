@@ -1,4 +1,4 @@
-# CMSSW_5_3_7 instructions:
+# CMSSW_5_3_9 instructions:
 # -------------------------
 
 # PAT recipe V08-09-52
@@ -103,3 +103,23 @@ cvs co -r V13-03-07 -d LIP/TopTaus UserCode/LIP/TopTaus
 
 ### BLUE
 svn co svn+ssh://svn.cern.ch/reps/bluefin/bluefin/tags/BLUEFIN_01_00_03
+
+
+
+
+#####################################################################################
+######################## CMSSW_5_3_11_patch6 ########################################
+
+git cms-addpkg PhysicsTools/PatAlgos
+git cms-merge-topic -u vadler:53X-tagset133511
+git cms-addpkg PhysicsTools/PatUtils
+# To add the PAT tutorial code
+git cms-merge-topic -u vadler:53X-tagset133512
+# To add the latest b-tags (  differs from standard RECO)
+git cms-merge-topic -u vadler:53X-tagset133511-newBTagging
+# To add the latest EGM isolation definition (  differs from standard RECO)
+git cms-merge-topic -u vadler:53X-tagset133511-newEGIsolation
+# To add the latest Tau discriminators (identical to Tau ID recommendedation) ( differs from standard RECO)
+git cms-merge-topic -u cms-tau-pog:CMSSW_5_3_X
+
+scram b -j 9

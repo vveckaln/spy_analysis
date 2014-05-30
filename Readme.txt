@@ -16,6 +16,16 @@ its libraries - whoah running time is already 1/2 than before, LoL
 ------------
 Installation
 ------------
+# 5311_patch6 (for analysis only)
+setenv SCRAM_ARCH slc5_amd64_gcc462
+scramv1 project CMSSW CMSSW_5_3_11_patch6
+cd CMSSW_5_3_11_patch6/src/
+cmsenv
+# go then to the TAGS_2012.txt to its "CMSSW_5_3_11_patch6" section :)
+
+
+
+
 # 539
 setenv SCRAM_ARCH slc5_amd64_gcc462
 scramv1 project CMSSW CMSSW_5_3_9

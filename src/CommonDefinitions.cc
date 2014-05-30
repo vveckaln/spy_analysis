@@ -78,9 +78,9 @@ namespace commondefinitions{
   bool APPLY_MT_CUT_    = false;
   bool applybtagweight_ = true; // Finally
   bool MODE_ = STARTING_AT_LJETS_; //MODE_ = STARTING_AT_LJETSPLUSMET_;
-  bool eChONmuChOFF_ = false;
-  double LUM_ = 19258.225; // Full 2012 ReReco 539
-  
+  double LUM_ = 19696.; // Full 2012 ReReco 539
+  bool eChONmuChOFF_; // Set through config file
+   
   int BTAGIND_; double BTAG_CUT_;
   TString puFileName_;
   /////////////////////////////////////////////////////////////////////

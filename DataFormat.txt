@@ -1,0 +1,269 @@
+
+
+################## EventInfo #####################
+
+  //the event info
+  std::vector<double> classifInfo;
+
+
+0:  MonteCarlo event type (EE, EMU, ETAU etc)
+1:  B field during the event
+2:  Number of pileup vertices
+3:  Number of out-of-time pileup vertices
+4:  Pileup weight of the event
+5:  Default pileup weight of the event
+6:  Out-of-time pileup weight of the event
+7:  Default out-of-time pileup weight of the event
+8:  True number of simulated pileup vertices (MC) 
+9:  Weight for embedding
+10: Weight for embedding (old version)
+
+
+#################### TriggerInfo ##################
+
+0: SingleMuon trigger fired
+1: SingleElectron trigger fired
+3: Jet trigger fired
+4: qualified trigger firing
+
+
+################### VertexInfo  ######################
+
+0: chi2 of the vertex fit
+1: sumpt of the tracks fitted to the vertex
+2: number of the tracks fitted to the vertex
+3: fraction of tracks classified as HighPurity ones
+4: vertex classification ID
+5: x coordinate of the vertex
+6: y coordinate of the vertex
+7: z coordinate of the vertex
+
+
+################## ElectronInfo ######################
+
+	  std::vector<double> info(32+(scInfo? scInfo->size():0)+3, 0
+0:  charge*11  (11 being pdgId corresponding to Electron)
+1:  pdgId of associated genParticle. 0 if there no associated genParticle is found
+2:  pdgId of the mother particle. 0 if there is no mother found
+3:  ecalDrivenSeed + trackerDrivenSeed (bitshifted <<1) + isPFlow (bitshifted <<8)
+4:  sigmaIetaIeta;
+5:  eSuperClusterOverP;
+6:  hadronicOverEm;
+7:  fbrem;
+8:  deltaEtaSuperClusterTrackAtVtx;
+9:  deltaEtaEleClusterTrackAtCalo;
+10: deltaPhiSuperClusterTrackAtVtx;
+11: deltaPhiEleClusterTrackAtCalo;
+if(isPFlow){
+12: OR of bitshifted electronID codes:
+                          eidLoose
+                          eidTight << 1
+	            eidRobustLoose << 2
+	            eidRobustTight << 3
+          //     eidRobustHighEnergy << 4
+          //       simpleEleId70cIso << 5
+          //       simpleEleId80cIso << 6
+          //       simpleEleId90cIso << 7
+          //       simpleEleId95cIso << 8
+          //       simpleEleId85cIso << 9
+13: mvaTrigV0 electron ID
+}
+else{
+12: OR of bitshifted electronID codes:
+                         eidLoose
+                         eidTight << 1)
+                   eidRobustLoose << 2)
+                   eidRobustTight << 3)
+         //     eidRobustHighEnergy << 4)
+         //       simpleEleId70cIso << 5)
+         //       simpleEleId80cIso << 6)
+         //       simpleEleId90cIso << 7)
+         //       simpleEleId95cIso << 8)
+         //       simpleEleId85cIso << 9);
+13: mvaTrigV0 electron ID mvaTrigV0
+}
+14: minimum DR with respect to muon
+15: tracker isolation (TRKISO)
+16: ecal isolation (ECALISO)
+17: hcal isolation (CALOISO)
+18: relative combined iso (RELISO)
+19: tracker isolation (TRKISO)	  (dr04)
+20: ecal isolation (ECALISO)	  (dr04)
+21: hcal isolation (CALOISO)	  (dr04)
+22: relative combined iso (RELISO)(dr04)
+23: normalized chi2 of the electron track
+24: numberOfValidHits+1000*numberOfLostHitsInnerLayer (from the electron track)
+25: impact parameter first value
+26: impact parameter first significance
+27: impact parameter second value
+28: impact parameter second significance
+29: z of the vertex associated to the electron
+30: pt of the trigger object associated to this electron, if applicable
+43: relative isolation from Rho corrections
+44: rho      
+45: loose PF isolation with deltabeta corrections dr04
+
+
+########################## MuonInfo ############################
+
+0:  Muon charge * 13 (pdgId of Muon)
+1:  pdgId of associated genParticle. 0 if there no associated genParticle is found
+2:  pdgId of the mother particle. 0 if there is no mother found
+3:  type of muon + (isPFlow << 8)
+4:  normalized chi2 of the track (if there is a track associated to the muon: unset otherwise)
+5:  number of valid hits of the track (if there is a track associated to the muon: unset otherwise)
+6:  normalized chi2 from the global track (if muon is GlobalMuon: unset otherwise)
+7:  numberOfValidMuonHits from the global track (if muon is GlobalMuon: unset otherwise)
+8:  emEnergy/trackP (if isEnergyValid: unset otherwise)
+9:  (hadEnergy+hoEnergy)/emEnergy (if isEnergyValid: unset otherwise)
+10: idPattern for global muon (if muon is GlobalMuon: unset otherwise)
+11: impact parameter first value
+12: impact parameter first significance
+13: impact parameter second value
+14: impact parameter second significance
+15: tracker isolation (TRKISO)     (dr04)
+16: ecal isolation (ECALISO)	   (dr04)
+17: hcal isolation (CALOISO)	   (dr04)
+18: relative combined iso (RELISO) (dr04)
+19: tracker isolation (TRKISO)     (dr05)
+20: ecal isolation (ECALISO)	   (dr05)
+21: hcal isolation (CALOISO)	   (dr05)
+22: relative combined iso (RELISO) (dr05)
+23: z of the vertex associated to the muon
+24: pt of the trigger object associated to this electron, if applicable
+25: relative isolation from Rho corrections
+26: rho      
+27: loose PF isolation with deltabeta corrections dr04
+	
+
+
+######################### TauInfo ############################
+0: tau charge * 15 (pdgId of tau)
+1:  pdgId of associated genParticle. 0 if there no associated genParticle is found
+2:  pdgId of the mother particle. 0 if there is no mother found
+3:  number of prongs
+4:  leading track pt
+5:  leading pftrack pt
+6:  absolute iso pt
+7:  associated jet pt
+8:  associated jet eta
+9:  associated jet phi
+10: number of neutral hadron candidates
+11: maximum impact parameter
+12: error on maximum impact parameter
+13: isolation tracks sumpt
+14: isolation ecal sumet
+15: associated pfjet em fraction
+16: momentum of leading track
+17: tau type
+18: leading pf charged track pt
+19: em fraction
+20: isolation discriminator 
+21: against muons discriminator (againstMuon[Loose|Medium|Tight]2 [4|5|6] 
+22: against electrons discriminator (againstElectron[Loose|Medium|Tight]MVA3 [4|5|6] 
+23: not used
+24: not used
+25: isolation discriminator Loose bitshifted: 
+                                   byLooseCombinedIsolationDeltaBetaCorr
+			                             byLooseIsolationMVA << 1 
+                              byLooseCombinedIsolationDeltaBetaCorr3Hits << 2 
+                                                    byLooseIsolationMVA2 << 3 
+26: isolation discriminator Medium bitshifted:
+                                  byMediumCombinedIsolationDeltaBetaCorr
+                                                    byMediumIsolationMVA << 1 
+                             byMediumCombinedIsolationDeltaBetaCorr3Hits << 2 
+                                                   byMediumIsolationMVA2 << 3 
+27: isolation discriminator Tight bitshifted:
+                                   byTightCombinedIsolationDeltaBetaCorr 
+                                                     byTightIsolationMVA << 1 
+                              byTightCombinedIsolationDeltaBetaCorr3Hits << 2 
+                                                    byTightIsolationMVA2 << 3 
+28: byDecayMode discriminator
+29: TCHE (trackCountingHighEfficiency) btagging discriminator for the associated jet
+31: CSV  (combinedSecondaryVertex)     btagging discriminator for the associated jet
+30: z of the associated vertex	       
+32: relative isolation
+33: relative isolation (deltaBeta correction)
+34: radius of the associated jet:  sqrt(etaetaMoment + phiphiMoment) or 0 (if etaetaMoment+phiphiMoment < 0)
+35: byVLooseCombinedIsolationDeltaBetaCorr
+36: byMediumCombinedIsolationDeltaBetaCorr
+37: byTightCombinedIsolationDeltaBetaCorr
+38: old against electron discriminator (againstElectron[Loose|Medium|Tight])
+39: old against muon discriminator (againstElectron[Loose|Medium|Tight])
+
+###################################### JetInfo ##########################################
+0:  type of object (event::JET)
+1:  pdgId of associated genParton. 0 if there no associated genJet is found
+2:  pdgId of the mother of the associated parton. 0 if there is no mother or no associated genJet found
+3:  jet clustering algorythm (AK5PFJets)
+4:  pt of the trigger object associated to this jet, if applicable
+5:  raw	JEC
+6:  offset JEC	 
+7:  relative JEC
+8:  absolute JEC
+9:  residual JEC
+10: flavor   JEC
+11: parton   JEC
+12: trackCountingHighEffBJetTags btagging discriminator
+13: trackCountingHighPurBJetTags btagging discriminator
+14: jetProbabilityBJetTags       btagging discriminator
+15: distance to the closest lepton
+16: jetAlpha w.r.t. the primary vertex, if there is primary vertex found
+if(j->isPFJet())  (actually, we have only PFJets now)
+{	  
+17: chargedHadronEnergyFraction
+18: neutralHadronEnergyFraction
+19: neutralHadronEnergy + HFHadronEnergy ) / energy
+20: chargedEmEnergyFraction
+21: neutralEmEnergyFraction
+22: chargedMultiplicity
+23: numberOfDaughters
+} 
+24: leading track charge
+25: leading track pt
+26: d03dmeas.second.value (if there is a primary vertex)
+27: d03dmeas.second.significance (if there is a primary vertex)
+28: jetCharge
+29: etaetaMoment
+30: phiphiMoment
+31: iJEC.size() >= 8 ? iJEC[7] : 0 );
+32: parton flavour
+33: combinedSecondaryVertexBJetTags btagging discriminator
+if(isMonteCarlo && there is a genjet associated to the jet){
+34: genJet pt
+35: genJet eta
+36: genJet phi
+}
+37: quark-gluon discriminator (not working)
+
+
+########################################## MetInfo #######################################
+0:  metAlgo
+1:  metSignificance
+if(isCaloMET){
+1:  metSignificance rewritten
+2:  emEtFraction
+3:  etFractionHadronic    
+}
+else if( isPFMET)
+2: neutralEMEtFraction + chargedEMEtFraction
+3: neutralHadEtFraction + chargedHadEtFraction
+} 
+
+
+########################################## GenInfo #######################################
+
+(Only for MC events)
+
+Classification:
+0: pthat
+1: qscale
+2: x1
+3: x2
+4: id1
+5: id2
+ 
+Info:
+0: candidate
+1: candidate pdgId
+2:  pdgId of the mother of the genParticle. 0 if there is no mother found

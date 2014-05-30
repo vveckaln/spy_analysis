@@ -123,35 +123,96 @@ SampleProcessor::SampleProcessor(double tauPtCut, TString inputArea, TString out
       defaultXSections_[WH160_URL]              = 245.8;                                           
       defaultXSections_[HH160_URL]              = 245.8;                                                                                 
       
+
+
+
+      //	      // mhmax, tanb5
+      //	      // This yields include branching ratio (which for the light charged higgs was identically 1 and thus not included)
+      //	      defaultXSections_[TBH180_URL]             = 2 * 22.6975  * 0.831852  ; 
+      //	      defaultXSections_[TBH190_URL]             = 2 * 20.4088  * 0.407966  ;   
+      //	      defaultXSections_[TBH200_URL]             = 2 * 18.4811  * 0.228564  ;   
+      //	      defaultXSections_[TBH220_URL]             = 2 * 15.4027  * 0.106446  ;  
+      //	      defaultXSections_[TBH250_URL]             = 2 * 11.9413  * 0.04129783; 
+      //	      defaultXSections_[TBH300_URL]             = 2 * 07.91902 * 0.02514242; 
+      //	
+      //	
+      //	      defaultXSections_[HTB180_URL]             = 2 * 22.6975  * (1 - 0.831852   ) ;/// 30.; 
+      //	      defaultXSections_[HTB190_URL]             = 2 * 20.4088  * (1 - 0.407966   ) ;/// 30.;   
+      //	      defaultXSections_[HTB200_URL]             = 2 * 18.4811  * (1 - 0.228564   ) ;/// 30.;   
+      //	      defaultXSections_[HTB220_URL]             = 2 * 15.4027  * (1 - 0.106446   ) ;/// 30.;  
+      //	      defaultXSections_[HTB240_URL]             = 2 * 12.9842  * (1 - 0.04902523 ) ;/// 30.; 
+      //	      defaultXSections_[HTB250_URL]             = 2 * 11.9413  * (1 - 0.04129783 ) ;/// 30.; 
+      //	      defaultXSections_[HTB260_URL]             = 2 * 10.9879  * (1 - 0.0361988  ) ;/// 30.;  
+      //	      defaultXSections_[HTB280_URL]             = 2 * 09.31608 * (1 - 0.02984434 ) ;/// 30.; 
+      //	      defaultXSections_[HTB300_URL]             = 2 * 07.91902 * (1 - 0.02514242 ) ;/// 30.; 
+      //	      defaultXSections_[HTB350_URL]             = 2 * 0.0536621 * (1.-0.01838561  ) ;/// 30.; 
+      //	      defaultXSections_[HTB400_URL]             = 2 * 0.0371904 * (1.-0.01402549  ) ;/// 30.; 
+      //	      defaultXSections_[HTB500_URL]             = 2 * 0.0187822 * (1.-0.006268037 ) ;/// 30.; 
+      //	      defaultXSections_[HTB600_URL]             = 2 * 0.0100715 * (1.-0.004805924 ) ;/// 30.; 
+      //	      defaultXSections_[HTB700_URL]             = 2 * 0.0056681 * (1.-0.004234392 ) ;/// 30.; 
+      
+ 
+//      // mhmodp, tanb5
+//      // This yields include branching ratio only 
+//      defaultXSections_[TBH180_URL]             = 2 * 0.731186; 
+//      defaultXSections_[TBH190_URL]             = 2 * 1.; // Dummy   
+//      defaultXSections_[TBH200_URL]             = 2 * 0.169792;   
+//      defaultXSections_[TBH220_URL]             = 2 * 0.080715;  
+//      defaultXSections_[TBH250_URL]             = 2 * 0.035701; 
+//      defaultXSections_[TBH300_URL]             = 2 * 0.022798; 
+//
+//      defaultXSections_[HTB180_URL]             = 2  * 0.241657 ;/// 30.; 
+//      defaultXSections_[HTB190_URL]             = 2  * 1. ; // Dummy
+//      defaultXSections_[HTB200_URL]             = 2  * 0.817053 ;/// 30.;   
+//      defaultXSections_[HTB220_URL]             = 2  * 0.869806 ;/// 30.;  
+//      defaultXSections_[HTB240_URL]             = 2  * 0.671911 ;/// 30.; 
+//      defaultXSections_[HTB250_URL]             = 2  * 0.664358 ;/// 30.; 
+//      defaultXSections_[HTB260_URL]             = 2  * 0.661665 ;/// 30.;  
+//      defaultXSections_[HTB280_URL]             = 2  * 0.661667 ;/// 30.; 
+//      defaultXSections_[HTB300_URL]             = 2  * 0.641995 ;/// 30.; 
+//      defaultXSections_[HTB350_URL]             = 2  * 0.583223 ;/// 30.; 
+//      defaultXSections_[HTB400_URL]             = 2  * 0.504500 ;/// 30.; 
+//      defaultXSections_[HTB500_URL]             = 2  * 0.253983 ;/// 30.; 
+//      defaultXSections_[HTB600_URL]             = 2  * 0.202538 ;/// 30.; 
+//      defaultXSections_[HTB700_URL]             = 2  * 0.180948 ;/// 30.; 
+//
+
+      // mhmodp, tanb30
       // This yields include branching ratio (which for the light charged higgs was identically 1 and thus not included)
-      defaultXSections_[TBH180_URL]             = 22.6975  * 0.831852  ; 
-      defaultXSections_[TBH190_URL]             = 20.4088  * 0.407966  ;   
-      defaultXSections_[TBH200_URL]             = 18.4811  * 0.228564  ;   
-      defaultXSections_[TBH220_URL]             = 15.4027  * 0.106446  ;  
-      defaultXSections_[TBH250_URL]             = 11.9413  * 0.04129783; 
-      defaultXSections_[TBH300_URL]             = 07.91902 * 0.02514242; 
+     
+      defaultXSections_[TBH180_URL]             = 2 * 0.901490; 
+      defaultXSections_[TBH190_URL]             = 2 * 1.;   
+      defaultXSections_[TBH200_URL]             = 2 * 0.534418;   
+      defaultXSections_[TBH220_URL]             = 2 * 0.367483;  
+      defaultXSections_[TBH250_URL]             = 2 * 0.257198; 
+      defaultXSections_[TBH300_URL]             = 2 * 0.192875; 
+      defaultXSections_[TBH400_URL]             = 2 * 0.151062; 
+      defaultXSections_[TBH500_URL]             = 2 * 0.110921; 
+      defaultXSections_[TBH600_URL]             = 2 * 0.095882; 
 
 
-      defaultXSections_[HTB180_URL]             = 22.6975  * (1 - 0.831852   ) ;/// 30.; 
-      defaultXSections_[HTB190_URL]             = 20.4088  * (1 - 0.407966   ) ;/// 30.;   
-      defaultXSections_[HTB200_URL]             = 18.4811  * (1 - 0.228564   ) ;/// 30.;   
-      defaultXSections_[HTB220_URL]             = 15.4027  * (1 - 0.106446   ) ;/// 30.;  
-      defaultXSections_[HTB240_URL]             = 12.9842  * (1 - 0.04902523 ) ;/// 30.; 
-      defaultXSections_[HTB250_URL]             = 11.9413  * (1 - 0.04129783 ) ;/// 30.; 
-      defaultXSections_[HTB260_URL]             = 10.9879  * (1 - 0.0361988  ) ;/// 30.;  
-      defaultXSections_[HTB280_URL]             = 09.31608 * (1 - 0.02984434 ) ;/// 30.; 
-      defaultXSections_[HTB300_URL]             = 07.91902 * (1 - 0.02514242 ) ;/// 30.; 
-      defaultXSections_[HTB350_URL]             = 0.0536621 * (1.-0.01838561  ) ;/// 30.; 
-      defaultXSections_[HTB400_URL]             = 0.0371904 * (1.-0.01402549  ) ;/// 30.; 
-      defaultXSections_[HTB500_URL]             = 0.0187822 * (1.-0.006268037 ) ;/// 30.; 
-      defaultXSections_[HTB600_URL]             = 0.0100715 * (1.-0.004805924 ) ;/// 30.; 
-      defaultXSections_[HTB700_URL]             = 0.0056681 * (1.-0.004234392 ) ;/// 30.; 
+      defaultXSections_[HTB180_URL]             = 2 * 0.081662;/// 30.; 
+      defaultXSections_[HTB190_URL]             = 2 * 1.;/// 30.;   
+      defaultXSections_[HTB200_URL]             = 2 * 0.455760;/// 30.;   
+      defaultXSections_[HTB220_URL]             = 2 * 0.625690;/// 30.;  
+      defaultXSections_[HTB240_URL]             = 2 * 0.692009;/// 30.; 
+      defaultXSections_[HTB250_URL]             = 2 * 0.705360;/// 30.; 
+      defaultXSections_[HTB260_URL]             = 2 * 0.717428;/// 30.;  
+      defaultXSections_[HTB280_URL]             = 2 * 0.733824;/// 30.; 
+      defaultXSections_[HTB300_URL]             = 2 * 0.744171;/// 30.; 
+      defaultXSections_[HTB350_URL]             = 2 * 0.750776;/// 30.; 
+      defaultXSections_[HTB400_URL]             = 2 * 0.722967;/// 30.; 
+      defaultXSections_[HTB500_URL]             = 2 * 0.563428;/// 30.; 
+      defaultXSections_[HTB600_URL]             = 2 * 0.495196;/// 30.; 
+      defaultXSections_[HTB700_URL]             = 2 * 0.459958;/// 30.; 
 
-
+     
       defaultXSections_[HHHTAUTAUBB260_URL]             = 0.06 ;// 60 fb 
       defaultXSections_[HHHTAUTAUBB300_URL]             = 0.06 ;// 60 fb 
       defaultXSections_[HHHTAUTAUBB350_URL]             = 0.06 ;// 60 fb
-      
+
+      defaultXSections_[EMBEDDED_DATA_URL]      = 0.;               
+      defaultXSections_[EMBEDDED_TTBAR_URL]     = defaultXSections_[TTBAR_URL];               
    
     } else {
       
@@ -376,7 +437,7 @@ void SampleProcessor::init(){
     listOfEvents_[i] = (listOfHistos_[i])->GetBinContent(1);
 
     //    double unsplitNumber(1.);
-    if     (listOfurls_[i].Contains("ttbar_"              ))    listOfEvents_[i] =  8272517   ;
+    if     (listOfurls_[i].Contains("ttbar_"              ))    listOfEvents_[i] =  8272517   ; // Works for embedded too (embedded ttbar must be normalized using the original number of events from the base sample)
     else if(listOfurls_[i].Contains("stop_s_"             ))    listOfEvents_[i] =  259960    ;
     else if(listOfurls_[i].Contains("stop_t_"             ))    listOfEvents_[i] =  3741874   ;
     else if(listOfurls_[i].Contains("stop_tW-DR_"         ))    listOfEvents_[i] =  497657    ;
@@ -404,13 +465,15 @@ void SampleProcessor::init(){
     else if(listOfurls_[i].Contains("htb-pythia-m240_"  ))      listOfEvents_[i] = 300000;
     else if(listOfurls_[i].Contains("htb-pythia-m250_"  ))      listOfEvents_[i] = 299668;
     else if(listOfurls_[i].Contains("htb-pythia-m260_"  ))      listOfEvents_[i] = 299686;
-    else if(listOfurls_[i].Contains("htb-pythia-m280_"  ))      listOfEvents_[i] = 290000;
-    else if(listOfurls_[i].Contains("htb-pythia-m300_"  ))      listOfEvents_[i] = 290000;
-    else if(listOfurls_[i].Contains("htb-pythia-m350_"  ))      listOfEvents_[i] = 290304;
-    else if(listOfurls_[i].Contains("htb-pythia-m500_"  ))      listOfEvents_[i] = 290880;
+    else if(listOfurls_[i].Contains("htb-pythia-m280_"  ))      listOfEvents_[i] = 300000;//290000;
+    else if(listOfurls_[i].Contains("htb-pythia-m300_"  ))      listOfEvents_[i] = 300000;//290000;
+    else if(listOfurls_[i].Contains("htb-pythia-m350_"  ))      listOfEvents_[i] = 286364;//290304;
+    else if(listOfurls_[i].Contains("htb-pythia-m500_"  ))      listOfEvents_[i] = 288005;//290880;
     else if(listOfurls_[i].Contains("htb-pythia-m600_"  ))      listOfEvents_[i] = 286484;
     else if(listOfurls_[i].Contains("htb-pythia-m700_"  ))      listOfEvents_[i] = 290000;
     
+
+
     
     listOfScales_[i] = (lum_*listOfXSections_[i])/listOfEvents_[i];   
 
@@ -428,8 +491,8 @@ void SampleProcessor::init(){
     if(eChONmuChOFF_) extra=TString("_spy_eltau.root");
     else extra=TString("_spy_mutau.root");
     TString spyName = outFileName_ + extra;
-    //TTree * spyTree = listOfReaders_[i]->PrepareToSpyEvents(spyName);
-    //cout<<endl<<"Spy Events ... on file ... "<<spyName<<endl;
+    TTree * spyTree = listOfReaders_[i]->PrepareToSpyEvents(spyName);
+    cout<<endl<<"Spy Events ... on file ... "<<spyName<<endl;
     //////////////////////////////////////////////////////////////////
     
     if(fullStats_){
@@ -505,12 +568,15 @@ int SampleProcessor::codeChannel(int i, int urlCode){
 	  urlCode == TBH190_URL || urlCode == HTB190_URL || 
 	  urlCode == TBH200_URL || urlCode == HTB200_URL || 
 	  urlCode == TBH220_URL || urlCode == HTB220_URL || 
-	  urlCode == HTB240_URL || 
+	                           urlCode == HTB240_URL || 
 	  urlCode == TBH250_URL || urlCode == HTB250_URL || 
-	  urlCode == HTB260_URL || 
-	  urlCode == HTB280_URL || 
-	  urlCode == TBH300_URL	|| urlCode == HTB300_URL
-	  ){  ret = TBH_CH;       }                   
+	                           urlCode == HTB260_URL || 
+                                   urlCode == HTB280_URL || 
+	  urlCode == TBH300_URL	|| urlCode == HTB300_URL ||
+	  urlCode == TBH400_URL	|| urlCode == HTB400_URL ||
+	  urlCode == TBH500_URL	|| urlCode == HTB500_URL ||
+	  urlCode == TBH600_URL	|| urlCode == HTB600_URL
+	  	  ){  ret = TBH_CH;       }                   
   else if( i == ETAU                        ){  ret = ETAU_CH;      } 
   else if( i == MUTAU                       ){  ret = MUTAU_CH;     } 
   else if( i == EJETS                       ){  ret = EJETS_CH;     }
@@ -569,8 +635,6 @@ int SampleProcessor::tdChannel(int i){
 
 
 
-
-
 void SampleProcessor::process_ttbar(int i){
 
   //MADGRAPH
@@ -595,6 +659,35 @@ void SampleProcessor::process_ttbar(int i){
   string idx=sidx.str();
 
   process(false, url_, iFolder_ + TString("ttbar_"+idx+".root"), oFolder_+TString("out-ttbar_"+idx+".root"),keys_);
+
+  //SAMPLE WITH WEIGHTS
+  //pdfweights_=true; process(false, url_, iFolder_ + TString("ttbar-pdf.root"), oFolder_+TString("out-ttbar-pdf.root"),keys_); pdfweights_=false;
+  //pdfweights_=true; process(false, url_, iFolder_ + TString("ttbar-pdf-nofilter-B.root"), oFolder_+TString("out-ttbar-pdf.root"),keys_); pdfweights_=false;
+  ///lustre/data3/cmslocal/samples/CMSSW_4_2_X/mc/mTrees-v3-B/ttbar-pdf-nofilter-B.root
+
+  // Trigger efficiencies study ////////////////////////////////////////////////////////////////////////
+  //iFolder_ = TString("/lustre/lip.pt/data/cmslocal/samples/CMSSW_4_2_X/mc/mTrees-v3/");
+  //process(false, url_, iFolder_ + TString("trig-ttbar.root"), oFolder_+TString("out-ttbar.root"),keys_);
+  //////////////////////////////////////////////////////////////////////////////////////////////////////    
+
+}
+
+void SampleProcessor::process_ttbar_Embedded(int i){
+
+  url_= TTBAR_URL; 
+
+  if(i>49){
+    cout << "ERROR CODE - must be in the range [1,18]" << endl;
+    return;
+  }
+  
+  stringstream sidx;
+  sidx<<i;
+  string idx=sidx.str();
+
+    process(true,url_,TString(),oDFolder_+TString("out-Embedded_RunA_"+idx+".root"),keys_);
+
+  process(false, url_, TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/tau_dilepton/goodEmbedYourAss/out/Embedded_ttbar_"+idx+".root"), oFolder_+TString("out-embedded-ttbar_"+idx+".root"),keys_);
 
   //SAMPLE WITH WEIGHTS
   //pdfweights_=true; process(false, url_, iFolder_ + TString("ttbar-pdf.root"), oFolder_+TString("out-ttbar-pdf.root"),keys_); pdfweights_=false;
@@ -961,6 +1054,9 @@ void SampleProcessor::process_tbh_higgs_bychannel(){
   url_ = TBH220_URL; process(false, url_, TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/ttbarDileptonAnalysis/topMassAnalysis/tDilbh/") + TString("tbh-pythia-m220.root"), oFolder_+TString("out-tbh-pythia-m220_mutau.root"),keys_, MUTAU_); 
   url_ = TBH250_URL; process(false, url_, TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/ttbarDileptonAnalysis/topMassAnalysis/tDilbh/") + TString("tbh-pythia-m250.root"), oFolder_+TString("out-tbh-pythia-m250_mutau.root"),keys_, MUTAU_); 
   url_ = TBH300_URL; process(false, url_, TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/ttbarDileptonAnalysis/topMassAnalysis/tDilbh/") + TString("tbh-pythia-m300.root"), oFolder_+TString("out-tbh-pythia-m300_mutau.root"),keys_, MUTAU_); 
+  url_ = TBH400_URL; process(false, url_, TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/ttbarDileptonAnalysis/topMassAnalysis/tDilbh/") + TString("tbh-pythia-m400.root"), oFolder_+TString("out-tbh-pythia-m400_mutau.root"),keys_, MUTAU_); 
+  url_ = TBH500_URL; process(false, url_, TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/ttbarDileptonAnalysis/topMassAnalysis/tDilbh/") + TString("tbh-pythia-m500.root"), oFolder_+TString("out-tbh-pythia-m500_mutau.root"),keys_, MUTAU_); 
+  url_ = TBH600_URL; process(false, url_, TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/ttbarDileptonAnalysis/topMassAnalysis/tDilbh/") + TString("tbh-pythia-m600.root"), oFolder_+TString("out-tbh-pythia-m600_mutau.root"),keys_, MUTAU_); 
   
 }
 
@@ -972,6 +1068,9 @@ void SampleProcessor::process_tbh_higgs(){
   url_ = TBH220_URL; process(false, url_, TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/ttbarDileptonAnalysis/topMassAnalysis/tDilbh/") + TString("tbh-pythia-m220.root"), oFolder_+TString("out-tbh-pythia-m220.root"),keys_); 
   url_ = TBH250_URL; process(false, url_, TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/ttbarDileptonAnalysis/topMassAnalysis/tDilbh/") + TString("tbh-pythia-m250.root"), oFolder_+TString("out-tbh-pythia-m250.root"),keys_); 
   url_ = TBH300_URL; process(false, url_, TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/ttbarDileptonAnalysis/topMassAnalysis/tDilbh/") + TString("tbh-pythia-m300.root"), oFolder_+TString("out-tbh-pythia-m300.root"),keys_); 
+  url_ = TBH400_URL; process(false, url_, TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/ttbarDileptonAnalysis/topMassAnalysis/tDilbh/") + TString("tbh-pythia-m400.root"), oFolder_+TString("out-tbh-pythia-m400.root"),keys_); 
+  url_ = TBH500_URL; process(false, url_, TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/ttbarDileptonAnalysis/topMassAnalysis/tDilbh/") + TString("tbh-pythia-m500.root"), oFolder_+TString("out-tbh-pythia-m500.root"),keys_); 
+  url_ = TBH600_URL; process(false, url_, TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/ttbarDileptonAnalysis/topMassAnalysis/tDilbh/") + TString("tbh-pythia-m600.root"), oFolder_+TString("out-tbh-pythia-m600.root"),keys_); 
 }
 
 
@@ -1201,6 +1300,14 @@ void SampleProcessor::process_diboson(int sample, int i){
 }
 
 
+void SampleProcessor::process_embeddedData(){
+  url_ = EMBEDDED_DATA_URL;
+  
+  if( !eChONmuChOFF_ && run2012_)
+    process(true,url_,TString("/exper-sw/cmst3/cmssw/users/vischia/chiggs/CMSSW_5_3_9/src/lipcms/EventSelection/test/Monitor_data_Embedded.root"),oDFolder_+TString("out-embeddedData.root"), keys_);
+
+}
+
 void SampleProcessor::process_data_RunA(int i){
 
   url_ = DATA_URL;
@@ -1215,7 +1322,11 @@ void SampleProcessor::process_data_RunA(int i){
 
   if( ! eChONmuChOFF_ && run2012_) 
     process(true,url_,iDFolder_+TString("Muon_RunA_"+idx+".root"),oDFolder_+TString("out-Muon_RunA_"+idx+".root"),keys_);
-
+  else if( eChONmuChOFF_ && run2012_)
+    {
+      if(i>9) return;
+      process(true,url_,iDFolder_+TString("Electron_RunA_"+idx+".root"),oDFolder_+TString("out-Electron_RunA_"+idx+".root"),keys_);
+    }
 }
 
 
@@ -1241,8 +1352,11 @@ void SampleProcessor::process_data_RunB(int i){
   
   if( ! eChONmuChOFF_ && run2012_)
     process(true,url_,iDFolder_+TString("Muon_RunB_"+idx+".root"),oDFolder_+TString("out-Muon_RunB_"+idx+".root"),keys_);
-  
-  
+  else if( eChONmuChOFF_ && run2012_)
+    {
+      if(i>39) return;
+      process(true,url_,iDFolder_+TString("Electron_RunB_"+idx+".root"),oDFolder_+TString("out-Electron_RunB_"+idx+".root"),keys_);
+    }
   
   
   /*
@@ -1282,6 +1396,11 @@ void SampleProcessor::process_data_RunC1(int i){
   
   if( ! eChONmuChOFF_ && run2012_)
     process(true,url_,iDFolder_+TString("Muon_RunC_1_"+idx+".root"),oDFolder_+TString("out-Muon_RunC_1_"+idx+".root"),keys_);
+  else if( eChONmuChOFF_ && run2012_)
+    {
+      if(i>29) return;
+      process(true,url_,iDFolder_+TString("Electron_RunC_leg1_"+idx+".root"),oDFolder_+TString("out-Electron_RunC_leg1_"+idx+".root"),keys_);
+    }
   
 
 
@@ -1310,6 +1429,11 @@ void SampleProcessor::process_data_RunC2(int i){
   
   if( ! eChONmuChOFF_ && run2012_)
     process(true,url_,iDFolder_+TString("Muon_RunC_2_"+idx+".root"),oDFolder_+TString("out-Muon_RunC_2_"+idx+".root"),keys_);
+  else if( eChONmuChOFF_ && run2012_)
+    {
+      if(i>29) return;
+      process(true,url_,iDFolder_+TString("Electron_RunC_leg2_"+idx+".root"),oDFolder_+TString("out-Electron_RunC_leg2_"+idx+".root"),keys_);
+    }
   
 
 
@@ -1338,6 +1462,11 @@ void SampleProcessor::process_data_RunD1(int i){
   
   if( ! eChONmuChOFF_ && run2012_)
     process(true,url_,iDFolder_+TString("Muon_RunD_1_"+idx+".root"),oDFolder_+TString("out-Muon_RunD_1_"+idx+".root"),keys_);
+  else if( eChONmuChOFF_ && run2012_)
+    {
+      if(i>29) return;
+      process(true,url_,iDFolder_+TString("Electron_RunD_leg1_"+idx+".root"),oDFolder_+TString("out-Electron_RunD_leg1_"+idx+".root"),keys_);
+    }
   
 
 }
@@ -1367,9 +1496,224 @@ void SampleProcessor::process_data_RunD2(int i){
   
   if( ! eChONmuChOFF_ && run2012_)
     process(true,url_,iDFolder_+TString("Muon_RunD_2_"+idx+".root"),oDFolder_+TString("out-Muon_RunD_2_"+idx+".root"),keys_);
+  else if( eChONmuChOFF_ && run2012_)
+    {
+      if(i>29) return;
+      process(true,url_,iDFolder_+TString("Electron_RunD_leg2_"+idx+".root"),oDFolder_+TString("out-Electron_RunD_leg2_"+idx+".root"),keys_);
+    }
   
 
 }
+
+
+
+
+
+
+void SampleProcessor::process_data_MissingRunB(int i){
+
+  url_ = DATA_URL;
+  if(i>49){
+    cout << "ERROR CODE - must be in the range [0,49]" << endl;
+    return;
+  }
+  
+  stringstream sidx;
+  sidx<<i;
+  string idx=sidx.str();
+
+  if( ! eChONmuChOFF_ && run2012_) 
+    process(true,url_,iDFolder_+TString("MuonMissing_RunB_"+idx+".root"),oDFolder_+TString("out-MuonMissing_RunB_"+idx+".root"),keys_);
+  else if( eChONmuChOFF_ && run2012_)
+    {
+      if(i>9) return;
+      process(true,url_,iDFolder_+TString("Electron_MisB_"+idx+".root"),oDFolder_+TString("out-Electron_MisB_"+idx+".root"),keys_);
+    }
+
+}
+void SampleProcessor::process_data_MissingRunC1(int i){
+
+  url_ = DATA_URL;
+  if(i>49){
+    cout << "ERROR CODE - must be in the range [0,49]" << endl;
+    return;
+  }
+  
+  stringstream sidx;
+  sidx<<i;
+  string idx=sidx.str();
+
+  if( ! eChONmuChOFF_ && run2012_) 
+    process(true,url_,iDFolder_+TString("MuonMissing_RunC_1_"+idx+".root"),oDFolder_+TString("out-MuonMissing_RunC_1_"+idx+".root"),keys_);
+  else if (eChONmuChOFF_ && run2012_){
+    if(i>19) return;
+    process(true,url_,iDFolder_+TString("Electron_RunC_mis1_"+idx+".root"),oDFolder_+TString("out-Electron_RunC_mis1_"+idx+".root"),keys_);
+  }
+}
+
+void SampleProcessor::process_data_MissingRunC2(int i){
+
+  url_ = DATA_URL;
+  if(i>49){
+    cout << "ERROR CODE - must be in the range [0,49]" << endl;
+    return;
+  }
+  
+  stringstream sidx;
+  sidx<<i;
+  string idx=sidx.str();
+
+  if( ! eChONmuChOFF_ && run2012_) 
+    process(true,url_,iDFolder_+TString("MuonMissing_RunC_2_"+idx+".root"),oDFolder_+TString("out-MuonMissing_RunC_2_"+idx+".root"),keys_);
+  else if (eChONmuChOFF_ && run2012_){
+    if(i>19) return;
+    process(true,url_,iDFolder_+TString("Electron_RunC_mis2_"+idx+".root"),oDFolder_+TString("out-Electron_RunC_mis2_"+idx+".root"),keys_);
+  }
+
+}
+
+void SampleProcessor::process_data_MissingRunD1(int i){
+
+  url_ = DATA_URL;
+  if(i>49){
+    cout << "ERROR CODE - must be in the range [0,49]" << endl;
+    return;
+  }
+  
+  stringstream sidx;
+  sidx<<i;
+  string idx=sidx.str();
+
+  if( ! eChONmuChOFF_ && run2012_) 
+    process(true,url_,iDFolder_+TString("MuonMissing_RunD_1_"+idx+".root"),oDFolder_+TString("out-MuonMissing_RunD_1_"+idx+".root"),keys_);
+
+}
+
+void SampleProcessor::process_data_MissingRunD2(int i){
+
+  url_ = DATA_URL;
+  if(i>49){
+    cout << "ERROR CODE - must be in the range [0,49]" << endl;
+    return;
+  }
+  
+  stringstream sidx;
+  sidx<<i;
+  string idx=sidx.str();
+
+  if( ! eChONmuChOFF_ && run2012_) 
+    process(true,url_,iDFolder_+TString("MuonMissing_RunD_2_"+idx+".root"),oDFolder_+TString("out-MuonMissing_RunD_2_"+idx+".root"),keys_);
+  else if (eChONmuChOFF_ && run2012_){
+    if(i>19) return;
+    process(true,url_,iDFolder_+TString("Electron_RunD_mis2_"+idx+".root"),oDFolder_+TString("out-Electron_RunD_mis2_"+idx+".root"),keys_);
+  }
+
+}
+
+
+void SampleProcessor::process_data_EmbeddedRunA(int i){
+
+  url_ = EMBEDDED_DATA_URL;
+  if(i>49){
+    cout << "ERROR CODE - must be in the range [0,49]" << endl;
+    return;
+  }
+  
+  stringstream sidx;
+  sidx<<i;
+  string idx=sidx.str();
+
+
+  if( ! eChONmuChOFF_ && run2012_) 
+    process(true,url_,TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/tau_dilepton/goodEmbedYourAss/out/Embedded_RunA_"+idx+".root"),oDFolder_+TString("out-Embedded_RunA_"+idx+".root"),keys_);
+
+}
+
+void SampleProcessor::process_data_EmbeddedRunB(int i){
+
+  url_ = EMBEDDED_DATA_URL;
+  if(i>49){
+    cout << "ERROR CODE - must be in the range [0,49]" << endl;
+    return;
+  }
+  
+  stringstream sidx;
+  sidx<<i;
+  string idx=sidx.str();
+
+  if( ! eChONmuChOFF_ && run2012_) 
+    process(true,url_,TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/tau_dilepton/goodEmbedYourAss/out/Embedded_RunB_"+idx+".root"),oDFolder_+TString("out-Embedded_RunB_"+idx+".root"),keys_);
+
+}
+
+void SampleProcessor::process_data_EmbeddedRunC1(int i){
+
+  url_ = EMBEDDED_DATA_URL;
+  if(i>49){
+    cout << "ERROR CODE - must be in the range [0,49]" << endl;
+    return;
+  }
+  
+  stringstream sidx;
+  sidx<<i;
+  string idx=sidx.str();
+
+  if( ! eChONmuChOFF_ && run2012_) 
+    process(true,url_,TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/tau_dilepton/goodEmbedYourAss/out/Embedded_RunC_1_"+idx+".root"),oDFolder_+TString("out-Embedded_RunC_1_"+idx+".root"),keys_);
+
+}
+
+void SampleProcessor::process_data_EmbeddedRunC2(int i){
+
+  url_ = EMBEDDED_DATA_URL;
+  if(i>49){
+    cout << "ERROR CODE - must be in the range [0,49]" << endl;
+    return;
+  }
+  
+  stringstream sidx;
+  sidx<<i;
+  string idx=sidx.str();
+
+  if( ! eChONmuChOFF_ && run2012_) 
+    process(true,url_,TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/tau_dilepton/goodEmbedYourAss/out/Embedded_RunC_2_"+idx+".root"),oDFolder_+TString("out-Embedded_RunC_2_"+idx+".root"),keys_);
+}
+
+void SampleProcessor::process_data_EmbeddedRunD1(int i){
+
+  url_ = EMBEDDED_DATA_URL;
+  if(i>49){
+    cout << "ERROR CODE - must be in the range [0,49]" << endl;
+    return;
+  }
+  
+  stringstream sidx;
+  sidx<<i;
+  string idx=sidx.str();
+
+  if( ! eChONmuChOFF_ && run2012_) 
+    process(true,url_,TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/tau_dilepton/goodEmbedYourAss/out/Embedded_RunD_1_"+idx+".root"),oDFolder_+TString("out-Embedded_RunD_1_"+idx+".root"),keys_);
+
+}
+
+void SampleProcessor::process_data_EmbeddedRunD2(int i){
+
+  url_ = EMBEDDED_DATA_URL;
+  if(i>49){
+    cout << "ERROR CODE - must be in the range [0,49]" << endl;
+    return;
+  }
+  
+  stringstream sidx;
+  sidx<<i;
+  string idx=sidx.str();
+
+  if( ! eChONmuChOFF_ && run2012_) 
+    process(true,url_,TString("/lustre/ncg.ingrid.pt/cmslocal/vischia/tau_dilepton/goodEmbedYourAss/out/Embedded_RunD_2_"+idx+".root"),oDFolder_+TString("out-Muon_RunD_2_"+idx+".root"),keys_);
+
+}
+
+
 
 
 void SampleProcessor::process_hhhtautaubb_higgs(int sample, int i){

@@ -1,0 +1,8 @@
+// Run like this:
+
+root -l
+
+.L RunOverMiniEvents.C+
+gSystem->Load("libLIPTop.so");
+.L NewConverter.C
+convertAll()

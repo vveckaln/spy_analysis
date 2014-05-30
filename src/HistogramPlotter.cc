@@ -30,6 +30,7 @@ HistogramPlotter::HistogramPlotter(): PlotStyle() {
   gStyle->SetPadRightMargin (0.16);
   gStyle->SetPadLeftMargin  (0.14);
 
+  
 }
 
 HistogramPlotter::~HistogramPlotter()
@@ -228,6 +229,7 @@ void HistogramPlotter::processPlots(int i){
 
     /*if(!ratioOptions.first)*/ stack->GetHistogram()->GetXaxis()->SetTitleOffset(0.8);
     /*if(!ratioOptions.first)*/ stack->GetHistogram()->GetXaxis()->SetTitleSize(0.05);
+    /*if(!ratioOptions.first)*/ stack->GetHistogram()->GetXaxis()->SetLabelSize(0.05);
     
     setStackIdProperties(stack,i);
     
@@ -284,7 +286,7 @@ void HistogramPlotter::processPlots(int i){
 
     myError->SetFillColor(kGray+2);
     myError->SetFillStyle(3004);
-    errorH->SetFillStyle(3001);
+    errorH->SetFillStyle(3004);
     // 2011-12-03 PIETRO    myError->Draw("2same");
 
 
@@ -334,7 +336,16 @@ void HistogramPlotter::processPlots(int i){
   }
   
   TLegend* leg = new TLegend(0.845,0.2,0.99,0.99,NULL,"NDC"); // On the side <3
-  
+//  //  leg->SetBorderSize(1);
+//  leg->SetTextFont(132);
+//  leg->SetTextSize(0.033);
+//  leg->SetLineColor(0);
+//  //  leg->SetLineStyle(1);
+//  //  leg->SetLineWidth(1);
+//  leg->SetFillColor(0);
+//  leg->SetFillStyle(0);
+//  
+
   TString title("");
   map< int , TString >::iterator ittitle ;   
   ittitle = mapIdtitle_.find(i); if(ittitle != mapIdtitle_.end()){ title = mapIdtitle_[i]; }
@@ -355,7 +366,7 @@ void HistogramPlotter::processPlots(int i){
     TPad* p = (TPad*)c_->cd(2);   
     //c_->cd(2);
     //TPad* p = new TPad();
-    p->SetFillColor(0);
+    /// test p->SetFillColor(0);
     //    p->SetPad(xpad[0],ypad[2],xpad[1],ypad[3]);
 
     TH1* dataClone = (TH1*) dataHisto->Clone("dataclone");
@@ -373,7 +384,8 @@ void HistogramPlotter::processPlots(int i){
     iRatio->Divide(denominator); 
     
     
-    TGraphErrors* myRelError = new TGraphErrors(myError->GetN());
+    //    TGraphErrors* myRelError = new TGraphErrors(myError->GetN());
+    TGraphErrors* myRelError = new TGraphErrors(dataClone);
     TH1* myDataClone = (TH1*) dataClone->Clone("forValues");
     myDataClone->Add(denominator,-1);
     if(includeErrors_){
@@ -411,6 +423,10 @@ void HistogramPlotter::processPlots(int i){
     
 
     if(ratioOptions.second)  iRatio->GetYaxis()->SetRangeUser(-1.1,1.1);
+
+    iRatio->SetStats(0);
+    gStyle->SetOptStat(0);
+
     iRatio->GetYaxis()->SetRangeUser(0.,2.);
  
     iRatio->GetXaxis()->SetTitleOffset(0.85);
@@ -430,13 +446,30 @@ void HistogramPlotter::processPlots(int i){
     iRatio->SetLineColor(1);
     iRatio->SetFillColor(0);
     iRatio->SetMarkerStyle(20);
+    TH1* displayRatio = (TH1*) iRatio->Clone("myratiofordisplay");
+    if(includeErrors_) iRatio->Reset("ICE");
     iRatio->Draw();
     if(includeErrors_){
-      myRelError->SetName("bl");
-      myRelError->SetTitle("mmbm");
-      myRelError->SetFillColor(kGray+2);
+/////      myRelError->SetName("bl");
+/////      myRelError->SetTitle("mmbm");
+      //      myRelError->SetFillColor(kGray+2);
+      // test memyRelError->SetLineColor(1);
+      // test memyRelError->SetFillColor(kGray+2);
+      // test memyRelError->SetFillStyle(3001);
+
+      myRelError->SetLineColor(1);
       myRelError->SetFillStyle(3001);
-      myRelError->Draw("2same");
+      myRelError->SetFillColor(kGray+2);
+      myRelError->SetMarkerColor(1);
+      myRelError->SetMarkerStyle(1);
+
+      
+
+
+      //myRelError->SetFillStyle(3001);
+      //      myRelError->Draw("2same");
+      myRelError->Draw("2");
+      displayRatio->Draw("same");
     }
     
     //draw the canvas
@@ -464,14 +497,14 @@ void HistogramPlotter::plotLegend( TH1 * higgs, TLegend *l, TString title, vecto
   
   TLegend *leg = new TLegend(0.845,0.2,0.99,0.99,NULL,"NDC"); // On the side
   
-  leg->SetBorderSize(0);
+  leg->SetBorderSize(1);
   leg->SetTextFont(132);
   leg->SetTextSize(0.033);
-  leg->SetLineColor(1);
+  leg->SetLineColor(0);
   leg->SetLineStyle(1);
   leg->SetLineWidth(1);
   leg->SetFillColor(0);
-  leg->SetFillStyle(1001);
+  leg->SetFillStyle(0);
   
   for(int i=(size-1); i>-1; i=i-1){ 
     l->AddEntry(vhistos[i],(vOptions[i]).first ,(vOptions[i]).second ); 
@@ -528,18 +561,20 @@ void HistogramPlotter::plotLegend( TH1 * higgs, TLegend *l, TString title, vecto
 void HistogramPlotter::saveCanvas(){
 
   TString canvasName( c_->GetName() );
-  TString pngfile = outFolder_ + canvasName + TString(".png");
-  TString pdffile = outFolder_ + canvasName + TString(".pdf");
-  TString epsfile = outFolder_ + canvasName + TString(".eps");
-  TString cfile   = outFolder_ + canvasName + TString(".C");
+  TString pngfile  = outFolder_ + canvasName + TString(".png");
+  TString pdffile  = outFolder_ + canvasName + TString(".pdf");
+  TString epsfile  = outFolder_ + canvasName + TString(".eps");
+  TString rootfile = outFolder_ + canvasName + TString(".root");
+  TString cfile    = outFolder_ + canvasName + TString(".C");
 
-  c_->Modified();
-  c_->Update();
+//  c_->Modified();
+//  c_->Update();
   c_->cd();
 
   c_->SaveAs(pdffile);
   c_->SaveAs(epsfile);
   c_->SaveAs(pngfile);
+  c_->SaveAs(rootfile);
   c_->SaveAs(cfile);
 
 }
@@ -704,13 +739,13 @@ void HistogramPlotter::showRatio(){
   const float ypad[4] = {0.,0.3,0.3,1.0};
 
   TPad * originalPad = (TPad *)c_->cd();
-  originalPad->SetFillColor(0);
+  // test originalPad->SetFillColor(0);
 
   TCanvas * clone = new TCanvas("newName","newName",1000,1000);
   clone->Divide(1,2);
 
   TPad *p = (TPad *)clone->cd(1);
-  p->SetFillColor(0);
+  // test p->SetFillColor(0);
   p->SetBottomMargin(0);
   p->SetPad(xpad[0],ypad[2],xpad[1],ypad[3]);
   p->SetGridx();
