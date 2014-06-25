@@ -714,10 +714,10 @@ void CutflowAnalyzer::tauDileptonSelection(
     // down: no reweighting
     // central: weight -> weight * reweight
     // up: weight -> weight * reweight * reweight
-    if(topptunc_ >=0) 
-      w_  *= ttbarReweight(tPt,tbarPt);    
-    if( topptunc_>0)
-      w_  *= ttbarReweight(tPt,tbarPt);
+//    if(topptunc_ >=0) 
+//      w_  *= ttbarReweight(tPt,tbarPt);    
+//    if( topptunc_>0)
+//      w_  *= ttbarReweight(tPt,tbarPt);
     
     if(i_ == 45) cout << "topptunc: (" << tPt << ", " << tbarPt << ") ---> " <<  ttbarReweight(tPt,tbarPt) <<endl;
   }
@@ -2890,12 +2890,12 @@ void CutflowAnalyzer::fillTauDileptonObjHistograms(
     if( m_v.size() == 1 ){ int m_i = m_v[0]; leptonPt = TMath::Abs(muons[m_i].Pt());     deltaPhi = muons[m_i].DeltaPhi( metObj );    dPhiLeptonMET = deltaPhi; }
     if( e_v.size() == 1 ){ int e_i = e_v[0]; leptonPt = TMath::Abs(electrons[e_i].Pt()); deltaPhi = electrons[e_i].DeltaPhi( metObj); dPhiLeptonMET = deltaPhi; }
     double mt = sqrt (  2*leptonPt*met*(1 - cos(deltaPhi) ) ) ;
-
+    
     mon.fillHisto("Dphi_lepton_met", extra1+step, fabs(deltaPhi), w_); mon.fillHisto("Dphi_lepton_met",extra2+step, fabs(deltaPhi), w_);
     mon.fillHisto("w_mass",extra1+step,mt,w_); mon.fillHisto("w_mass",extra2+step,mt,w_);
     mon.fillHisto("w_mass_deltaphi",extra1+step,deltaPhi,w_); mon.fillHisto("w_mass_deltaphi",extra2+step,deltaPhi,w_);
-   
-
+    
+    
     //transverse mass with taus and max min wt /////////////////////////////////////////////////////////////////////////////
     if(t_v.size() == 1){
       int t_i = t_v[0]; double tauPt = TMath::Abs(taus[t_i].Pt());     double deltaPhiWithTau = taus[t_i].DeltaPhi( metObj );  
@@ -2906,8 +2906,26 @@ void CutflowAnalyzer::fillTauDileptonObjHistograms(
       else          { mt_min=mt_tau; mt_max= mt;  }  
       mon.fillHisto("w_mass_max",extra1+step,mt_max,w_); mon.fillHisto("w_mass_max",extra2+step,mt_max,w_);
       mon.fillHisto("w_mass_min",extra1+step,mt_min,w_); mon.fillHisto("w_mass_min",extra2+step,mt_min,w_); 
+    
+      // Angular distribution between lepton and tau
+      int m_i(m_v[0]);
+      TVector3 mom1(taus[t_i].Px(),taus[t_i].Py(),taus[t_i].Pz());
+      TVector3 mom2(muons[m_i].Px(),muons[m_i].Py(),muons[m_i].Pz());
+      double cosine = mom1.Dot(mom2)/(mom1.Mag()*mom2.Mag());
+      double arcCosine = acos(cosine);
+      mon.fillHisto("dilarccosine",extra1+step,arcCosine,w_); mon.fillHisto("dilarccosine",extra2+step,arcCosine,w_);
+    
+      double dphiLepTau(muons[m_i].DeltaPhi(taus[t_i])); 
+      double drLepTau(muons[m_i].DeltaR(taus[t_i]));
+      mon.fillHisto("Dphi_lepton_tau",extra1+step,fabs(dphiLepTau),w_); mon.fillHisto("Dphi_lepton_tau",extra2+step,fabs(dphiLepTau),w_);
+      mon.fillHisto("DR_lepton_tau",extra1+step,drLepTau,w_); mon.fillHisto("DR_lepton_tau",extra2+step,drLepTau,w_);
+
+
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 
     // taus pt and polarization ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

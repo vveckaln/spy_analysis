@@ -613,11 +613,11 @@ void LandSShapesProducer::DrawTemplates(size_t i){
     hist_[f]->SetFillStyle(sampleFillStyle_[f]); //1001 for background and data, 0 for signal // 3017);
  
 
-    if(sampleName_[f] == "tt_ltau" )
-      hist_[f]->Scale(2839./hist_[f]->Integral());
-    else if(sampleName_[f] == "tt_ll")   
+    if(sampleName_[f] == "tt_ll")   
       hist_[f]->Scale(94./hist_[f]->Integral());
-
+    else if(sampleName_[f] == "tt_ltau" )
+      hist_[f]->Scale(2839./hist_[f]->Integral());
+    
     if(isDDbkg_[f]){
       hist_[f]->Scale(1544./hist_[f]->Integral());
       ddbkgHistUp_ =   (TH1*) hist_[f]->Clone(hist_[f]->GetName() + TString("Up") );
@@ -641,7 +641,7 @@ void LandSShapesProducer::DrawTemplates(size_t i){
   hist_[nSamples_]  ->Sumw2();
   hist_[nSamples_+1]->Sumw2();
   
-  hist_[nSamples_]->Scale(159./hist_[nSamples_]->Integral());      // Normalize to sample  Ztautau  
+  hist_[nSamples_]->Scale(150./hist_[nSamples_]->Integral());      // Normalize to sample  Ztautau  
   hist_[nSamples_+1]->Scale(12/hist_[nSamples_+1]->Integral()); // Normalize to sample    Zee,mumu
 
   ddbkgHistUp_ =   (TH1*) hist_[3]->Clone(hist_[3]->GetName() + TString("Up") );
@@ -701,7 +701,7 @@ void LandSShapesProducer::DrawTemplates(size_t i){
     systHist_[a][nSamples_]  ->Sumw2();
     systHist_[a][nSamples_+1]->Sumw2();
     
-    systHist_[a][nSamples_]  ->Scale( (159./systHist_[a][nSamples_]->Integral()  )*( systHist_[a][nSamples_-1]->Integral() / hist_[nSamples_-1]->Integral()  )    );
+    systHist_[a][nSamples_]  ->Scale( (150./systHist_[a][nSamples_]->Integral()  )*( systHist_[a][nSamples_-1]->Integral() / hist_[nSamples_-1]->Integral()  )    );
     systHist_[a][nSamples_+1]->Scale( (12/systHist_[a][nSamples_+1]->Integral() )*( systHist_[a][nSamples_-1]->Integral() / hist_[nSamples_-1]->Integral()  )  );
     
     for(size_t f=0; f<nSamples_+2; f++){
@@ -721,10 +721,12 @@ void LandSShapesProducer::DrawTemplates(size_t i){
   
   /// End produce plots - syst case
   
-  
+  hist_[nSamples_]->Scale(150./hist_[nSamples_]->Integral());      // Normalize to sample
+  hist_[nSamples_+1]->Scale(12/hist_[nSamples_+1]->Integral()); // Normalize to sample
+
 
   if(!produceOnly_){ // For now raw indexes. This will improve.
-
+    
     // This numbering changed.
     // 0: data
     // 1: WH
@@ -1244,12 +1246,15 @@ void LandSShapesProducer::DrawTemplates(size_t i){
       hist_[f]->GetXaxis()->SetTitleSize(5);
       hist_[f]->GetXaxis()->SetRange(displayMin_,displayMax_);    
       hist_[f]->GetXaxis()->SetRangeUser(displayMin_,displayMax_);    
-      if(isDDbkg_[f] == 0) hs.Add(hist_[f],"hist");
+      if(!isDDbkg_[f]) hs.Add(hist_[f],"hist");
+    
+      cout << "I AM HISTOGRAM " << hist_[f]->GetName() << ", WITH NORMALIZATION: " << hist_[f]->Integral() << endl;
     }
     
     for(size_t f=3; f<nSamples_+2; f++){
-      if(isDDbkg_[f]) hs.Add(hist_[f],"hist");
-    }
+      if(isDDbkg_[f])
+	hs.Add(hist_[f],"hist");
+      }
     
     //    cout << "dd integral: " << hist_[3]->Integral() << endl;
     //  normalize rc t
@@ -1272,11 +1277,14 @@ void LandSShapesProducer::DrawTemplates(size_t i){
     hs.GetXaxis()->SetTitle((fitVars_[i]->getFancyName()).c_str());
     //  hs.GetXaxis()->SetTitleOffset(1.5);
     
-    // do not normalize btagmulti
-    if(fitVars_[i]->getToNorm()) hist_[0]->Scale(1./hist_[0]->Integral());
+
+    if(fitVars_[i]->getToNorm()) hist_[0]->Scale(1./hist_[0]->Integral());     // normalize to 1 rc_t
+    // This is data, bitch! else                         hist_[0]->Scale( signalNormFactor_[currentMassPoint_] );  // normalize to cross section btagmulti
     
     hist_[0]->GetXaxis()->SetRange(displayMin_,displayMax_);    
     hist_[0]->GetXaxis()->SetRangeUser(displayMin_,displayMax_);    
+
+
   
     hist_[0]->Draw("same");
     // do not normalize btagmulti 
@@ -1284,6 +1292,11 @@ void LandSShapesProducer::DrawTemplates(size_t i){
       higgsH_->Scale(1./higgsH_->Integral());    /// ??? was signalHistWH_->Integral()); instead of higgsH->Integral());
       higgsH2_->Scale(1./higgsH2_->Integral());    /// ??? was signalHistWH_->Integral()); instead of higgsH->Integral());
     }
+    else{
+      higgsH_->Scale( signalNormFactor_[currentMassPoint_]);    /// ??? was signalHistWH_->Integral()); instead of higgsH->Integral());
+      higgsH2_->Scale(signalNormFactor_[currentMassPoint_]);    /// ??? was signalHistWH_->Integral()); instead of higgsH->Integral());
+    }
+
     higgsH_->GetXaxis()->SetRange(displayMin_,displayMax_);    
     higgsH_->GetXaxis()->SetRangeUser(displayMin_,displayMax_);    
     higgsH_->Draw("histsame");
@@ -1395,12 +1408,21 @@ void LandSShapesProducer::DrawTemplates(size_t i){
     // Build denominator
     TH1* denominator;
     for(size_t f=3; f<nSamples_+2; f++){
-      if(f==3) denominator = (TH1*) hist_[f]->Clone(hist_[f]->GetName() + TString("_ratio"));
-      else
+      if(f==3){
+	denominator = (TH1*) hist_[f]->Clone(hist_[f]->GetName() + TString("_ratio"));
+	cout << "I AM HISTOGRAM " << hist_[f]->GetName() << ", WITH NORMALIZATION: " << hist_[f]->Integral() << endl;
+      }
+      else if(f>3){
 	denominator->Add(hist_[f]);
+	cout << "I AM HISTOGRAM " << hist_[f]->GetName() << ", WITH NORMALIZATION: " << hist_[f]->Integral() << endl;
+      }
     }
     // Build data clone
     TH1* dataClone = (TH1*) hist_[0]->Clone("dataclone");
+    cout << "I AM NUMERATOR WITH NORMALIZATION: " << dataClone->Integral() << endl;
+    cout << "I AM DENOMINATOR WITH NORMALIZATION: " << denominator->Integral() << endl;
+      
+
     TH1* iRatio = dataClone;
     TGraphErrors myRelError = myBkgError;
     //    getErrorBands(myBkgError, myRelError);
@@ -1455,7 +1477,7 @@ void LandSShapesProducer::DrawTemplates(size_t i){
   for(size_t f=0; f<nSamples_+2; f++){
     for(int ibin=1; ibin<=hist_[f]->GetNbinsX(); ibin++){ // <= is for overflow
       
-      hist_[nSamples_]->Scale(159./hist_[nSamples_]->Integral());      // Normalize to sample
+      hist_[nSamples_]->Scale(150./hist_[nSamples_]->Integral());      // Normalize to sample
       hist_[nSamples_+1]->Scale(12/hist_[nSamples_+1]->Integral()); // Normalize to sample
       
       if(ibin==1 && hist_[f]->GetBinContent(ibin) != 0)
@@ -1700,7 +1722,7 @@ void LandSShapesProducer::UnrollMultiDimensionalShape(){
   }
 
     
-  unrolled_[nSamples_]->Scale(159./unrolled_[nSamples_]->Integral());      // Normalize to sample
+  unrolled_[nSamples_]->Scale(150./unrolled_[nSamples_]->Integral());      // Normalize to sample
   unrolled_[nSamples_+1]->Scale(12/unrolled_[nSamples_+1]->Integral()); // Normalize to sample
 
   
@@ -1728,7 +1750,7 @@ void LandSShapesProducer::UnrollMultiDimensionalShape(){
 	}
       }
     }
-    unrolledSyst_[a][nSamples_]->Scale(159./unrolledSyst_[a][nSamples_]->Integral());      // Normalize to sample
+    unrolledSyst_[a][nSamples_]->Scale(150./unrolledSyst_[a][nSamples_]->Integral());      // Normalize to sample
     unrolledSyst_[a][nSamples_+1]->Scale(12/unrolledSyst_[a][nSamples_+1]->Integral()); // Normalize to sample
 
   }
@@ -2321,7 +2343,7 @@ void LandSShapesProducer::ShapesToDatacard(){
       sidx<<ibin;
       string binlabel(string("bin")+sidx.str());
       
-      
+
 
       cout << "Bin label: " << binlabel<<endl;
       testSumBins+=hist_[0]->GetBinContent(ibin); cout << "Testsumbins: " << testSumBins<<endl;

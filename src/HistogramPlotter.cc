@@ -229,7 +229,7 @@ void HistogramPlotter::processPlots(int i){
 
     /*if(!ratioOptions.first)*/ stack->GetHistogram()->GetXaxis()->SetTitleOffset(0.8);
     /*if(!ratioOptions.first)*/ stack->GetHistogram()->GetXaxis()->SetTitleSize(0.05);
-    /*if(!ratioOptions.first)*/ stack->GetHistogram()->GetXaxis()->SetLabelSize(0.05);
+    /*if(!ratioOptions.first)*/ stack->GetHistogram()->GetXaxis()->SetLabelSize(0.07); // 0.05 is jodorStyle
     
     setStackIdProperties(stack,i);
     
@@ -506,12 +506,23 @@ void HistogramPlotter::plotLegend( TH1 * higgs, TLegend *l, TString title, vecto
   leg->SetFillColor(0);
   leg->SetFillStyle(0);
   
-  for(int i=(size-1); i>-1; i=i-1){ 
+  // Old style (higgs and data on top)
+  // for(int i=(size-1); i>-1; i=i-1){ 
+  //   l->AddEntry(vhistos[i],(vOptions[i]).first ,(vOptions[i]).second ); 
+  //   if(i==size-1 && higgs ){l->AddEntry(higgs,"with H^{#pm} #rightarrow #tau^{#pm}#nu","l");}
+  //   /// antifix /// if(i==size-1 && higgs ){l->AddEntry(higgs,"H^{#pm} #rightarrow #tau^{#pm}#nu","l");}
+  // }
+  
+  
+  // New style (higgs and data on bottom)
+  for(int i=0; i<size; ++i){ 
     l->AddEntry(vhistos[i],(vOptions[i]).first ,(vOptions[i]).second ); 
     if(i==size-1 && higgs ){l->AddEntry(higgs,"with H^{#pm} #rightarrow #tau^{#pm}#nu","l");}
     /// antifix /// if(i==size-1 && higgs ){l->AddEntry(higgs,"H^{#pm} #rightarrow #tau^{#pm}#nu","l");}
   }
   
+
+
   l->SetFillColor(0);
   l->SetTextFont(42);
   l->SetBorderSize(0);
@@ -524,7 +535,7 @@ void HistogramPlotter::plotLegend( TH1 * higgs, TLegend *l, TString title, vecto
   pt->SetLineColor(0);
   //  pt->SetTextFont(132);
   pt->SetTextSize(0.045);
-  TText *text = pt->AddText("CMS Preliminary, #sqrt{s} = 8 TeV, 19.7 fb^{-1}");
+  TText *text = pt->AddText("CMS Preliminary, #sqrt{s} = 8 TeV, #scale[0.5]{#int} L=19.7 fb^{-1}");
   text->SetTextAlign(11);
   pt->Draw();
   

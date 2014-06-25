@@ -21,6 +21,8 @@ using namespace commondefinitions;
 namespace tableutils{
 
   enum dataPrecision { D0=0, D1=1, D2=2, D3=3 };
+
+  double topPtRewFactor_(1.); // 0.948
   
   
   // systset1 -> if enabled include only JES + MET +JER ,  systset2 -> if enabled include only btag unc ,  systset3 -> if enabled only trigger
@@ -1361,6 +1363,9 @@ namespace tableutils{
    "$H^{+}\\rightarrow\\tau\\nu, M_{H}=220 GeV$ & ",
    "$H^{+}\\rightarrow\\tau\\nu, M_{H}=250 GeV$ & ", 
    "$H^{+}\\rightarrow\\tau\\nu, M_{H}=300 GeV$ & ", 
+   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=400 GeV$ & ", 
+   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=500 GeV$ & ", 
+   "$H^{+}\\rightarrow\\tau\\nu, M_{H}=600 GeV$ & ", 
   }; 
 
   TString T_HTB_mc[]      = {
@@ -1965,6 +1970,27 @@ namespace tableutils{
 
         //if(k==1){ cout<<" debug... "<<" Mutau k=1 col2 is = "<<COL2<<" and value is "<<d[COL2][k]<<endl;   }       
          
+	if(k<9){ // Top pt rew
+	  d[COL2][k] *= topPtRewFactor_;
+	  d[COL3][k] *= topPtRewFactor_;
+	  d[COL4][k] *= topPtRewFactor_;
+	  d[COL5][k] *= topPtRewFactor_;
+	  d[COL6][k] *= topPtRewFactor_;
+	  d[COL7][k] *= topPtRewFactor_;
+	  d[COL8][k] *= topPtRewFactor_;
+	  d[COL9][k] *= topPtRewFactor_;
+
+
+	  e[COL2][k] *= topPtRewFactor_;  systErrPlus[COL2][k] *= topPtRewFactor_;  systErrMinus[COL2][k] *= topPtRewFactor_; 
+	  e[COL2][k] *= topPtRewFactor_;  systErrPlus[COL2][k] *= topPtRewFactor_;  systErrMinus[COL2][k] *= topPtRewFactor_; 
+	  e[COL2][k] *= topPtRewFactor_;  systErrPlus[COL2][k] *= topPtRewFactor_;  systErrMinus[COL2][k] *= topPtRewFactor_; 
+	  e[COL2][k] *= topPtRewFactor_;  systErrPlus[COL2][k] *= topPtRewFactor_;  systErrMinus[COL2][k] *= topPtRewFactor_; 
+	  e[COL2][k] *= topPtRewFactor_;  systErrPlus[COL2][k] *= topPtRewFactor_;  systErrMinus[COL2][k] *= topPtRewFactor_; 
+	  e[COL2][k] *= topPtRewFactor_;  systErrPlus[COL2][k] *= topPtRewFactor_;  systErrMinus[COL2][k] *= topPtRewFactor_; 
+	  e[COL2][k] *= topPtRewFactor_;  systErrPlus[COL2][k] *= topPtRewFactor_;  systErrMinus[COL2][k] *= topPtRewFactor_; 
+	  e[COL2][k] *= topPtRewFactor_;  systErrPlus[COL2][k] *= topPtRewFactor_;  systErrMinus[COL2][k] *= topPtRewFactor_; 
+
+	}
 
         // old selection WHAT FOR ?
         //if(k==4){fprintf(f, data, fakes[COL2], fakes[COL3], fakes[COL4], fakes[COL5], fakes[COL6], fakes[COL7]);}
@@ -3174,15 +3200,15 @@ namespace tableutils{
   }; 
 
   TString  T_TBH_mc[] = {
-    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=180GeV$ &",
-    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=190GeV$ &",
-    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=200GeV$ &",
-    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=220GeV$ &",
-    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=250GeV$ &",
-    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=300GeV$ &",
-    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=400GeV$ &",
-    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=500GeV$ &",
-    "$H^{+}\\rightarrow#tau_{\\mathrm{h}}\\nu, M_{H^{+}}=600GeV$ &"
+    "$H^{+}\\rightarrow\\tau_{\\mathrm{h}}\\nu, M_{H^{+}}=180GeV$ &",
+    "$H^{+}\\rightarrow\\tau_{\\mathrm{h}}\\nu, M_{H^{+}}=190GeV$ &",
+    "$H^{+}\\rightarrow\\tau_{\\mathrm{h}}\\nu, M_{H^{+}}=200GeV$ &",
+    "$H^{+}\\rightarrow\\tau_{\\mathrm{h}}\\nu, M_{H^{+}}=220GeV$ &",
+    "$H^{+}\\rightarrow\\tau_{\\mathrm{h}}\\nu, M_{H^{+}}=250GeV$ &",
+    "$H^{+}\\rightarrow\\tau_{\\mathrm{h}}\\nu, M_{H^{+}}=300GeV$ &",
+    "$H^{+}\\rightarrow\\tau_{\\mathrm{h}}\\nu, M_{H^{+}}=400GeV$ &",
+    "$H^{+}\\rightarrow\\tau_{\\mathrm{h}}\\nu, M_{H^{+}}=500GeV$ &",
+    "$H^{+}\\rightarrow\\tau_{\\mathrm{h}}\\nu, M_{H^{+}}=600GeV$ &"
   };
 
   TString  T_HTB_mc[] = {
@@ -3386,8 +3412,10 @@ namespace tableutils{
     else if(detailed == D0)         d = TString(" %8.0f $\\pm$ %8.0f $\\pm$ %8.0f \\\\ \n"); 
     line.Append(d); 
 
-    
-
+    signal_0 *= topPtRewFactor_;
+    err_0    *= topPtRewFactor_;
+    syst_0   *= topPtRewFactor_;
+  
     const char * datatemp = line.Data(); fprintf(f, datatemp, signal_0, err_0, syst_0);  
     
     
@@ -3476,6 +3504,12 @@ namespace tableutils{
       //if(codes[k]==EWKDI_TDCH     ){ syst_0 = 0.2; }
 
       cout<<endl<< "KNOW WHAT IS WHAT " << k << "     " << line << endl;
+
+      if(k<3){ // top pt
+	dMC[entry_0]     *= topPtRewFactor_;
+	dMC_err[entry_0] *= topPtRewFactor_;
+	syst_0           *= topPtRewFactor_;
+      }
       fprintf(f, datatemp2, dMC[entry_0], dMC_err[entry_0], syst_0);   
       
     }

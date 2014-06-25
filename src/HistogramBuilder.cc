@@ -274,6 +274,9 @@ void HistogramBuilder::buildRecoStepHistograms( TFile * outFile, map< TString, S
 
   h = new TH1D("Dphi_lepton_met", "      l;D#phi;  Entries",100,0,4);  addHistoToMonitors(h,h->GetName(),stepsMons, keys);
   h = new TH1D("Dphi_tau_met", "         l;D#phi;  Entries",100,0,4);  addHistoToMonitors(h,h->GetName(),stepsMons, keys);
+  h = new TH1D("dilarccosine",";#theta(l,l') [rad];Events",50,0,3.2);  addHistoToMonitors(h,h->GetName(),stepsMons, keys); 
+  h = new TH1D("Dphi_lepton_tau", "      l;D#phi;  Entries",100,0,4);  addHistoToMonitors(h,h->GetName(),stepsMons, keys);
+  h = new TH1D("DR_lepton_tau",          "j;DR;      Entries",100,0,10);   addHistoToMonitors(h,h->GetName(),stepsMons, keys);
  
   // vertex distributions //////////////////////////////////////////////////////////////////////////////////////////
   h = new TH1D("vertex","j;N_{vertex}; Entries",50,0,50);  addHistoToMonitors(h,h->GetName(),stepsMons, keys);

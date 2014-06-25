@@ -114,10 +114,10 @@ void HeavyChHiggsEventDist(bool isEMu, bool ism250)
   pt->Draw();
 
 
-  TLatex *tex2 = new TLatex(0.05, 7.0, "#splitline{m_{H^{#pm}} = 200 GeV}{#sigma from MSSM}");
-  if(isEMu && !ism250)tex2 = new TLatex(0.65, 7.0, "#splitline{m_{H^{#pm}} = 200 GeV}{#sigma from MSSM}");  
-  if(ism250)tex2 = new TLatex(0.05, 7.0, "#splitline{m_{H^{#pm}} = 250 GeV}{#sigma from MSSM}");  
-  if(isEMu && ism250)tex2 = new TLatex(0.65, 7.0, "#splitline{m_{H^{#pm}} = 250 GeV}{#sigma from MSSM}");
+  TLatex *tex2 = new TLatex(0.05, 7.0, "#splitline{m_{H^{#pm}} = 200 GeV}{m_{H}^{mod+} scenario}");
+  if(isEMu && !ism250)tex2 = new TLatex(0.65, 7.0, "#splitline{m_{H^{#pm}} = 200 GeV}{m_{H}^{mod+} scenario}");  
+  if(ism250)tex2 = new TLatex(0.05, 7.0, "#splitline{m_{H^{#pm}} = 250 GeV}{m_{H}^{mod+} scenario}");  
+  if(isEMu && ism250)tex2 = new TLatex(0.65, 7.0, "#splitline{m_{H^{#pm}} = 250 GeV}{m_{H}^{mod+} scenario}");
   tex2->SetTextSize(0.035);  
   tex2->Draw(); 
 

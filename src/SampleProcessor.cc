@@ -487,9 +487,9 @@ void SampleProcessor::init(){
 
 
     //SPY ///////////////////////////////////////////////////////////
-    TString extra;
+    TString extra; // FIXME CHANGE NAME TO SUBDIR OR SUCH
     if(eChONmuChOFF_) extra=TString("_spy_eltau.root");
-    else extra=TString("_spy_mutau.root");
+    else              extra=TString("_spy_mutau.root");
     TString spyName = outFileName_ + extra;
     TTree * spyTree = listOfReaders_[i]->PrepareToSpyEvents(spyName);
     cout<<endl<<"Spy Events ... on file ... "<<spyName<<endl;

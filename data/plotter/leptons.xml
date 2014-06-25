@@ -46,7 +46,13 @@
     <item dir="PFlow/RecoSteps/lep_tau/OS">eta_t_9</item>
   </id> 
 
-
+  <!-- delta phi and deltar between muon and tau (After OS)-->
+  <id tag="muCh_dphi_mutau_OS" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events" xtitle="#Delta#phi(#mu,#tau)" xbin="2" yrange="0.1,250">
+    <item dir="PFlow/RecoSteps/lep_tau/OS">Dphi_lepton_tau_9</item>
+  </id> 
+  <id tag="muCh_dr_mutau_OS" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events" xtitle="#Delta R(#mu,#tau)" xbin="2" yrange="0.1,600" xrange="0.,6.">
+    <item dir="PFlow/RecoSteps/lep_tau/OS">DR_lepton_tau_9</item>
+  </id> 
 
 
 <!-- R after OS -->

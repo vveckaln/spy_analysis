@@ -86,14 +86,29 @@
 
 <!-- charged higgs analysis -->
 <!-- weight from analyzer is 1pb\times BR(mhmodp,tanb=30) :
-10\times xsec (250:) 0.7624495
+10\times xsec (250:) 0.7624495  10#times
+1/BR TBH: 3.888055117
+1/BR HTB: 1.417715776
+
 --> 
-   <process isstack="0" isdata="0"  opt="same histo" name="#splitline{10#times H^{+}#rightarrow#tau#nu}{[250 GeV]}" color="001" width="3" fill="0" fillcolor="001" markercolor="001" line="1"  linecolor="001" linestyle="7" marker="1" >
-     <file weight="0.7624495">nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m250.root</file>
+
+<!--
+Temp:
+htb factor: 8.93440008525078766e-02
+
+
+tbh factor: 5.04861706546189323e-02
+-->
+
+   <process isstack="0" isdata="0"  opt="same histo" name="#splitline{H^{+}#rightarrow#tau#nu [1pb]}{[250 GeV]}" color="001" width="3" fill="0" fillcolor="001" markercolor="001" line="1"  linecolor="001" linestyle="7" marker="1" >
+     <file weight="0.196293014151426387">nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m250.root</file>
    </process>
 
-   <process isstack="0" isdata="0"  opt="same histo" name="#splitline{10#times H^{+}#rightarrow tb}{[250 GeV]}" color="002" width="3" fill="0" fillcolor="002" markercolor="002" line="1"  linecolor="002" linestyle="7" marker="1" >
-     <file weight="0.7624495">nomt-2012-V1-mc-MU-20GeV/out-htb-pythia-m250.root</file>
+
+
+
+   <process isstack="0" isdata="0"  opt="same histo" name="#splitline{H^{+}#rightarrow tb [1pb]}{[250 GeV]}" color="002" width="3" fill="0" fillcolor="002" markercolor="002" line="1"  linecolor="002" linestyle="7" marker="1" >
+     <file weight="0.126664399499557878">nomt-2012-V1-mc-MU-20GeV/out-htb-pythia-m250.root</file>
    </process>
 
 

@@ -220,7 +220,7 @@ int main(int argc, char* argv[])
     cout << "Doing tables" << endl;
     bool onlyhiggs(true), heavyhiggs(false), sm(false), doNotPrintAllErrors(false), printAllErrors(true), includeSoverB(true), doNotincludeSoverB(false), produceDatacards(false), withShapes(true), withStatShapes(false), unsplit(false);
     int myDetail(0), detailed(2), notDetailed(1), baseDetail(0);      
-    myDetail = detailed;
+    myDetail = baseDetail;
     analyzer->mcTable(myDetail, includeSoverB, printAllErrors, heavyhiggs, sm, "PFlow", "yields-mc-", false, false, false); 
     cout << "Done SM table" << endl;
     analyzer->mcTable(myDetail, includeSoverB, printAllErrors, onlyhiggs, heavyhiggs, "PFlow", "yields-mc-", false, false, false); 
