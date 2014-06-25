@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "${2}" = "1" ]; then
-    qsub batchHadd.sh ${1} data
+    qsub batchHadd.sh ${1} data muon
     qsub batchHadd.sh ${1} mc1_1
     qsub batchHadd.sh ${1} mc1_2
     qsub batchHadd.sh ${1} mc1_3
