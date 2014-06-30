@@ -41,13 +41,13 @@ public :
     Initialize sample processor with files urls , associated x sections and processed luminosity
   */
   void virtual  init( vector<TString> listOfFiles, vector<double> listOfXSections, bool fullStats, double lum, uint n_data =0);
-
+  void virtual  init_spy(vector<TString> listOfFiles, vector<double> listOfXSections, bool fullStats, double lum, uint n_data =0);
   /*
     Requires : initialized list of urls, xsections and luminosity 
     Performs : opens TFiles and computes scales
   */
   void init();
-
+  void init_spy();
 
   /*
     Opens list of processed files with default urls
@@ -129,6 +129,18 @@ public :
   void process_triggersamples_mhtjets();
   
 
+  // Spy files for a given selection level
+  void process_spy_data();
+  void process_spy_misidentifiedTau();
+  void process_spy_dibosons(int);
+  void process_spy_dyvv(); // DAFUCK
+  void process_spy_singletop();
+  void process_spy_ttbar_mcbkg();
+  void process_spy_ttbar_Xtau();
+  void process_spy_zjets_from50();
+  void process_spy_zjets_10to50();
+
+
   /*
     virtual process method handled by the analyzer
   */
@@ -170,6 +182,8 @@ public :
 
   TString iFolder_,iDFolder_;  // inputFolder for mc and data
   TString oFolder_,oDFolder_;  // outputFoler for mc and data
+
+  TString iSpyFolder_,oSpyFolder_;  // inputFolder for spy stuff
 
   ofstream infoFile_;          // debug info file
 

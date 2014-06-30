@@ -34,6 +34,12 @@ SampleProcessor::SampleProcessor(double tauPtCut, TString inputArea, TString out
     char data[10]; sprintf(data,"%dGeV",(int)sampleTauPtCut_);
     
     // I/O folders
+
+    TString prepend( commondefinitions::eChONmuChOFF_ ? "eltau/" : "mutau/" );
+    iSpyFolder_ = TString(commondefinitions::inputArea_ + prepend);
+    oSpyFolder_ = TString(commondefinitions::outputArea_+ prepend);
+
+
     iFolder_ = TString(commondefinitions::inputArea_);
     oFolder_ = TString(commondefinitions::outputArea_);
  
@@ -334,7 +340,7 @@ SampleProcessor::SampleProcessor(double tauPtCut, TString inputArea, TString out
       
       defaultXSections_[TBH250_URL]                = 165;           
     }
-  }
+}
 
 
 
@@ -387,6 +393,57 @@ void SampleProcessor::init(vector<TString> listOfurls, vector<double> listOfXSec
   lum_       = lum;
 
   init();
+  
+}
+
+void SampleProcessor::init_spy(vector<TString> listOfurls, vector<double> listOfXSections, bool fullStats, double lum, uint n_data){
+
+  nToProcess_ = n_data;
+ 
+  if(listOfurls.size()!= listOfXSections.size() ){ 
+    cout<<endl<<"\n\n Number of files does not match number of xsections... \n\n\n"<<endl; 
+    exit(0);
+  }
+
+
+  
+  // Reset urls, xsections,files,histos, scales,reades,events ////////
+  listOfurls_.clear();
+  listOfXSections_.clear();
+  listOfFiles_.clear();
+  listOfHistos_.clear();
+  listOfScales_.clear();
+  listOfReaders_.clear();
+  listOfReadersMC_.clear();
+  //listOfSpies_.clear();
+
+  listOfEventsToProcess_.clear();
+  listOfEventsToProcessMC_.clear();
+
+  listOfEvents_.clear();
+  
+  URLS_=listOfurls.size();
+
+  for(unsigned int i=0; i< URLS_;i++){ 
+
+    listOfurls_.push_back(listOfurls[i]); 
+    listOfXSections_.push_back(listOfXSections[i]); 
+    listOfFiles_.push_back(0); 
+    listOfHistos_.push_back(0); 
+    listOfScales_.push_back(0); 
+    listOfReaders_.push_back(0);
+    listOfReadersMC_.push_back(0);  
+    //listOfSpies_.push_back(0);
+    listOfEventsToProcess_.push_back(0); 
+    listOfEventsToProcessMC_.push_back(0); 
+    listOfEvents_.push_back(0); 
+  }
+  ///////////////////////////////////////////////////////////////////
+
+  fullStats_ = fullStats;
+  lum_       = lum;
+
+  init_spy();
   
 }
 
@@ -549,6 +606,138 @@ void SampleProcessor::init(){
 
 }
 
+void SampleProcessor::init_spy(){
+
+
+  // data location in the tree ///////////////////////
+  TString cutflow("myEventSelector/Selection/cutflow");
+  TString tag("data"); 
+  TString id("myEventSelector");
+  ////////////////////////////////////////////////////
+
+
+  // open files ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  for(unsigned int i=0;i <URLS_;i++){
+    listOfFiles_[i] = TFile::Open(listOfurls_[i]);  
+    if(! listOfFiles_[i] ){ cout <<endl<<"\n Can't find file : "<<(listOfurls_[i])<<endl; continue;}
+
+    //    listOfHistos_[i] = (TH1D *) (listOfFiles_[i])->Get(cutflow);
+    // listOfEvents_[i] = (listOfHistos_[i])->GetBinContent(1);
+
+    listOfEvents_[i] = 1; // Dummy value for data samples
+
+    //    double unsplitNumber(1.);
+    if     (listOfurls_[i].Contains("ttbar_"              ))    listOfEvents_[i] =  8272517   ; // Works for embedded too (embedded ttbar must be normalized using the original number of events from the base sample)
+    else if(listOfurls_[i].Contains("stop_s_"             ))    listOfEvents_[i] =  259960    ;
+    else if(listOfurls_[i].Contains("stop_t_"             ))    listOfEvents_[i] =  3741874   ;
+    else if(listOfurls_[i].Contains("stop_tW-DR_"         ))    listOfEvents_[i] =  497657    ;
+    else if(listOfurls_[i].Contains("stopbar_s_"          ))    listOfEvents_[i] =  139974    ;
+    else if(listOfurls_[i].Contains("stopbar_t_"          ))    listOfEvents_[i] =  1915066   ;
+    else if(listOfurls_[i].Contains("stopbar_tW-DR_"      ))    listOfEvents_[i] =  493458    ;
+    else if(listOfurls_[i].Contains("WJetsToLNu_"         ))    listOfEvents_[i] =  75352713  ;
+    else if(listOfurls_[i].Contains("dy_from50_"          ))    listOfEvents_[i] =  30405425  ;
+    else if(listOfurls_[i].Contains("dy_10_50_"           ))    listOfEvents_[i] =  9942910   ;
+    else if(listOfurls_[i].Contains("WW_"                 ))    listOfEvents_[i] =  9974488   ;
+    else if(listOfurls_[i].Contains("WZ_"                 ))    listOfEvents_[i] =  9924520   ;
+    else if(listOfurls_[i].Contains("ZZ_"                 ))    listOfEvents_[i] =  9744891   ;
+    else if(listOfurls_[i].Contains("qcd_EM_Pt30to80_"    ))    listOfEvents_[i] =  28619036  ;
+    else if(listOfurls_[i].Contains("qcd_EM_Pt80to170_"   ))    listOfEvents_[i] =  19945948  ;
+    else if(listOfurls_[i].Contains("qcd_30to80_BCtoE_"   ))    listOfEvents_[i] =  2043147   ;
+    else if(listOfurls_[i].Contains("qcd_80to170_BCtoE_"  ))    listOfEvents_[i] =  1945523   ;
+    else if(listOfurls_[i].Contains("PhotonJets_30to50_"  ))    listOfEvents_[i] =  1984322   ; //1939322   ;
+    else if(listOfurls_[i].Contains("PhotonJets_50to80_"  ))    listOfEvents_[i] =  1986059   ;
+    else if(listOfurls_[i].Contains("PhotonJets_80to120_" ))    listOfEvents_[i] =  1983625   ; //1938625   ;
+    else if(listOfurls_[i].Contains("PhotonJets_120to170_"))    listOfEvents_[i] =  1960042   ;
+    else if(listOfurls_[i].Contains("qcdmu15_20toinf_"    ))    listOfEvents_[i] =  21352566  ; //20920569  ;
+    else if(listOfurls_[i].Contains("htb-pythia-m180_"  ))      listOfEvents_[i] = 300000;
+    else if(listOfurls_[i].Contains("htb-pythia-m200_"  ))      listOfEvents_[i] = 299999;
+    else if(listOfurls_[i].Contains("htb-pythia-m220_"  ))      listOfEvents_[i] = 299999;
+    else if(listOfurls_[i].Contains("htb-pythia-m240_"  ))      listOfEvents_[i] = 300000;
+    else if(listOfurls_[i].Contains("htb-pythia-m250_"  ))      listOfEvents_[i] = 299668;
+    else if(listOfurls_[i].Contains("htb-pythia-m260_"  ))      listOfEvents_[i] = 299686;
+    else if(listOfurls_[i].Contains("htb-pythia-m280_"  ))      listOfEvents_[i] = 300000;//290000;
+    else if(listOfurls_[i].Contains("htb-pythia-m300_"  ))      listOfEvents_[i] = 300000;//290000;
+    else if(listOfurls_[i].Contains("htb-pythia-m350_"  ))      listOfEvents_[i] = 286364;//290304;
+    else if(listOfurls_[i].Contains("htb-pythia-m500_"  ))      listOfEvents_[i] = 288005;//290880;
+    else if(listOfurls_[i].Contains("htb-pythia-m600_"  ))      listOfEvents_[i] = 286484;
+    else if(listOfurls_[i].Contains("htb-pythia-m700_"  ))      listOfEvents_[i] = 290000;
+    
+
+
+    
+    listOfScales_[i] = (lum_*listOfXSections_[i])/listOfEvents_[i];   
+
+    if( listOfXSections_[i] == 0){ listOfScales_[i]=1;}  // Data
+
+    listOfReaders_[i]     = new event::Reader(); 
+    listOfReadersMC_[i]   = new event::Reader();
+
+    listOfEventsToProcess_[i]   = (listOfReaders_[i])->AssignMiniEventTreeFrom(listOfFiles_[i],tag,id);
+    listOfEventsToProcessMC_[i] = (listOfReadersMC_[i])->AssignMiniEventTreeFrom(listOfFiles_[i],"mc",id);
+
+
+    //SPY ///////////////////////////////////////////////////////////
+    TString extra; // FIXME CHANGE NAME TO SUBDIR OR SUCH
+    if(eChONmuChOFF_) extra=TString("_spy_eltau.root");
+    else              extra=TString("_spy_mutau.root");
+    TString spyName = outFileName_ + extra;
+    TTree * spyTree = listOfReaders_[i]->PrepareToSpyEvents(spyName);
+    cout<<endl<<"Spy Events ... on file ... "<<spyName<<endl;
+    //////////////////////////////////////////////////////////////////
+    
+    if(fullStats_){
+      cout<<endl<<"\n processing file  : "<<(listOfurls_[i])
+          <<"\n Tau pt cut was         : "<<setw(12)<<setiosflags(ios::fixed) << setprecision(8)<<sampleTauPtCut_
+          <<"\n sample -> scale        : "<<setw(12)<<setiosflags(ios::fixed) << setprecision(8)<<(listOfScales_[i])
+          <<"\n evt processed          : "<<setw(8)<<setprecision(1)<<(listOfEvents_[i])
+          <<"\n evt in minitree        : "<<setw(8)<<setprecision(1)<<(listOfEventsToProcess_[i])
+          <<"\n MC evt in minitree     : "<<setw(8)<<setprecision(1)<<(listOfEventsToProcessMC_[i])
+          <<"\n Xsection employed      : "<<(listOfXSections_[i])
+          <<"\n Normalized to lumi (pb): "<<LUM_<<endl;
+      
+      infoFile_<<endl<<"\n processing file : "<<(listOfurls_[i])
+	       <<"\n Tau pt cut was      : "<<setw(12)<<setiosflags(ios::fixed) << setprecision(8)<<sampleTauPtCut_
+	       <<"\n sample -> scale     : "<<setw(12)<<setiosflags(ios::fixed) << setprecision(8)<<(listOfScales_[i])
+	       <<"\n evt processed       : "<<setw(8)<<setprecision(1)<<(listOfEvents_[i])
+	       <<"\n evt in minitree     : "<<setw(8)<<setprecision(1)<<(listOfEventsToProcess_[i])
+	       <<"\n MC evt in minitree  : "<<setw(8)<<setprecision(1)<<(listOfEventsToProcessMC_[i])
+	       <<"\n Xsection employed : "<<(listOfXSections_[i])
+	       <<"\n Normalized to lumi (pb): "<<LUM_<<endl;
+      
+      if(trigEffStudy_)   {  infoFile_<<" Trigger efficiency is ON  "; cout<<" Trigger efficiency is ON ";  }
+      else                {  infoFile_<<" Trigger efficiency is OFF "; cout<<" Trigger efficiency is OFF "; }
+      if(applybtagweight_){  infoFile_<<" BTAG weights are ON  ";      cout<<" BTAG weights are ON ";       }
+      else                {  infoFile_<<" BTAG weights are OFF ";      cout<<" BTAG weights are OFF";       }
+
+
+
+    }else{ 
+
+      cout<<endl<<"\n processing file : "<<(listOfurls_[i])<<"\n evt in minitree     : "<<setw(8)<<setprecision(1)<<(listOfEventsToProcess_[i]);
+      infoFile_<<"\n processing file : "<<(listOfurls_[i])<<"\n evt in minitree     : "<<setw(8)<<setprecision(1)<<(listOfEventsToProcess_[i]);
+ 
+      if( nToProcess_ > listOfEventsToProcess_[i] ){ 
+        cout<<endl<<" WARNING :: required number of events too large : "<<nToProcess_<<" sample will be fully processed..."<<endl;
+        infoFile_<<"  WARNING :: required number of events too large : "<<nToProcess_<<" sample will be fully processed..."<<endl;
+   
+      }else {      
+        cout<<" but only "<<nToProcess_<<" will be processed... "<<endl;
+        infoFile_<<" but only "<<nToProcess_<<" will be processed... "<<endl;
+
+        listOfScales_[i] = (lum_*listOfXSections_[i])/nToProcess_;   
+        listOfEventsToProcess_[i] = nToProcess_;
+      }
+
+      if(trigEffStudy_)   {  infoFile_<<" Trigger efficiency is ON ";  cout<<" Trigger efficiency is ON ";  }
+      else                {  infoFile_<<" Trigger efficiency is OFF "; cout<<" Trigger efficiency is OFF "; } 
+      if(commondefinitions::applybtagweight_){  infoFile_<<" BTAG weights are ON  ";      cout<<" BTAG weights are ON ";       }
+      else                {  infoFile_<<" BTAG weights are OFF ";      cout<<" BTAG weights are OFF";       }
+
+    }
+  }// finish processing urls /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+
+}
 
 
 int SampleProcessor::codeChannel(int i, int urlCode){
@@ -1818,3 +2007,100 @@ void SampleProcessor::process_triggersamples_mhtjets(){
 }
 
 
+
+//////////////////////// PROCESS SPY FILES ///////////////////////////
+
+// FIXME: check input and output folders scheme
+
+
+void SampleProcessor::process_spy_data(){
+
+  url_ = DATA_URL;
+  process(true,url_,iSpyFolder_+TString("spy_data.root"),oSpyFolder_+TString("out-data.root"),keys_);
+    
+}
+
+void SampleProcessor::process_spy_misidentifiedTau(){
+
+  url_ = DATA_URL; // THIS SHOULD COME FROM DATA_RESCALED, DAMMIT. IMPLEMENT WEIGHT FROM STUFF WITHIN THE OSANALYSIS CODE // DATA_RESCALED
+  process(true,url_,iSpyFolder_+TString("spy_data.root"),oSpyFolder_+TString("out-data.root"),keys_);
+
+}
+
+void SampleProcessor::process_spy_dibosons(int sample){
+
+  switch(sample){
+  case 0:
+    url_= WW_URL; process(false, url_, iSpyFolder_ + TString("spy_ww.root"), oSpyFolder_+TString("out-ww.root"),keys_); 
+    break;
+  case 1:
+    url_= WZ_URL; process(false, url_, iSpyFolder_ + TString("spy_wz.root"), oSpyFolder_+TString("out-wz.root"),keys_);  
+    break;
+  case 2:
+    url_= ZZ_URL; process(false, url_, iSpyFolder_ + TString("spy_zz.root"), oSpyFolder_+TString("out-zz.root"),keys_);
+    break;
+  default:
+    cout << "No Sample, wrong samplecode chosen. Supported ones are: 0=ww, 1=wz, 2=zz" << endl;
+    break;
+  }
+  
+}
+
+void SampleProcessor::process_spy_dyvv(){
+
+  // FIXME: WHAT THE FUCK IS DYVV SUPPOSED TO MEAN?
+  // MADGRAPH Z+JETS
+
+  url_ = DY_FROM50_URL; // 10to50 FIXME
+
+  process(false, url_, iSpyFolder_ + TString("spy_dy_from50.root"), oSpyFolder_+TString("out-dy_from50.root"),keys_); 
+
+}
+
+
+void SampleProcessor::process_spy_singletop(){
+
+  // FIXME CROSSECTION
+
+  //SINGLE TOP
+  url_= S_URL; process(false, url_, iSpyFolder_ + TString("spy_stop_s.root"),     oSpyFolder_ + TString("out-stop_s.root"),keys_);   
+  url_= T_URL; process(false, url_, iSpyFolder_ + TString("spy_stop_t.root"),     oSpyFolder_ + TString("out-stop_t.root"),keys_);  
+  url_= W_URL; process(false, url_, iSpyFolder_ + TString("spy_stop_tW-DR.root"), oSpyFolder_ + TString("out-stop-DR_tW.root"),keys_); 
+  
+  //ANTI SINGLE TOP
+  url_= A_S_URL; process(false, url_, iSpyFolder_ + TString("spy_stopbar_s.root"),     oSpyFolder_ + TString("out-stopbar_s.root"),keys_);   
+  url_= A_W_URL; process(false, url_, iSpyFolder_ + TString("spy_stopbar_tW-DR.root"), oSpyFolder_ + TString("out-stopbar-DR_tW.root"),keys_);
+  url_= A_T_URL; process(false, url_, iSpyFolder_ + TString("spy_stopbar_t.root"),     oSpyFolder_ + TString("out-stopbar_t.root"),keys_);  
+}
+
+void SampleProcessor::process_spy_ttbar_mcbkg(){
+
+  url_= TTBAR_URL;
+  process(false, url_, iSpyFolder_ + TString("spy_ttbar_mcbkg.root"), oSpyFolder_+TString("out-ttbar-mcbkg.root"),keys_, TTBAR_MCBKG_ );
+
+}
+
+void SampleProcessor::process_spy_ttbar_Xtau(){
+
+  url_= TTBAR_URL;
+
+  if(!eChONmuChOFF_) process(false, url_, iSpyFolder_ + TString("spy_ttbar_mutau.root"), oSpyFolder_+TString("out-ttbar-mutau.root"),keys_, MUTAU_ ); 
+  else               process(false, url_, iSpyFolder_ + TString("spy_ttbar_etau.root"),  oSpyFolder_+TString("out-ttbar-etau.root"),keys_, ETAU_ ); 
+}
+
+void SampleProcessor::process_spy_zjets_from50(){
+
+  // MADGRAPH Z+JETS
+
+  url_ = DY_FROM50_URL; 
+
+  process(false, url_, iSpyFolder_ + TString("spy_dy_from50,root"), oSpyFolder_+TString("out-dy_from50.root"),keys_); 
+
+}
+
+void SampleProcessor::process_spy_zjets_10to50(){
+  
+  // MADGRAPH Z+JETS
+  url_ = DY_10TO50_URL;
+  process(false, url_, iSpyFolder_ + TString("spy_dy_10_50.root"), oSpyFolder_+TString("out-dy_10to50.root"),keys_);    
+}

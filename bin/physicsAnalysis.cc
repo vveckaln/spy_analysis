@@ -9,6 +9,7 @@
 
 #include "LIP/TopTaus/interface/CutflowAnalyzer.hh"
 #include "LIP/TopTaus/interface/HistogramPlotter.hh"
+#include "LIP/TopTaus/interface/SingleStepAnalyzer.hh"
 
 // System includes	
 #include <string>
@@ -81,12 +82,33 @@ int main(int argc, char* argv[])
   bool eChONmuChOFF = pSet.getParameter<bool>("eChONmuChOFF");
   bool noUncertainties = pSet.getParameter<bool>("noUncertainties");
   bool doWPlusJetsAnalysis = pSet.getParameter<bool>("doWPlusJetsAnalysis");
-  TString inputArea = TString(pSet.getParameter<string>("inputArea"));
+  TString inputArea  = TString(pSet.getParameter<string>("inputArea"));
   TString outputArea = TString(pSet.getParameter<string>("outputArea"));
+  TString spyInputArea  = TString(pSet.getParameter<string>("spyInputArea"));
+  TString spyOutputArea = TString(pSet.getParameter<string>("spyOutputArea"));
   TString puFileName = TString(pSet.getParameter<string>("puFileName"));
   TString runRange   = TString(pSet.getParameter<string>("runRange"));
   std::vector<double> brHtaunu = pSet.getParameter<std::vector<double> >("brHtaunu");
   std::vector<double> brHtb    = pSet.getParameter<std::vector<double> >("brHtb");
+  
+  if(runOn == "spy_misidentifiedTau" || runOn == "spy_data" || runOn == "spy_ww" || runOn == "spy_wz" || runOn == "spy_zz" || runOn == "spy_dyvv" || runOn == "spy_singletop" || runOn == "spy_ttbar_mcbkg" || runOn == "spy_ttbar_Xtau" || runOn == "spy_zjets_from50" || runOn == "spy_jets_10to50" ){ // Put it here in order to avoid loading a full instance of CutflowAnalyzer in memory
+    
+    SingleStepAnalyzer* analyzeThis = new SingleStepAnalyzer(noUncertainties, spyInputArea, spyOutputArea, puFileName, runRange, eChONmuChOFF); 
+    
+    if(runOn == "spy_misidentifiedTau") analyzeThis->process_spy_misidentifiedTau();
+    if(runOn == "spy_data"	      ) analyzeThis->process_spy_data	         ();
+    if(runOn == "spy_ww"	      ) analyzeThis->process_spy_dibosons	 (0);
+    if(runOn == "spy_wz"	      ) analyzeThis->process_spy_dibosons	 (1);
+    if(runOn == "spy_zz"	      ) analyzeThis->process_spy_dibosons	 (2);
+    if(runOn == "spy_dyvv"	      ) analyzeThis->process_spy_dyvv	         (); // DAFUCK?
+    if(runOn == "spy_singletop"	      ) analyzeThis->process_spy_singletop	 ();
+    if(runOn == "spy_ttbar_mcbkg"     ) analyzeThis->process_spy_ttbar_mcbkg     ();
+    if(runOn == "spy_ttbar_Xtau"      ) analyzeThis->process_spy_ttbar_Xtau      ();
+    if(runOn == "spy_zjets_from50"    ) analyzeThis->process_spy_zjets_from50    ();
+    if(runOn == "spy_zjets_10to50"    ) analyzeThis->process_spy_zjets_10to50    ();
+    
+    return 0;
+  }
   
   CutflowAnalyzer* analyzer = new CutflowAnalyzer( tauPtCut, noUncertainties, doWPlusJetsAnalysis, inputArea, outputArea, puFileName, runRange, brHtaunu, brHtb /*parSet*/, eChONmuChOFF );
   

@@ -10,15 +10,18 @@ PhysicsAnalysisParSet = cms.PSet(
     noUncertainties = cms.bool(False),
     doWPlusJetsAnalysis = cms.bool(True),
     #    inputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/merged/"),
-    inputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_9_def/"),
+    ## DO NOT RISK ## inputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_9_def/"),
+    inputArea = cms.string(""),
+
     # inputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/top_forTttbarReweighting_notWorking/"),
     # new
     #    outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_preapp2/"),
     ##outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_noTopPtRew/"),
 ###    outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_May/"),
-   outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_May_angular/"),
+    ## DO NOT RISK ## outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_May_angular/"),
+    outputArea = cms.string(""),
     # Take care: you should not rewrite in the same directory with eChONmuChOFF differently set. Use two different output directories
-    eChONmuChOFF  = cms.bool(False),
+    eChONmuChOFF  = cms.bool(True),
 ##################    outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew_2/"),
     #basepreapp
     #outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test2/"),
@@ -27,6 +30,8 @@ PhysicsAnalysisParSet = cms.PSet(
     # puFileName = cms.string("/exper-sw/cmst3/cmssw/users/vischia/chiggs/CMSSW_5_3_9/src/LIP/TopTaus/data/pileup/MyDataPileupHistogram_70300_100bins_true.root"),
     runRange = cms.string("ABCD"),
 
+    spyInputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/tauDileptonSpyFiles_2014-06-25_CMSSW_5_3_9/spyInput/"),
+    spyOutputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/tauDileptonSpyFiles_2014-06-25_CMSSW_5_3_9/spyOutput/vischia/"),
 
 
 

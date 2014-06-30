@@ -46,13 +46,16 @@ CutflowAnalyzer::CutflowAnalyzer( double tauPtCut, bool noUncertainties, bool do
   // RunC2: 3283
   // RunD1: 3061
   // RunD2: 4129
-  else if(runRange=="AB")  LUM_ = 0.; // Must update
-  else if(runRange=="ABC") LUM_ = 0.; // Must update
-  else if(runRange=="A")   LUM_ = 0.; // Must update
-  else if(runRange=="B")   LUM_ = 0.; // Must update
-  else if(runRange=="C1")  LUM_ = 0.; // Must update
-  else if(runRange=="C2")  LUM_ = 0.; // Must update
-  else if(runRange=="D")   LUM_ = 0.; // Must update
+  else if(runRange=="AB")  LUM_ = 876.225+4311.;
+  else if(runRange=="ABC") LUM_ = 876.225+4311.+3598.+3283.;
+  else if(runRange=="A")   LUM_ = 876.225;
+  else if(runRange=="B")   LUM_ = 4311.;
+  else if(runRange=="C1")  LUM_ = 3598.;
+  else if(runRange=="C2")  LUM_ = 3283.;
+  else if(runRange=="C")   LUM_ = 3598.+3283.;
+  else if(runRange=="D1")  LUM_ = 3061.;
+  else if(runRange=="D2")  LUM_ = 4129.;
+  else if(runRange=="D")   LUM_ = 3061.+4129.;
   
   // Acquire pileup weights
   float dataDist[100] = {0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 
