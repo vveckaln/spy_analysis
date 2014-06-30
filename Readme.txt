@@ -61,6 +61,46 @@ cvs co -p UserCode/LIP/TopTaus/TAGS_2011.txt | sh
 Instructions for running analysis
 ---------------------------------
 
+###### How to analyze spyfiles ######
+bin/physicsAnalysis.cc is the base executable. It makes use of test/physicsAnalysisParSets_cfg.py in order to set up some needed parameters
+Currently, the only things you must change in the cfg file are:
+ - the "spyOutputArea" (and for good measure please change also "outputArea"). The input spyfiles are already in a shared folder, that you don't need to change.
+ - the "eChOnMuChOff" variable: this is for choosing whether to analyze mutau or etau final states
+You can run in parallel on all the spyfiles pertaining to a given set like this:
+cd scripts/lip-batch
+sh submit-jobs.sh spy
+sh monitor.sh
+When there are no more jobs running, you should have all the outputs in the spyOutputArea.
+The stdout of the job will be in scripts/lip-batch/blahblah.sh.o123456 and the stderr in the corresponding .sh.e123456
+
+Alternatively, you can run interactively by executing for example
+physicsAnalysis test/physicsAnalysisParSets_cfg.py spy_zz
+(in the bin sourcecode you can find the acceptable codes, or also in the scripts/lip-batch/job-spy_zz.sh and so on)
+
+Currently, you have an output in which for some reason (that I have to investigate this evening or tomorrow morning) the histograms are not filled.
+
+Coming to the code, the bin/physicsAnalysis.cc, when called for the spy files, creates an instance of the class SingleStepAnalyzer (interface/SingleStepAnalyzer.hh and 
+src/SingleStepAnalyzer.cc) and runs.
+
+The SingleStepAnalyzer::tauDileptonOSAnalysis(...) method selects the objects in the way they are selected in the paper.
+
+You want to add your new computations and plot filling in the SingleStepAnalyzer::fillTauDileptonObjHistograms(...) method.
+
+Plot declarations must go in src/HistogramBuilder.cc
+
+
+I have to fix the plot filling that I mentioned and the pileup reweighting (the spyfiles do not contain the needed histograms, and 
+apparently is not possible to ask for a new version of the spyfiles soon, so I need to hack a bit to fetch the histograms from the original files and
+configure the SingleStepAnalyzer to make it fetch the histos from there and not from the current file, basically.
+
+
+
+
+
+
+
+###### End of how to analyze spyfiles ########
+
 # Local pattuple test run (local data file at LIP)
 # obsolete, must update: cmsRun LIP/TopTaus/test/createDataPattuple_cfg.py /lustre/data3/cmslocal/samples/CMSSW_5_2_5/test/Run2012B_SingleMu_AOD_PromptReco-v1_000_193_998_0C7DCC80-4E9D-E111-B22A-001D09F25267.root pattuple.root inclusive_mu
 
