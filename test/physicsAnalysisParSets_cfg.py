@@ -9,6 +9,8 @@ PhysicsAnalysisParSet = cms.PSet(
     tauPtCut = cms.double(20.0),
     noUncertainties = cms.bool(False),
     doWPlusJetsAnalysis = cms.bool(True),
+    # NORMALLY YOU WANT TO SET computePDFWeights to FALSE. It's for a syst component and takes ages to run.
+    computePDFWeights = cms.bool(False),
     #    inputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/merged/"),
     ## DO NOT RISK ## inputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_9_def/"),
     inputArea = cms.string(""),

@@ -82,6 +82,7 @@ int main(int argc, char* argv[])
   bool eChONmuChOFF = pSet.getParameter<bool>("eChONmuChOFF");
   bool noUncertainties = pSet.getParameter<bool>("noUncertainties");
   bool doWPlusJetsAnalysis = pSet.getParameter<bool>("doWPlusJetsAnalysis");
+  bool computePDFWeights = pSet.getParameter<bool>("computePDFWeights");
   TString inputArea  = TString(pSet.getParameter<string>("inputArea"));
   TString outputArea = TString(pSet.getParameter<string>("outputArea"));
   TString spyInputArea  = TString(pSet.getParameter<string>("spyInputArea"));
@@ -110,7 +111,7 @@ int main(int argc, char* argv[])
     return 0;
   }
   
-  CutflowAnalyzer* analyzer = new CutflowAnalyzer( tauPtCut, noUncertainties, doWPlusJetsAnalysis, inputArea, outputArea, puFileName, runRange, brHtaunu, brHtb /*parSet*/, eChONmuChOFF );
+  CutflowAnalyzer* analyzer = new CutflowAnalyzer( tauPtCut, noUncertainties, doWPlusJetsAnalysis, inputArea, outputArea, puFileName, runRange, brHtaunu, brHtb /*parSet*/, eChONmuChOFF, computePDFWeights );
   
   std::cout << "Analyzer has been set with a cut on tau pt of " << tauPtCut << " GeV/c " << std::endl;
 

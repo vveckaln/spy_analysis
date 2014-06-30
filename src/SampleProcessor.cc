@@ -19,9 +19,9 @@ SampleProcessor::SampleProcessor(double tauPtCut, TString inputArea, TString out
     outFile_=0;
     
     checkleptonsFromTauDecay_ = false; // true; // used to compute tables with leptons from tau decays (tt->WbWb->tauhtaul)
-
+    
     pdfweights_=false; // this should allways be false, it will be overwritten by the process_ttbar
-
+    
     jetpgid_=JETPGID_OLD;
 
     fast_=true;
@@ -2103,4 +2103,10 @@ void SampleProcessor::process_spy_zjets_10to50(){
   // MADGRAPH Z+JETS
   url_ = DY_10TO50_URL;
   process(false, url_, iSpyFolder_ + TString("spy_dy_10_50.root"), oSpyFolder_+TString("out-dy_10to50.root"),keys_);    
+}
+
+
+
+void SampleProcessor::SetPDFWeights(bool computePDFWeights){
+  pdfweights_=computePDFWeights;
 }

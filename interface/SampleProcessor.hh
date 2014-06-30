@@ -140,6 +140,7 @@ public :
   void process_spy_zjets_from50();
   void process_spy_zjets_10to50();
 
+  void SetPDFWeights(bool);
 
   /*
     virtual process method handled by the analyzer

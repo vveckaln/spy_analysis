@@ -36,7 +36,7 @@ using namespace std;
 class CutflowAnalyzer : public UncertaintyCalculator, public AnalysisMonitoring, public ObjectSelector, public GenericUtils, public PhysicsUtils {
 public:
   
-  CutflowAnalyzer(double, bool, bool, TString, TString, TString, TString, vector<double>, vector<double>, bool);
+  CutflowAnalyzer(double, bool, bool, TString, TString, TString, TString, vector<double>, vector<double>, bool, bool);
   
   void process(bool, urlCodes, TString, TString, vector<TString>&, uint);
 
@@ -187,6 +187,7 @@ private:
 
   bool noUncertainties_;   // Do not compute trees with systematic uncertainties (faster for preliminary checks)
   bool doWPlusJetsAnalysis_; // Do not perform WPlusJetsAnalysis (so no trees in it) (faster for preliminary and notau checks)
+  bool computePDFWeights_;
   bool    isData_;         // is this data ?
   int  ttbarLike_;         // see if we need to process (etau,mutau) (ee,emu,mumu)
   unsigned int i_;         // generic index

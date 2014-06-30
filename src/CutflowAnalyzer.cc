@@ -11,13 +11,13 @@
 
 using namespace std;
 
-CutflowAnalyzer::CutflowAnalyzer( double tauPtCut, bool noUncertainties, bool doWPlusJetsAnalysis, TString inputArea, TString outputArea, TString puFileName, TString runRange, vector<double> brHtaunu, vector<double> brHtb, bool eChONmuChOFF) :
+CutflowAnalyzer::CutflowAnalyzer( double tauPtCut, bool noUncertainties, bool doWPlusJetsAnalysis, TString inputArea, TString outputArea, TString puFileName, TString runRange, vector<double> brHtaunu, vector<double> brHtb, bool eChONmuChOFF, bool computePDFWeights) :
   UncertaintyCalculator(),  
   AnalysisMonitoring(tauPtCut, inputArea, outputArea), 
   ObjectSelector(tauPtCut),
   noUncertainties_(noUncertainties),
-
   doWPlusJetsAnalysis_(doWPlusJetsAnalysis),
+  computePDFWeights_(computePDFWeights),
   testMe_(0),
   testMe_Nev_(0)
 
@@ -26,6 +26,8 @@ CutflowAnalyzer::CutflowAnalyzer( double tauPtCut, bool noUncertainties, bool do
   brHtb_    = brHtb;
   commondefinitions::eChONmuChOFF_  = eChONmuChOFF;
 
+  SetPDFWeights(computePDFWeights_);
+  
   cout << "------- BR(H+->taunu) -------" << endl;
   for(size_t i=0; i<brHtaunu_.size(); ++i)
     cout<< brHtaunu_[i] << endl;
@@ -279,9 +281,9 @@ void CutflowAnalyzer::process(bool isData, urlCodes urlCode, TString path, TStri
 
 
  
-  /*
-  evaluatePDFUncertainty();
-  UNCOMMENT */ // FIXME: configure code for evaluation (and switch from conf file)
+  
+  if(computePDFWeights_) evaluatePDFUncertainty();
+  // FIXME: configure code for evaluation (and switch from conf file)
 
 
   if(outFile_){ 
