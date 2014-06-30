@@ -63,8 +63,8 @@ void produceLimitCard(
 		      bool logy
 		      ){
   
-  double myMasses[] = {180., 200., 220., 250., 300., 350., /*400.,*/ 500., 600., 700.};
-  double useMasses[] = {  1,   1,     1,    1,   1 ,   0,     0,    0,    0,    0};
+  double myMasses[] = {180., 200., 220., 250., 300., 400., 500., 600.};
+  double useMasses[] = {  1,   1,     1,    1,   1 ,   1,     1,    1,    1,    1};
 
  
 
@@ -231,7 +231,7 @@ void produceLimitCard(
    hframe__1->SetMaximum(500);
    if(inputDir.Contains("/tb/") && !logy){ hframe__1->SetMaximum(20); hframe__1->SetMinimum(0.);}
    if(inputDir.Contains("/tb/") && logy){ hframe__1->SetMaximum(200); hframe__1->SetMinimum(0.01);}
-   if(inputDir.Contains("/taunu/") && !logy){ hframe__1->SetMaximum(20); hframe__1->SetMinimum(0.);}
+   if(inputDir.Contains("/taunu/") && !logy){ hframe__1->SetMaximum(50); hframe__1->SetMinimum(0.);}
    if(inputDir.Contains("/taunu/") && logy){ hframe__1->SetMaximum(200); hframe__1->SetMinimum(0.01);}
    if(inputDir.Contains("/mutau/taunu/")) hframe__1->SetMaximum(100);
    if(inputDir.Contains("/mutau/taunu/")) hframe__1->SetMinimum(4);
@@ -277,6 +277,7 @@ void produceLimitCard(
      graph[m]->SetName("valueFrom"+fNameInset[m]);
      graph[m]->SetTitle("Graph"+fNameInset[m]);
      graph[m]->SetFillColor(colours[m]);
+     graph[m]->SetFillStyle(3001);
      graph[m]->SetLineColor(colours[m]);
      graph[m]->SetLineStyle(lineStyles[m]);
      graph[m]->SetLineWidth(3);
@@ -341,8 +342,16 @@ void produceLimitCard(
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(4000);
+
+   
+   
+   
    
    for(size_t m=0; m<fNameInset.size(); ++m){
+     //size_t ma =m;
+     //     if(inputDir.Contains("/taunu/")) m=fNameInset.size()-1-m;
+     cout << " m is " << m << endl;
+     
      graph[m]->SetHistogram(Expected3__4);
      graph[m]->Draw("2");//l ");
      graph[m]->Draw("p");//l ");
@@ -353,6 +362,7 @@ void produceLimitCard(
      entry->SetMarkerColor(m);
      entry->SetMarkerStyle(21);
      entry->SetMarkerSize(1);
+     //m=ma;
    }
    
    
@@ -408,7 +418,7 @@ tex->SetNDC();
    //      tex = new TLatex(0.2,0.84,"#splitline{e#mu+#mu#tau_{h} final state}{tan#beta=5}");
    if(inputDir.Contains("/emu/"))      tex = new TLatex(0.2,/*0.84*/0.90,"e#mu final state");
    if(inputDir.Contains("/mutau/"))    tex = new TLatex(0.2,/*0.84*/0.90,"#mu#tau_{h} final state");
-   if(inputDir.Contains("/combined/")) tex = new TLatex(0.2,/*0.84*/0.90,"e#mu+#mu#tau_{h} final states");
+   if(inputDir.Contains("/combined/")) tex = new TLatex(0.2,/*0.84*/0.90,"e#mu+ee+#mu#mu+#mu#tau_{h} final states");
    //tex = new TLatex(0.2,0.84,"e#mu final state");
 tex->SetNDC();
    tex->SetTextFont(63);
