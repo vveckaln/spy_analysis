@@ -17,7 +17,8 @@
 #include "TLegendEntry.h"
 
 
-HistogramPlotter::HistogramPlotter(): PlotStyle() {
+HistogramPlotter::HistogramPlotter(): 
+  PlotStyle() {
   c_ = 0; 
   plotHiggs_= false;
   showOnlyBR_=false; 

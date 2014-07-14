@@ -77,7 +77,18 @@ Alternatively, you can run interactively by executing for example
 physicsAnalysis test/physicsAnalysisParSets_cfg.py spy_zz
 (in the bin sourcecode you can find the acceptable codes, or also in the scripts/lip-batch/job-spy_zz.sh and so on)
 
-Currently, you have an output in which for some reason (that I have to investigate this evening or tomorrow morning) the histograms are not filled.
+Currently, the plots get produced correctly at the OS selection step (Folder RecoSteps/[lep_tau|mu_tau]/OS/)
+
+You then need to run 
+physicsAnalysis test/physicsAnalysisParSets_cfg.py spyHadd
+in order to merge the outputfiles as they should
+
+and finally
+physicsAnalysis test/physicsAnalysisParSets_cfg.py spyPlots
+in order to produce the plots.
+
+This works out of the box.
+
 
 Coming to the code, the bin/physicsAnalysis.cc, when called for the spy files, creates an instance of the class SingleStepAnalyzer (interface/SingleStepAnalyzer.hh and 
 src/SingleStepAnalyzer.cc) and runs.
@@ -89,7 +100,7 @@ You want to add your new computations and plot filling in the SingleStepAnalyzer
 Plot declarations must go in src/HistogramBuilder.cc
 
 
-I have to fix the plot filling that I mentioned and the pileup reweighting (the spyfiles do not contain the needed histograms, and 
+I have to fix the pileup reweighting (the spyfiles do not contain the needed histograms, and 
 apparently is not possible to ask for a new version of the spyfiles soon, so I need to hack a bit to fetch the histograms from the original files and
 configure the SingleStepAnalyzer to make it fetch the histos from there and not from the current file, basically.
 
