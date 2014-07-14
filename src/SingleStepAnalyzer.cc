@@ -13,7 +13,7 @@ using namespace std;
 
 SingleStepAnalyzer::SingleStepAnalyzer(bool noUncertainties, TString spyInputArea, TString spyOutputArea, TString puFileName, TString runRange, bool eChONmuChOFF) :
   UncertaintyCalculator(),  
-  AnalysisMonitoring(20, spyInputArea, spyOutputArea), // For table builder, apparently
+  AnalysisMonitoring(20, spyInputArea, spyOutputArea, eChONmuChOFF), // For table builder, apparently
   ObjectSelector(20),
   noUncertainties_(noUncertainties),
   testMe_(0),

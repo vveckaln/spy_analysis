@@ -9,15 +9,15 @@
 
 
 
-SampleProcessor::SampleProcessor(double tauPtCut, TString inputArea, TString outputArea):
+SampleProcessor::SampleProcessor(double tauPtCut, TString inputArea, TString outputArea, bool eChONmuChOFF):
   sampleTauPtCut_(tauPtCut)
 {
   
   commondefinitions::inputArea_ = inputArea;
   commondefinitions::outputArea_ = outputArea;
-    
-    outFile_=0;
-    
+  commondefinitions::eChONmuChOFF_ = eChONmuChOFF;
+  outFile_=0;
+  
     checkleptonsFromTauDecay_ = false; // true; // used to compute tables with leptons from tau decays (tt->WbWb->tauhtaul)
     
     pdfweights_=false; // this should allways be false, it will be overwritten by the process_ttbar
@@ -38,7 +38,7 @@ SampleProcessor::SampleProcessor(double tauPtCut, TString inputArea, TString out
     TString prepend( commondefinitions::eChONmuChOFF_ ? "eltau/" : "mutau/" );
     iSpyFolder_ = TString(commondefinitions::inputArea_ + prepend);
     oSpyFolder_ = TString(commondefinitions::outputArea_+ prepend);
-
+    cout << "Using input spy folder " << iSpyFolder_ << ", being eChONmuChOFF_=" << eChONmuChOFF_ << endl;
 
     iFolder_ = TString(commondefinitions::inputArea_);
     oFolder_ = TString(commondefinitions::outputArea_);
