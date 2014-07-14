@@ -692,12 +692,17 @@ void SingleStepAnalyzer::tauDileptonOSAnalysis(
     // down: no reweighting
     // central: weight -> weight * reweight
     // up: weight -> weight * reweight * reweight
-    if(topptunc_ >=0) 
-      w_  *= ttbarReweight(tPt,tbarPt);    
-    if( topptunc_>0)
-      w_  *= ttbarReweight(tPt,tbarPt);
-    
-    if(i_ == 45) cout << "topptunc: (" << tPt << ", " << tbarPt << ") ---> " <<  ttbarReweight(tPt,tbarPt) <<endl;
+
+    bool IUseSpyfiles(true);
+
+    if(!IUseSpyfiles){
+      if(topptunc_ >=0) 
+	w_  *= ttbarReweight(tPt,tbarPt);    
+      if( topptunc_>0)
+	w_  *= ttbarReweight(tPt,tbarPt);
+      
+      if(i_ == 45) cout << "topptunc: (" << tPt << ", " << tbarPt << ") ---> " <<  ttbarReweight(tPt,tbarPt) <<endl;
+    }
   }
   /////////////////////////////////////////////
   
