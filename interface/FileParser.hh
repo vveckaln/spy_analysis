@@ -70,7 +70,6 @@ public:
   map< int, int >                 mapIdXrebin_; 
   ////////////////////////////////////////////////
   
-  
   TString process_,file_,weight_;
   
   // process/sample attributes

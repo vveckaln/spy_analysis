@@ -16,6 +16,7 @@ SampleProcessor::SampleProcessor(double tauPtCut, TString inputArea, TString out
   commondefinitions::inputArea_ = inputArea;
   commondefinitions::outputArea_ = outputArea;
   commondefinitions::eChONmuChOFF_ = eChONmuChOFF;
+  
   outFile_=0;
   
     checkleptonsFromTauDecay_ = false; // true; // used to compute tables with leptons from tau decays (tt->WbWb->tauhtaul)

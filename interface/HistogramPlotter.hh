@@ -31,6 +31,7 @@
 #include "LIP/TopTaus/interface/PlotStyle.hh"
 
 class HistogramPlotter : public FileParser, public PlotStyle {
+
   
 public :
   HistogramPlotter();
@@ -71,7 +72,6 @@ public :
   bool showOnlyBR_ ;
   bool includeErrors_;
   double LUM_ERR;
-  
   
 };
 

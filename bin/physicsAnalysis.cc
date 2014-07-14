@@ -92,7 +92,7 @@ int main(int argc, char* argv[])
   std::vector<double> brHtaunu = pSet.getParameter<std::vector<double> >("brHtaunu");
   std::vector<double> brHtb    = pSet.getParameter<std::vector<double> >("brHtb");
   
-  if(runOn == "spy_misidentifiedTau" || runOn == "spy_data" || runOn == "spy_ww" || runOn == "spy_wz" || runOn == "spy_zz" || runOn == "spy_dyvv" || runOn == "spy_singletop" || runOn == "spy_ttbar_mcbkg" || runOn == "spy_ttbar_Xtau" || runOn == "spy_zjets_from50" || runOn == "spy_jets_10to50" ){ // Put it here in order to avoid loading a full instance of CutflowAnalyzer in memory
+  if(runOn == "spy_misidentifiedTau" || runOn == "spy_data" || runOn == "spy_ww" || runOn == "spy_wz" || runOn == "spy_zz" || runOn == "spy_dyvv" || runOn == "spy_singletop" || runOn == "spy_ttbar_mcbkg" || runOn == "spy_ttbar_Xtau" || runOn == "spy_zjets_from50" || runOn == "spy_jets_10to50" || runOn == "spyHadd" || runOn == "spyPlots"){ // Put it here in order to avoid loading a full instance of CutflowAnalyzer in memory
     
     SingleStepAnalyzer* analyzeThis = new SingleStepAnalyzer(noUncertainties, spyInputArea, spyOutputArea, puFileName, runRange, eChONmuChOFF); 
     
@@ -107,6 +107,23 @@ int main(int argc, char* argv[])
     if(runOn == "spy_ttbar_Xtau"      ) analyzeThis->process_spy_ttbar_Xtau      ();
     if(runOn == "spy_zjets_from50"    ) analyzeThis->process_spy_zjets_from50    ();
     if(runOn == "spy_zjets_10to50"    ) analyzeThis->process_spy_zjets_10to50    ();
+
+    if(runOn == "spyHadd"             ){
+      TString haddcmd = TString("sh ${CMSSW_BASE}/src/LIP/TopTaus/scripts/lip-batch/spyHadd.sh ") + spyOutputArea + TString(eChONmuChOFF ? " true" : " false" );
+      gSystem->Exec(haddcmd);
+    }
+    if(runOn == "spyPlots"){
+      TString samples(eChONmuChOFF ? "data/plotter/samples_spy_eltau.xml" : "data/plotter/samples_spy_mutau.xml");
+      TString outFolder("spyplots/"); // move to input line
+      TString cmd = "mkdir -p "+outFolder+"; cp data/plotter/index.html+"+outFolder+";";
+      gSystem->Exec(cmd);
+
+      TString spyplots("data/plotter/spyplots.xml");
+
+      HistogramPlotter a; // Move to input line or cfg file the choice of what to plot
+      a.parse(samples,spyplots,outFolder);
+      
+    }
     
     return 0;
   }
@@ -328,9 +345,6 @@ int main(int argc, char* argv[])
   }
   else
     cout << "Sample does not exist" << endl;
-  
-
-
   
   cout << "physicsAnalysis reached its natural end" << endl;
   

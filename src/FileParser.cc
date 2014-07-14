@@ -5,7 +5,8 @@
 using namespace std;
 
 
-FileParser::FileParser(){ 
+FileParser::FileParser()
+{ 
   
   clear();
   

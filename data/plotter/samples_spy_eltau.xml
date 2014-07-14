@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<samples>
+
+   <process isstack="1" isdata="0" name="t#bar{t} #rightarrow #e#tau_{h}" color="614" width="1" fill="1001" fillcolor="614" markercolor="614" line="1"  linecolor="614" marker="1" >
+     <file weight="0.949">eltau/out-ttbar-etau.root</file>
+   </process>
+
+
+
+
+   <process isstack="1" isdata="0" name="other t#bar{t}" color="8" width="1" fill="1001" fillcolor="8" markercolor="8" line="1"  linecolor="8" marker="1" >
+     <file weight="1">eltau/out-ttbar-mcbkg.root</file>
+   </process>
+
+   <process isstack="1" isdata="0" name="Single t" color="824" width="1" fill="1001" fillcolor="824" markercolor="824" linecolor="824" line="1" marker="1" >
+     <file weight="1">eltau/out-singletop.root</file>
+   </process>
+
+   
+   <process isstack="1" isdata="0" name="Diboson" color="592" width="1" fill="1001" fillcolor="592" markercolor="592" linecolor="592" line="1" marker="1" >
+     <file weight="1">eltau/out-dibosons.root</file>
+   </process>
+
+
+   <process isstack="1" isdata="0" name="DY+jets" color="831" width="1" fill="1001" fillcolor="831" markercolor="831" line="1" linecolor="831" marker="1" >
+     <file weight="1">eltau/out-zjets.root</file>
+   </process>
+
+
+
+<!-- Substitutes lots of stuff when plotting misid
+   <process isstack="1" isdata="0" name="#tau_{h} misID" color="799" width="1" fill="1001" fillcolor="799" markercolor="799" line="1" linecolor="799" marker="1" >
+     <file weight="1">eltau/out-misidbkg.root</file>
+   </process>
+-->
+   
+
+
+   <process isstack="0" isdata="1" name="data" color="1" width="1" fill="0" fillcolor="0" markercolor="1" linecolor="1" line="1" marker="20" >
+     <file weight="1">eltau/out-data.root</file>
+   </process>
+
+
+</samples>
