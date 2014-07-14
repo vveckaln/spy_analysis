@@ -120,8 +120,8 @@ CutflowAnalyzer::CutflowAnalyzer( double tauPtCut, bool noUncertainties, bool do
   // How to instantiate uncertainty sources: https://twiki.cern.ch/twiki/bin/view/CMS/JECUncertaintySources#Example_implementation
   cout<<endl<<" FILE 1 : "<<(analysisFolder+string("/Summer13_V4_DATA_UncertaintySources_AK5PFchs.txt"))<<endl;
   cout<<endl<<" FILE 2 : "<<(jerFolder+string("/Spring10_PtResolution_AK5PF.txt"))<<endl;
-  
-  JetCorrectorParameters* jcp = new JetCorrectorParameters(analysisFolder+string("/Summer13_V4_DATA_UncertaintySources_AK5PFchs.txt"), "Total"); // Must implement splitting by sources
+  printf("test\n");
+  JetCorrectorParameters* jcp = new JetCorrectorParameters(analysisFolder+string("Summer13_V4_DATA_UncertaintySources_AK5PFchs.txt"), "Total"); // Must implement splitting by sources
   jecUnc_ak5_pf_ = new JetCorrectionUncertainty( *jcp );
   cout<<endl<<"JetCorrectorParameters acquired"<<endl;
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -132,7 +132,7 @@ CutflowAnalyzer::CutflowAnalyzer( double tauPtCut, bool noUncertainties, bool do
   jecUnc_data_ak5_jpt_ = jecUnc_ak5_pf_;
   //////////////////////////////////////
   
-  jerUnc_ak5_pf_pt_  = new JetResolution(jerFolder+string("/Spring10_PtResolution_AK5PF.txt"),true); // Temporarily disabled
+  jerUnc_ak5_pf_pt_  = new JetResolution(jerFolder+string("Spring10_PtResolution_AK5PF.txt"),true); // Temporarily disabled
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
   // Poisson shifter for number of vertices ///////// Not used anymore. Shifting minbias xsec in the pileup distributions given as an input

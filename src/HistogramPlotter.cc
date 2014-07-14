@@ -40,12 +40,14 @@ HistogramPlotter::~HistogramPlotter()
 void HistogramPlotter::processCanvas(){
 
   
-	
+  printf("begin HistogramPlotter::processCanvas()\n");
   if(c_) delete c_;
 
   for(int i=0; i<= idNumber_;i++){
-
-    c_ = new TCanvas("c1","c1",800,800);// fianco
+    printf("%u %s\n", i, mapIdtag_[i].Data());
+    char name[128];
+    sprintf(name, "c1_%u", i);
+    c_ = new TCanvas(name, name,800,800);// fianco
 
     // Set canvas as id name  ///
     c_->SetName( mapIdtag_[i]);
@@ -55,12 +57,12 @@ void HistogramPlotter::processCanvas(){
      
     saveCanvas();
   } 
-
+  printf("end HistogramPlotter:processCanvas()\n");
 
 } 
 
 void HistogramPlotter::processPlots(int i){
-
+  printf("begin HistogramPlotter::processPlots()\n");
   c_->cd();
   bool firstPlot(true);
 
@@ -143,6 +145,7 @@ void HistogramPlotter::processPlots(int i){
       int ind = stackSamples[u];
       TString plotName = mapIdFolder_[i]+TString("/")+mapIdHistoName_[i];
       TH1 * histo         = ( TH1 * ) mapFiles_[ind]->Get(plotName);
+      printf("mapFiles_[ind] -> GetName %s plotName %s, *histo %p\n", mapFiles_[ind]-> GetName(), plotName.Data(), (void*) histo);
       TH1 * histoForHiggs = 0; 
  
       TString opt("lpf");
@@ -486,7 +489,7 @@ void HistogramPlotter::processPlots(int i){
   
   
 
-  
+  printf("end HistogramPlotter::processPlots()\n");
 }
 
 void HistogramPlotter::plotLegend( TH1 * higgs, TLegend *l, TString title, vector<TH1*> & vhistos , vector< pair<TString,TString> > &vOptions , int data){

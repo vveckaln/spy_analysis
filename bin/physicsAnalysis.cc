@@ -39,7 +39,8 @@ physicsAnalysis test/physicsAnalysisParSets_cfg.py doTables --> draw tables
 //
 int main(int argc, char* argv[])
 {
-  // load framework libraries
+  printf("the file got modified\n");
+// load framework libraries
   gSystem->Load( "libFWCoreFWLite" );
   AutoLibraryLoader::enable();
   
@@ -77,9 +78,12 @@ int main(int argc, char* argv[])
   std::cout << "Requested to run on " << runOn << ". Cfg file is: " << parSet << endl;
   
   const edm::ParameterSet &pSet = edm::readPSetsFrom(parSet)->getParameter<edm::ParameterSet>("PhysicsAnalysisParSet");
-  
+  printf("probe A\n");
   double tauPtCut = pSet.getParameter<double>("tauPtCut");
   bool eChONmuChOFF = pSet.getParameter<bool>("eChONmuChOFF");
+ commondefinitions::eChONmuChOFF_  = eChONmuChOFF;
+
+  printf("physicsAnalysis eChONmuChOFF %u\n", eChONmuChOFF);
   bool noUncertainties = pSet.getParameter<bool>("noUncertainties");
   bool doWPlusJetsAnalysis = pSet.getParameter<bool>("doWPlusJetsAnalysis");
   bool computePDFWeights = pSet.getParameter<bool>("computePDFWeights");
@@ -91,28 +95,29 @@ int main(int argc, char* argv[])
   TString runRange   = TString(pSet.getParameter<string>("runRange"));
   std::vector<double> brHtaunu = pSet.getParameter<std::vector<double> >("brHtaunu");
   std::vector<double> brHtb    = pSet.getParameter<std::vector<double> >("brHtb");
-  
-  if(runOn == "spy_misidentifiedTau" || runOn == "spy_data" || runOn == "spy_ww" || runOn == "spy_wz" || runOn == "spy_zz" || runOn == "spy_dyvv" || runOn == "spy_singletop" || runOn == "spy_ttbar_mcbkg" || runOn == "spy_ttbar_Xtau" || runOn == "spy_zjets_from50" || runOn == "spy_jets_10to50" ){ // Put it here in order to avoid loading a full instance of CutflowAnalyzer in memory
-    
+
+  if(runOn == "spy-misidentifiedTau" || runOn == "spy-data" || runOn == "sp-ww" || runOn == "spy-wz" || runOn == "spy-zz" || runOn == "spy-dyvv" || runOn == "spy-singletop" || runOn == "spy-ttbar_mcbkg" || runOn == "spy-ttbar_Xtau" || runOn == "spy-zjets_from50" || runOn == "spy-jets_10to50" ){ // Put it here in order to avoid loading a full instance of CutflowAnalyzer in memory
+      printf("probe A14\n");
+
     SingleStepAnalyzer* analyzeThis = new SingleStepAnalyzer(noUncertainties, spyInputArea, spyOutputArea, puFileName, runRange, eChONmuChOFF); 
-    
-    if(runOn == "spy_misidentifiedTau") analyzeThis->process_spy_misidentifiedTau();
-    if(runOn == "spy_data"	      ) analyzeThis->process_spy_data	         ();
-    if(runOn == "spy_ww"	      ) analyzeThis->process_spy_dibosons	 (0);
-    if(runOn == "spy_wz"	      ) analyzeThis->process_spy_dibosons	 (1);
-    if(runOn == "spy_zz"	      ) analyzeThis->process_spy_dibosons	 (2);
-    if(runOn == "spy_dyvv"	      ) analyzeThis->process_spy_dyvv	         (); // DAFUCK?
-    if(runOn == "spy_singletop"	      ) analyzeThis->process_spy_singletop	 ();
-    if(runOn == "spy_ttbar_mcbkg"     ) analyzeThis->process_spy_ttbar_mcbkg     ();
-    if(runOn == "spy_ttbar_Xtau"      ) analyzeThis->process_spy_ttbar_Xtau      ();
-    if(runOn == "spy_zjets_from50"    ) analyzeThis->process_spy_zjets_from50    ();
-    if(runOn == "spy_zjets_10to50"    ) analyzeThis->process_spy_zjets_10to50    ();
+    printf("probe B commondefinitions::eChONmuChOFF_ %u \n", commondefinitions::eChONmuChOFF_);  
+    if(runOn == "spy-misidentifiedTau") analyzeThis->process_spy_misidentifiedTau();
+    if(runOn == "spy-data"	      ) analyzeThis->process_spy_data	         ();
+    if(runOn == "spy-ww"	      ) analyzeThis->process_spy_dibosons	 (0);
+    if(runOn == "spy-wz"	      ) analyzeThis->process_spy_dibosons	 (1);
+    if(runOn == "spy-zz"	      ) analyzeThis->process_spy_dibosons	 (2);
+    if(runOn == "spy-dyvv"	      ) analyzeThis->process_spy_dyvv	         (); // DAFUCK?
+    if(runOn == "spy-singletop"	      ) analyzeThis->process_spy_singletop	 ();
+    if(runOn == "spy-ttbar_mcbkg"     ) analyzeThis->process_spy_ttbar_mcbkg     ();
+    if(runOn == "spy-ttbar_Xtau"      ) analyzeThis->process_spy_ttbar_Xtau      ();
+    if(runOn == "spy-zjets_from50"    ) analyzeThis->process_spy_zjets_from50    ();
+    if(runOn == "spy-zjets_10to50"    ) analyzeThis->process_spy_zjets_10to50    ();
     
     return 0;
   }
-  
+  printf("probe C\n");
   CutflowAnalyzer* analyzer = new CutflowAnalyzer( tauPtCut, noUncertainties, doWPlusJetsAnalysis, inputArea, outputArea, puFileName, runRange, brHtaunu, brHtb /*parSet*/, eChONmuChOFF, computePDFWeights );
-  
+  printf("probe D\n");
   std::cout << "Analyzer has been set with a cut on tau pt of " << tauPtCut << " GeV/c " << std::endl;
 
   
@@ -257,6 +262,7 @@ int main(int argc, char* argv[])
     analyzer->summaryTable( notDetailed, true, heavyhiggs, false, false, false, produceDatacards, withShapes, withStatShapes, unsplit);
   }
   else if(runOn == "doPlots"){
+    printf("will doPlots\n");
 //    PlotStyle sty();
 //    sty.setTDRStyle();
       
@@ -267,7 +273,7 @@ int main(int argc, char* argv[])
     TString outFolder("plots/"); // move to input line
     TString outFolderEmbedded("plotsEmbedded/"); // move to input line
     TString outFolderTautaubb("plotsTautaubb/");
-    TString cmd = "mkdir -p "+outFolder+"; cp data/plotter/index.html+"+outFolder+";";
+    TString cmd = "mkdir -p "+outFolder+"; cp data/plotter/index.html "+outFolder;
     TString cmdEmbedded = "mkdir -p "+outFolderEmbedded;
     TString cmdTautaubb = "mkdir -p "+outFolderTautaubb;
     gSystem->Exec(cmd);
@@ -288,15 +294,18 @@ int main(int argc, char* argv[])
     TString debug("data/plotter/debug.xml");
 
     TString wplusjets("data/plotter/wplusjets.xml");
-
+    printf("probe E\n");
     HistogramPlotter a; // Move to input line or cfg file the choice of what to plot
+    printf("probe F\n");
     a.parse(samples,vertex,outFolder);
+    printf("    a.parse(samples,vertex,outFolder);\n");
     a.parse(samples,met,outFolder);      
     a.parse(samples,leptons,outFolder);  
     a.parse(samples,mt,outFolder);      
     a.parse(samples,jets,outFolder); 
     a.parse(samples,yields,outFolder);
     a.parse(samples_datadriven,wplusjets,outFolder);
+    printf("    a.parse(samples,vertex,outFolder);\n");
 
 
     a.parse(samples_embedded,vertex,outFolderEmbedded);
@@ -313,6 +322,7 @@ int main(int argc, char* argv[])
     a.parse(samples_tautaubb,mt,outFolderTautaubb);      
     a.parse(samples_tautaubb,jets,outFolderTautaubb); 
     a.parse(samples_tautaubb,yields,outFolderTautaubb);
+    printf("    a.parse(samples_tautaubb,yields,outFolderTautaubb);\n");
 
 
     //a.parse(samples,limits,outFolder);      

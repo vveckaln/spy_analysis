@@ -40,10 +40,12 @@ public :
   void plot(){};
   void processCanvas();
   void processPlots(int i);
-  void parse(TString samp, TString defs, TString outFolder ){  
+  void parse(TString samp, TString defs, TString outFolder ){
+    printf("begin HistogramPlotter::parse()\n");
     outFolder_ = outFolder; 
     FileParser::parse(samp,defs); 
     processCanvas();
+    printf("end HistogramPlotter::parse()\n");
   };
   void saveCanvas();
   void setHistoIdProperties(TH1 *h, int i, bool firstHisto);

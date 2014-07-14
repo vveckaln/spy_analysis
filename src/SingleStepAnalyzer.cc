@@ -20,7 +20,9 @@ SingleStepAnalyzer::SingleStepAnalyzer(bool noUncertainties, TString spyInputAre
   testMe_Nev_(0)
 
 {    
-  commondefinitions::eChONmuChOFF_  = eChONmuChOFF;
+  printf("beginning of SingleStepAnalyzer _oSpyFolder_ %s\n", oSpyFolder_.Data()); 
+ commondefinitions::eChONmuChOFF_  = eChONmuChOFF;
+ printf("singleStepAnalyzer constructor commondefinitions::eChONmuChOFF_ %u eChONmuChOFF %u\ n", commondefinitions::eChONmuChOFF_, eChONmuChOFF);
   puFileName_ = puFileName ;
 
   // Default is ABCD in CommonDefinitions.cc
@@ -127,10 +129,11 @@ SingleStepAnalyzer::SingleStepAnalyzer(bool noUncertainties, TString spyInputAre
   // New BTAG: >= Moriond 2013
   BTagSF_     = 0.966; err_BTagSF_     = 0.025;
   LightJetSF_ = 1.16;  err_LightJetSF_ = sqrt(0.02*0.02+0.014*0.014);
-  
+  printf("at end of singlesStepAnalyzer oSpyFolder_ %s \n", oSpyFolder_.Data());
 }
 
 void SingleStepAnalyzer::process(bool isData, urlCodes urlCode, TString path, TString outhistograms, vector<TString> & keys, uint ttbarLike ){
+  printf("begin SinleStepAnalyzer::process\n");
 
   isData_             = isData;
   ttbarLike_          = ttbarLike;
@@ -271,6 +274,7 @@ void SingleStepAnalyzer::process(bool isData, urlCodes urlCode, TString path, TS
      outFile_->Write(); outFile_->Close(); 
      cout<<endl<<"\n done..."<<endl;            
   }
+  printf("end SingleStepAnalyzer \n");
 
 }
 

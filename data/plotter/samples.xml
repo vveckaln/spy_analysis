@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <samples>
 
+<!--     <file weight="0.949">nomt-2012-V1-mc-MU-20GeV/out-ttbar-mutau.root</file>-->
 
 
    <process isstack="1" isdata="0" name="t#bar{t} #rightarrow #mu#tau_{h}" color="614" width="1" fill="1001" fillcolor="614" markercolor="614" line="1"  linecolor="614" marker="1" >
-     <file weight="0.949">nomt-2012-V1-mc-MU-20GeV/out-ttbar-mutau.root</file>
+    <file weight="0.949">/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_9/mc/3hitHIGwplusjetp02spy/out-Electron_MisB_1.root_spy_eltau.root</file>
+
    </process>
 
 <!-- Not to be used
@@ -19,7 +21,9 @@
 
 <!-- Substituted by out-ttbar-mcbkg when plotting misid -->
    <process isstack="1" isdata="0" name="other t#bar{t}" color="822" width="1" fill="1001" fillcolor="822" markercolor="822" line="1"  linecolor="822" marker="1" >
-     <file weight="0.949">nomt-2012-V1-mc-MU-20GeV/out-ttbar-other.root</file>
+     <file weight="0.949">/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_9/mc/3hitHIGwplusjetp02spy/out-Electron_MisB_1.root_spy_eltau.root</file>
+    <!-- <file weight="0.949">nomt-2012-V1-mc-MU-20GeV/out-ttbar-other.root</file>-->
+
    </process>
 
 
@@ -30,7 +34,8 @@
 -->
 
    <process isstack="1" isdata="0" name="Single t" color="824" width="1" fill="1001" fillcolor="824" markercolor="824" linecolor="824" line="1" marker="1" >
-     <file weight="1">nomt-2012-V1-mc-MU-20GeV/out-singletop.root</file>
+     <file weight="0.949">/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_9/mc/3hitHIGwplusjetp02spy/out-Electron_MisB_1.root_spy_eltau.root</file>
+<!--     <file weight="1">nomt-2012-V1-mc-MU-20GeV/out-singletop.root</file> -->
    </process>
 
    
@@ -48,7 +53,8 @@
 
 <!-- Substituted by misid when plotting misid -->
    <process isstack="1" isdata="0" name="W,multijets" color="809" width="1" fill="1001" fillcolor="809" markercolor="809" line="1" linecolor="809" marker="1" >
-     <file weight="1">nomt-2012-V1-mc-MU-20GeV/out-wmultijets.root</file>
+     <file weight="0.949">/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_9/mc/3hitHIGwplusjetp02spy/out-Electron_MisB_1.root_spy_eltau.root</file>
+     <!-- <file weight="1">nomt-2012-V1-mc-MU-20GeV/out-wmultijets.root</file> -->
    </process>
 
 <!-- Old wjets and qcd separated -- Substituted by misid when plotting misid
@@ -70,7 +76,8 @@
 
 
    <process isstack="0" isdata="1" name="data" color="1" width="1" fill="0" fillcolor="0" markercolor="1" linecolor="1" line="1" marker="20" >
-     <file weight="1">nomt-2012-V1-data-MU-20GeV/out-data.root</file>
+     <file weight="0.949">/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_9/mc/3hitHIGwplusjetp02spy/out-Electron_MisB_1.root_spy_eltau.root</file>
+<!--     <file weight="1">nomt-2012-V1-data-MU-20GeV/out-data.root</file>-->
    </process>
 
    <!-- process isstack="0" isdata="0" opt="same histo" name="H^{+}[m_{H^{#pm}} = 120 GeV/c^{2}]" color="891" width="3" fill="0" fillcolor="891" markercolor="891" line="1"  linecolor="891" linestyle="7" marker="1" >
@@ -101,14 +108,16 @@ tbh factor: 5.04861706546189323e-02
 -->
 
    <process isstack="0" isdata="0"  opt="same histo" name="#splitline{H^{+}#rightarrow#tau#nu [1pb]}{[250 GeV]}" color="001" width="3" fill="0" fillcolor="001" markercolor="001" line="1"  linecolor="001" linestyle="7" marker="1" >
-     <file weight="0.196293014151426387">nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m250.root</file>
+     <file weight="0.949">/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_9/mc/3hitHIGwplusjetp02spy/out-Electron_MisB_1.root_spy_eltau.root</file>
+<!--     <file weight="0.196293014151426387">nomt-2012-V1-mc-MU-20GeV/out-tbh-pythia-m250.root</file>-->
    </process>
 
 
 
 
    <process isstack="0" isdata="0"  opt="same histo" name="#splitline{H^{+}#rightarrow tb [1pb]}{[250 GeV]}" color="002" width="3" fill="0" fillcolor="002" markercolor="002" line="1"  linecolor="002" linestyle="7" marker="1" >
-     <file weight="0.126664399499557878">nomt-2012-V1-mc-MU-20GeV/out-htb-pythia-m250.root</file>
+     <file weight="0.949">/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_9/mc/3hitHIGwplusjetp02spy/out-Electron_MisB_1.root_spy_eltau.root</file>
+<!--     <file weight="0.126664399499557878">nomt-2012-V1-mc-MU-20GeV/out-htb-pythia-m250.root</file> -->
    </process>
 
 

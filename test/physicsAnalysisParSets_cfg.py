@@ -23,7 +23,7 @@ PhysicsAnalysisParSet = cms.PSet(
     ## DO NOT RISK ## outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_May_angular/"),
     outputArea = cms.string(""),
     # Take care: you should not rewrite in the same directory with eChONmuChOFF differently set. Use two different output directories
-    eChONmuChOFF  = cms.bool(True),
+    eChONmuChOFF  = cms.bool(False),
 ##################    outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew_2/"),
     #basepreapp
     #outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test2/"),
@@ -32,8 +32,8 @@ PhysicsAnalysisParSet = cms.PSet(
     # puFileName = cms.string("/exper-sw/cmst3/cmssw/users/vischia/chiggs/CMSSW_5_3_9/src/LIP/TopTaus/data/pileup/MyDataPileupHistogram_70300_100bins_true.root"),
     runRange = cms.string("ABCD"),
 
-    spyInputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/tauDileptonSpyFiles_2014-06-25_CMSSW_5_3_9/spyInput/"),
-    spyOutputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/tauDileptonSpyFiles_2014-06-25_CMSSW_5_3_9/spyOutput/vischia/"),
+    spyInputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_9/mc/3hit0p2R0p4wplusjetspy/"),
+    spyOutputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/viesturs/spy_output/"),
 
 
 

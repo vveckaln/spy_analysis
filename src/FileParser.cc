@@ -136,10 +136,12 @@ void FileParser::parse( TString samples, TString defs ){
 
 
 void FileParser::process( TXMLEngine * xml, XMLNodePointer_t processNode ){
+    printf("Begin FileParser::process\n");
   processNumber_++;
   XMLNodePointer_t child = xml->GetChild(processNode);
   
   TString childName( xml->GetNodeName(child) );
+  printf("childName %s file_ %s\n", childName.Data(), file_.Data());
   if(childName == file_  ){ processFile(xml,child);   }
   
   mapName_[processNumber_]            = TString("unknown");  // sample name
@@ -160,7 +162,7 @@ void FileParser::process( TXMLEngine * xml, XMLNodePointer_t processNode ){
     TString attName( xml->GetAttrName(attr));
     
     
-    /*out<<endl<<" attribute : "<<attName;*/
+    cout<<endl<<" attribute : "<<attName<<endl;
     
     if( attName == name_        ){ mapName_[processNumber_]        = TString( xml->GetAttrValue(attr)); /*cout<<" value is : "<<mapName_[processNumber_]<<endl;  */}
     else if( attName == isData_      ){ mapIsData_[processNumber_]      = getAttrValue(xml,attr); /* cout<<" value is : "<<mapIsData_[processNumber_]<<endl;          */}
@@ -182,11 +184,12 @@ void FileParser::process( TXMLEngine * xml, XMLNodePointer_t processNode ){
     
     attr = xml->GetNextAttr(attr);
   }
-  
+   printf("end FileParser::process\n");
 }
 
 
 void FileParser::processFile( TXMLEngine * xml, XMLNodePointer_t fileNode){
+  printf("begin processFile\n");
   TString fileName = commondefinitions::outputArea_ + TString( xml->GetNodeContent(fileNode) );
   
   cout << " DEBUGME: file is " << fileName << endl;
@@ -200,7 +203,7 @@ void FileParser::processFile( TXMLEngine * xml, XMLNodePointer_t fileNode){
   float weight(1.);char* content;
   if(w){ content = (char*) xml-> GetAttrValue(w); sscanf(content,"%f",&weight);}
   mapWeights_[processNumber_] = weight;
-
+  printf("end processFile\n");
 }
 
 bool FileParser::getAttrBool(TXMLEngine * xml, XMLAttrPointer_t attr){
@@ -228,7 +231,7 @@ float FileParser::getAttrFloatValue(TXMLEngine * xml, XMLAttrPointer_t attr){
 
 
 void FileParser::id( TXMLEngine * xml, XMLNodePointer_t idNode ){
-
+  printf("begin FilerParser::id\n");
   idNumber_++;
   
   XMLAttrPointer_t attr = xml->GetFirstAttr(idNode);
@@ -262,6 +265,7 @@ void FileParser::id( TXMLEngine * xml, XMLNodePointer_t idNode ){
     mapIdFolder_[idNumber_]    = TString( xml->GetAttrValue(folder));
     mapIdHistoName_[idNumber_] = TString( xml->GetNodeContent(item));    
   }
+  printf("end FileParser::id\n");
   
 }
 
