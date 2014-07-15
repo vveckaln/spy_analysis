@@ -61,6 +61,9 @@ public :
   void plotLegend( TH1 * higgs, TLegend *l, TString t,  vector<TH1*> & vhistos , vector< pair<TString,TString> > &vOptions, int data );
   void showRatio();
   
+  void runOnSpy();
+  void runOn(bool);
+
   TCanvas * c_;
   TString outFolder_;
   
@@ -72,7 +75,9 @@ public :
   bool showOnlyBR_ ;
   bool includeErrors_;
   double LUM_ERR;
-  
+
+  bool doSpy_;
+  bool eChONmuChOFF_;
 };
 
 

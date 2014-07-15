@@ -315,7 +315,8 @@ namespace commondefinitions{
   extern int BTAGIND_; extern double BTAG_CUT_;
   extern TString puFileName_; // Pileup file
   /////////////////////////////////////////////////////////////////////
-  
+
+  extern bool doSpy_;
   // I/O areas
   extern TString inputArea_;
   extern TString outputArea_;

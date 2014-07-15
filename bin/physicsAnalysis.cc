@@ -121,6 +121,8 @@ int main(int argc, char* argv[])
       TString spyplots("data/plotter/spyplots.xml");
 
       HistogramPlotter a; // Move to input line or cfg file the choice of what to plot
+      a.runOnSpy();
+      a.runOn(eChONmuChOFF);
       a.parse(samples,spyplots,outFolder);
       
     }

@@ -84,6 +84,8 @@ namespace commondefinitions{
   int BTAGIND_; double BTAG_CUT_;
   TString puFileName_;
   /////////////////////////////////////////////////////////////////////
+
+  bool doSpy_ = false;
   
   // I/O
   TString inputArea_;

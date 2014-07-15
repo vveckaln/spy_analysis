@@ -18,7 +18,10 @@
 
 
 HistogramPlotter::HistogramPlotter(): 
-  PlotStyle() {
+  PlotStyle(),
+  doSpy_(false),
+  eChONmuChOFF_(false)
+{
   c_ = 0; 
   plotHiggs_= false;
   showOnlyBR_=false; 
@@ -652,6 +655,13 @@ pair<bool,bool> HistogramPlotter::getRatioOptions(TH1 *h, int i){
 }
 
 
+void HistogramPlotter::runOnSpy(){
+  doSpy_=true;
+}
+
+void HistogramPlotter::runOn(bool eChONmuChOFF){
+  eChONmuChOFF_=eChONmuChOFF;
+}
 
 void HistogramPlotter::normalize(TH1 *h, int i){
   // renormalize ///////////////////////////////////
@@ -659,6 +669,22 @@ void HistogramPlotter::normalize(TH1 *h, int i){
   if( it != mapIdnorm_.end() ){
     float norm =  mapIdnorm_[i];
     float integral = h->Integral();
+
+    // Forced normalization for spyfiles
+    if(doSpy_){
+      if(!eChONmuChOFF_){ // mutau
+	if(mapName_[i].Contains("t#bar{t} #rightarrow #mu#tau_{h}"))norm=2632.;
+	if(mapName_[i].Contains("other t#bar{t}"                  ))norm=68.;
+	if(mapName_[i].Contains("Single t"			  ))norm=133.;
+	if(mapName_[i].Contains("Diboson" 			  ))norm=19.;
+	if(mapName_[i].Contains("DY+jets"			  ))norm=1653.;
+	if(mapName_[i].Contains("data"                            ))norm=4767.;  
+      } else{ // eltau
+	cout << "Update" << endl;
+      }
+      
+    }    
+    // End of forced normalization for spyfiles
     h->Scale(norm/integral);  
   }
   //////////////////////////////////////////////////
