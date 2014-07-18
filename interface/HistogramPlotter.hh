@@ -51,6 +51,7 @@ public :
   void saveCanvas();
   void setHistoIdProperties(TH1 *h, int i, bool firstHisto);
   void normalize(TH1 *h, int i);
+  void normalize(TH1 *h, int i, int ind);
   void normalize(THStack *h, int i);
   void fixExtremityBins(TH1 *h,int i);
   void setHistoSampleProperties(TH1 *h, int i);
@@ -63,6 +64,9 @@ public :
   void plotLegend( TH1 * higgs, TLegend *l, TString t,  vector<TH1*> & vhistos , vector< pair<TString,TString> > &vOptions, int data );
   void showRatio();
   
+  void runOnSpy();
+  void runOn(bool);
+
   TCanvas * c_;
   TString outFolder_;
   
@@ -74,7 +78,9 @@ public :
   bool showOnlyBR_ ;
   bool includeErrors_;
   double LUM_ERR;
-  
+
+  bool doSpy_;
+  bool eChONmuChOFF_;
 };
 
 

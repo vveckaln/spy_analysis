@@ -12,7 +12,7 @@ PhysicsAnalysisParSet = cms.PSet(
     # NORMALLY YOU WANT TO SET computePDFWeights to FALSE. It's for a syst component and takes ages to run.
     computePDFWeights = cms.bool(False),
     #    inputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/merged/"),
-    ## DO NOT RISK ## inputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_9_def/"),
+    ### DO NOT RISK ### inputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/CMSSW_5_3_9_def/"),
     inputArea = cms.string(""),
 
     # inputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/top_forTttbarReweighting_notWorking/"),
@@ -20,10 +20,10 @@ PhysicsAnalysisParSet = cms.PSet(
     #    outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_preapp2/"),
     ##outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_noTopPtRew/"),
 ###    outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_May/"),
-    ## DO NOT RISK ## outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_May_angular/"),
+    ### DO NOT RISK ### outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_May_angular/"),
     outputArea = cms.string(""),
     # Take care: you should not rewrite in the same directory with eChONmuChOFF differently set. Use two different output directories
-    eChONmuChOFF  = cms.bool(True),
+    eChONmuChOFF  = cms.bool(False),
 ##################    outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test_TopPtRew_2/"),
     #basepreapp
     #outputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/vischia/store/tau/Jan13ReReco/dataRedo/test2/"),

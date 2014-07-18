@@ -18,7 +18,10 @@
 
 
 HistogramPlotter::HistogramPlotter(): 
-  PlotStyle() {
+  PlotStyle(),
+  doSpy_(false),
+  eChONmuChOFF_(false)
+{
   c_ = 0; 
   plotHiggs_= false;
   showOnlyBR_=false; 
@@ -218,6 +221,9 @@ void HistogramPlotter::processPlots(int i){
       vhistos.push_back(histo);
       pair<TString,TString> key(mapName_[ind],opt); vOptions.push_back(key);
  
+      cout << "Do spy is " << doSpy_ << endl;
+      if(doSpy_) normalize(histo, i, ind);
+
       totalIntegral += histo->Integral();
               
       firstPlot=false;
@@ -655,15 +661,49 @@ pair<bool,bool> HistogramPlotter::getRatioOptions(TH1 *h, int i){
 }
 
 
+void HistogramPlotter::runOnSpy(){
+  doSpy_=true;
+}
+
+void HistogramPlotter::runOn(bool eChONmuChOFF){
+  eChONmuChOFF_=eChONmuChOFF;
+}
 
 void HistogramPlotter::normalize(TH1 *h, int i){
   // renormalize ///////////////////////////////////
   map< int, float >::iterator it = mapIdnorm_.find(i);
+  int k(0);
   if( it != mapIdnorm_.end() ){
     float norm =  mapIdnorm_[i];
     float integral = h->Integral();
     h->Scale(norm/integral);  
   }
+  //////////////////////////////////////////////////
+}
+
+
+void HistogramPlotter::normalize(TH1 *h, int i, int ind){
+  // renormalize ///////////////////////////////////
+//  map< int, float >::iterator it = mapIdnorm_.find(i);
+//  if( it != mapIdnorm_.end() ){
+//    float norm =  mapIdnorm_[i];
+  float integral = h->Integral();
+  float norm(integral);
+  // Forced normalization for spyfiles
+  cout << "Sample name: " << mapName_[ind] << endl;
+  if(!eChONmuChOFF_){ // mutau
+    if(mapName_[ind].Contains("t#bar{t} #rightarrow #mu#tau_{h}"))norm=2632.;
+    if(mapName_[ind].Contains("other t#bar{t}"                  ))norm=68.;
+    if(mapName_[ind].Contains("Single t"			  ))norm=133.;
+    if(mapName_[ind].Contains("Diboson" 			  ))norm=19.;
+    if(mapName_[ind].Contains("#tau_{h} misID"			  ))norm=1653.;
+    if(mapName_[ind].Contains("data"                            ))norm=4767.;  
+  } else{ // eltau
+    cout << "Update" << endl;
+  }
+  // End of forced normalization for spyfiles
+  h->Scale(norm/integral);  
+  //}
   //////////////////////////////////////////////////
 }
 
