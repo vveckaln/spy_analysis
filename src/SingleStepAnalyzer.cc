@@ -202,7 +202,11 @@ void SingleStepAnalyzer::process(bool isData, urlCodes urlCode, TString path, TS
     
     int histoEntries(51);
     
-    if( mcPileupHisto ){  for( int s=1 /* avoid underflow bin */; s < mcPileupHisto->GetNbinsX() && s<histoEntries; ++s ){ MCPUDist_.push_back( mcPileupHisto->GetBinContent(s)); } }
+    if( mcPileupHisto ){ 
+      for( int s=1 /* avoid underflow bin */; s < mcPileupHisto->GetNbinsX() && s<histoEntries; ++s ){
+	MCPUDist_.push_back( mcPileupHisto->GetBinContent(s)); 
+      } 
+    }
     LumiWeights_ = reweight::LumiReWeighting(MCPUDist_, DataPUDist_);
     originalPDFEvents_=0; 
     PDFSelectedEvents_=0;
