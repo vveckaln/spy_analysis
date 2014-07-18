@@ -693,7 +693,7 @@ void HistogramPlotter::normalize(TH1 *h, int i, int ind){
     if(mapName_[ind].Contains("other t#bar{t}"                  ))norm=68.;
     if(mapName_[ind].Contains("Single t"			  ))norm=133.;
     if(mapName_[ind].Contains("Diboson" 			  ))norm=19.;
-    if(mapName_[ind].Contains("DY+jets"			  ))norm=1653.;
+    if(mapName_[ind].Contains("#tau_{h} misID"			  ))norm=1653.;
     if(mapName_[ind].Contains("data"                            ))norm=4767.;  
   } else{ // eltau
     cout << "Update" << endl;

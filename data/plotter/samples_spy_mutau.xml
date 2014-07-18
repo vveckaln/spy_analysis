@@ -22,11 +22,6 @@
    </process>
 
 
-   <process isstack="1" isdata="0" name="DY+jets" color="831" width="1" fill="1001" fillcolor="831" markercolor="831" line="1" linecolor="831" marker="1" >
-     <file weight="1">mutau/out-zjets.root</file>
-   </process>
-
-
 
    <process isstack="1" isdata="0" name="#tau_{h} misID" color="799" width="1" fill="1001" fillcolor="799" markercolor="799" line="1" linecolor="799" marker="1" >
      <file weight="1">mutau/out-misidentifiedTau.root</file>
