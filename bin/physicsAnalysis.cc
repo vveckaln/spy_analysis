@@ -95,25 +95,7 @@ int main(int argc, char* argv[])
   TString runRange   = TString(pSet.getParameter<string>("runRange"));
   std::vector<double> brHtaunu = pSet.getParameter<std::vector<double> >("brHtaunu");
   std::vector<double> brHtb    = pSet.getParameter<std::vector<double> >("brHtb");
-<<<<<<< HEAD
 
-  if(runOn == "spy-misidentifiedTau" || runOn == "spy-data" || runOn == "sp-ww" || runOn == "spy-wz" || runOn == "spy-zz" || runOn == "spy-dyvv" || runOn == "spy-singletop" || runOn == "spy-ttbar_mcbkg" || runOn == "spy-ttbar_Xtau" || runOn == "spy-zjets_from50" || runOn == "spy-jets_10to50" ){ // Put it here in order to avoid loading a full instance of CutflowAnalyzer in memory
-      printf("probe A14\n");
-
-    SingleStepAnalyzer* analyzeThis = new SingleStepAnalyzer(noUncertainties, spyInputArea, spyOutputArea, puFileName, runRange, eChONmuChOFF); 
-    printf("probe B commondefinitions::eChONmuChOFF_ %u \n", commondefinitions::eChONmuChOFF_);  
-    if(runOn == "spy-misidentifiedTau") analyzeThis->process_spy_misidentifiedTau();
-    if(runOn == "spy-data"	      ) analyzeThis->process_spy_data	         ();
-    if(runOn == "spy-ww"	      ) analyzeThis->process_spy_dibosons	 (0);
-    if(runOn == "spy-wz"	      ) analyzeThis->process_spy_dibosons	 (1);
-    if(runOn == "spy-zz"	      ) analyzeThis->process_spy_dibosons	 (2);
-    if(runOn == "spy-dyvv"	      ) analyzeThis->process_spy_dyvv	         (); // DAFUCK?
-    if(runOn == "spy-singletop"	      ) analyzeThis->process_spy_singletop	 ();
-    if(runOn == "spy-ttbar_mcbkg"     ) analyzeThis->process_spy_ttbar_mcbkg     ();
-    if(runOn == "spy-ttbar_Xtau"      ) analyzeThis->process_spy_ttbar_Xtau      ();
-    if(runOn == "spy-zjets_from50"    ) analyzeThis->process_spy_zjets_from50    ();
-    if(runOn == "spy-zjets_10to50"    ) analyzeThis->process_spy_zjets_10to50    ();
-=======
   
   if(runOn == "spy_misidentifiedTau" || runOn == "spy_data" || runOn == "spy_ww" || runOn == "spy_wz" || runOn == "spy_zz" || runOn == "spy_dyvv" || runOn == "spy_singletop" || runOn == "spy_ttbar_mcbkg" || runOn == "spy_ttbar_Xtau" || runOn == "spy_zjets_from50" || runOn == "spy_jets_10to50" || runOn == "spyHadd" || runOn == "spyPlots"){ // Put it here in order to avoid loading a full instance of CutflowAnalyzer in memory
     
@@ -138,7 +120,7 @@ int main(int argc, char* argv[])
     if(runOn == "spyPlots"){
       TString samples(eChONmuChOFF ? "data/plotter/samples_spy_eltau.xml" : "data/plotter/samples_spy_mutau.xml");
       TString outFolder("spyplots/"); // move to input line
-      TString cmd = "mkdir -p "+outFolder+"; cp data/plotter/index.html+"+outFolder+";";
+      TString cmd = "mkdir -p "+outFolder+"; cp data/plotter/index.html "+outFolder;
       gSystem->Exec(cmd);
 
       TString spyplots("data/plotter/spyplots.xml");
@@ -147,7 +129,6 @@ int main(int argc, char* argv[])
       a.parse(samples,spyplots,outFolder);
       
     }
->>>>>>> upstream/master
     
     return 0;
   }
