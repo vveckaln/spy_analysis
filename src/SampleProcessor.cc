@@ -2019,14 +2019,14 @@ void SampleProcessor::process_spy_data(){
   url_ = DATA_URL;
   printf("url_ %u, iSpyFolder_ %s oSpyFolder_ %s \n", url_, iSpyFolder_.Data(), oSpyFolder_.Data());
   cout<<"keys_.size() "<< keys_.size()<<endl;
-  process(true,url_,iSpyFolder_+TString("spy-data.root"),oSpyFolder_+TString("out-data.root"),keys_);
+  process(true,url_,iSpyFolder_+TString("spy_data.root"),oSpyFolder_+TString("out-data.root"),keys_);
   printf("end SampleProcessor::process_spy_data\n");  
 }
 
 void SampleProcessor::process_spy_misidentifiedTau(){
 
   url_ = DATA_URL; // THIS SHOULD COME FROM DATA_RESCALED, DAMMIT. IMPLEMENT WEIGHT FROM STUFF WITHIN THE OSANALYSIS CODE // DATA_RESCALED
-  process(true,url_,iSpyFolder_+TString("spy-data.root"),oSpyFolder_+TString("out-data.root"),keys_);
+  process(true,url_,iSpyFolder_+TString("spy_data.root"),oSpyFolder_+TString("out-data.root"),keys_);
 
 }
 
@@ -2034,13 +2034,13 @@ void SampleProcessor::process_spy_dibosons(int sample){
 
   switch(sample){
   case 0:
-    url_= WW_URL; process(false, url_, iSpyFolder_ + TString("spy-ww.root"), oSpyFolder_+TString("out-ww.root"),keys_); 
+    url_= WW_URL; process(false, url_, iSpyFolder_ + TString("spy_ww.root"), oSpyFolder_+TString("out-ww.root"),keys_); 
     break;
   case 1:
-    url_= WZ_URL; process(false, url_, iSpyFolder_ + TString("spy-wz.root"), oSpyFolder_+TString("out-wz.root"),keys_);  
+    url_= WZ_URL; process(false, url_, iSpyFolder_ + TString("spy_wz.root"), oSpyFolder_+TString("out-wz.root"),keys_);  
     break;
   case 2:
-    url_= ZZ_URL; process(false, url_, iSpyFolder_ + TString("spy-zz.root"), oSpyFolder_+TString("out-zz.root"),keys_);
+    url_= ZZ_URL; process(false, url_, iSpyFolder_ + TString("spy_zz.root"), oSpyFolder_+TString("out-zz.root"),keys_);
     break;
   default:
     cout << "No Sample, wrong samplecode chosen. Supported ones are: 0=ww, 1=wz, 2=zz" << endl;
@@ -2056,7 +2056,7 @@ void SampleProcessor::process_spy_dyvv(){
 
   url_ = DY_FROM50_URL; // 10to50 FIXME
 
-  process(false, url_, iSpyFolder_ + TString("spy-dy_from50.root"), oSpyFolder_+TString("out-dy_from50.root"),keys_); 
+  process(false, url_, iSpyFolder_ + TString("spy_dy_from50.root"), oSpyFolder_+TString("out-dy_from50.root"),keys_); 
 
 }
 
@@ -2066,20 +2066,20 @@ void SampleProcessor::process_spy_singletop(){
   // FIXME CROSSECTION
 
   //SINGLE TOP
-  url_= S_URL; process(false, url_, iSpyFolder_ + TString("spy-stop_s.root"),     oSpyFolder_ + TString("out-stop_s.root"),keys_);   
-  url_= T_URL; process(false, url_, iSpyFolder_ + TString("spy-stop_t.root"),     oSpyFolder_ + TString("out-stop_t.root"),keys_);  
-  url_= W_URL; process(false, url_, iSpyFolder_ + TString("spy-stop_tW-DR.root"), oSpyFolder_ + TString("out-stop-DR_tW.root"),keys_); 
+  url_= S_URL; process(false, url_, iSpyFolder_ + TString("spy_stop_s.root"),     oSpyFolder_ + TString("out-stop_s.root"),keys_);   
+  url_= T_URL; process(false, url_, iSpyFolder_ + TString("spy_stop_t.root"),     oSpyFolder_ + TString("out-stop_t.root"),keys_);  
+  url_= W_URL; process(false, url_, iSpyFolder_ + TString("spy_stop_tW-DR.root"), oSpyFolder_ + TString("out-stop-DR_tW.root"),keys_); 
   
   //ANTI SINGLE TOP
-  url_= A_S_URL; process(false, url_, iSpyFolder_ + TString("spy-stopbar_s.root"),     oSpyFolder_ + TString("out-stopbar_s.root"),keys_);   
-  url_= A_W_URL; process(false, url_, iSpyFolder_ + TString("spy-stopbar_tW-DR.root"), oSpyFolder_ + TString("out-stopbar-DR_tW.root"),keys_);
-  url_= A_T_URL; process(false, url_, iSpyFolder_ + TString("spy-stopbar_t.root"),     oSpyFolder_ + TString("out-stopbar_t.root"),keys_);  
+  url_= A_S_URL; process(false, url_, iSpyFolder_ + TString("spy_stopbar_s.root"),     oSpyFolder_ + TString("out-stopbar_s.root"),keys_);   
+  url_= A_W_URL; process(false, url_, iSpyFolder_ + TString("spy_stopbar_tW-DR.root"), oSpyFolder_ + TString("out-stopbar-DR_tW.root"),keys_);
+  url_= A_T_URL; process(false, url_, iSpyFolder_ + TString("spy_stopbar_t.root"),     oSpyFolder_ + TString("out-stopbar_t.root"),keys_);  
 }
 
 void SampleProcessor::process_spy_ttbar_mcbkg(){
 
   url_= TTBAR_URL;
-  process(false, url_, iSpyFolder_ + TString("spy-ttbar_mcbkg.root"), oSpyFolder_+TString("out-ttbar-mcbkg.root"),keys_, TTBAR_MCBKG_ );
+  process(false, url_, iSpyFolder_ + TString("spy_ttbar_mcbkg.root"), oSpyFolder_+TString("out-ttbar-mcbkg.root"),keys_, TTBAR_MCBKG_ );
 
 }
 
@@ -2087,8 +2087,8 @@ void SampleProcessor::process_spy_ttbar_Xtau(){
 
   url_= TTBAR_URL;
 
-  if(!eChONmuChOFF_) process(false, url_, iSpyFolder_ + TString("spy-ttbar_mutau.root"), oSpyFolder_+TString("out-ttbar-mutau.root"),keys_, MUTAU_ ); 
-  else               process(false, url_, iSpyFolder_ + TString("spy-ttbar_etau.root"),  oSpyFolder_+TString("out-ttbar-etau.root"),keys_, ETAU_ ); 
+  if(!eChONmuChOFF_) process(false, url_, iSpyFolder_ + TString("spy_ttbar_mutau.root"), oSpyFolder_+TString("out-ttbar-mutau.root"),keys_, MUTAU_ ); 
+  else               process(false, url_, iSpyFolder_ + TString("spy_ttbar_etau.root"),  oSpyFolder_+TString("out-ttbar-etau.root"),keys_, ETAU_ ); 
 }
 
 void SampleProcessor::process_spy_zjets_from50(){
@@ -2097,7 +2097,7 @@ void SampleProcessor::process_spy_zjets_from50(){
 
   url_ = DY_FROM50_URL; 
 
-  process(false, url_, iSpyFolder_ + TString("spy_dy_from50,root"), oSpyFolder_+TString("out-dy_from50.root"),keys_); 
+  process(false, url_, iSpyFolder_ + TString("spy_dy_from50.root"), oSpyFolder_+TString("out-dy_from50.root"),keys_); 
 
 }
 
@@ -2105,7 +2105,7 @@ void SampleProcessor::process_spy_zjets_10to50(){
   
   // MADGRAPH Z+JETS
   url_ = DY_10TO50_URL;
-  process(false, url_, iSpyFolder_ + TString("spy-dy_10_50.root"), oSpyFolder_+TString("out-dy_10to50.root"),keys_);    
+  process(false, url_, iSpyFolder_ + TString("spy_dy_10_50.root"), oSpyFolder_+TString("out-dy_10to50.root"),keys_);    
 }
 
 
