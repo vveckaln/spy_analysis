@@ -49,6 +49,7 @@ public :
   void saveCanvas();
   void setHistoIdProperties(TH1 *h, int i, bool firstHisto);
   void normalize(TH1 *h, int i);
+  void normalize(TH1 *h, int i, int ind);
   void normalize(THStack *h, int i);
   void fixExtremityBins(TH1 *h,int i);
   void setHistoSampleProperties(TH1 *h, int i);

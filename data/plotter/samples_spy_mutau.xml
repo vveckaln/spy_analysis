@@ -28,11 +28,9 @@
 
 
 
-<!-- Substitutes lots of stuff when plotting misid
    <process isstack="1" isdata="0" name="#tau_{h} misID" color="799" width="1" fill="1001" fillcolor="799" markercolor="799" line="1" linecolor="799" marker="1" >
-     <file weight="1">mutau/out-misidbkg.root</file>
+     <file weight="1">mutau/out-misidentifiedTau.root</file>
    </process>
--->
    
 
 

@@ -1,0 +1,11 @@
+Convention for the naming of the spyfiles to be analyzed with the SingleStepAnalyzer
+------------------------------------------------------------------------------------
+
+
+spy-data.root                                  all muon/electron data
+spy-dibosons.root                              all dibosons
+spy-MisidentifiedTau.root                      all Data Driven tau fake
+spy-singletop.root                             residual SingleTop
+spy-ttbar-mcbkg.root                           ttbar --> dileptons
+spy-ttbar-[mutau|etau].root                    signal (ttbar->mutau / ttbar->etau)
+spy-zjets.root                                 all Z+jets

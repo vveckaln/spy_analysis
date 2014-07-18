@@ -195,7 +195,7 @@ void SingleStepAnalyzer::process(bool isData, urlCodes urlCode, TString path, TS
   // Acquire scale factor for event weight according to pileup distribution ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   if(!isData_ && false ){ // DEACTIVATE THAT FIXME
-    TH1 * mcPileupHisto = (TH1*) listOfFiles_[0]->Get("myEventSelector/Selection/pileup");
+    TH1 * mcPileupHisto = (TH1*) listOfFiles_[0]->Get("myEventSelector/MC_distr");
     
     int histoEntries(51);
     
@@ -925,7 +925,7 @@ void SingleStepAnalyzer::tauDileptonOSAnalysis(
   if( lepton_charge * tau_charge < 0 ) oscut = true; 
   if(oscut) is_os_ = 1.;
   //////////////////////////////////////////////////
-  if( nbtag1 && taucut && oscut) return;
+  if( !(nbtag1 && taucut && oscut)) return;
   
  
 
