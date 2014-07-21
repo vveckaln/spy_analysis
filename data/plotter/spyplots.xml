@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<monitor> 
+
+  <id tag="muon_vertex" doratio="1" logy="1" cmspublic="y" oflow="0" uflow="0" title="" ytitle="Events" xtitle="Vertex multiplicity" yrange="0.1,10000" xbin="2" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">vertex_9</item>
+  </id>
+
+  <id tag="muon_vertex_unweighted" doratio="1" logy="1" cmspublic="y" opt="e1" oflow="0" uflow="0" title="" ytitle="Events" xtitle="#eta^{#mu}" yrange="0.1,1000000"  xtitle="Vertex multiplicity" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">vertexUnweighted_9</item>
+  </id>
+
+  <id tag="muCh_met_OS" doratio="1" logy="1" cmspublic="y" opt="e1"  uflow="0" title="" ytitle="Events / 40 GeV" xtitle="E_{T}^{miss} [GeV]" yrange="1,10000" oflow="1" xbin="40" xrange="40,500" >
+      <item dir="PFlow/RecoSteps/lep_tau/OS" >pt_met_9</item>
+      </id>
+      
+      
+  <!-- Muon pt and eta distribution -->
+   <id tag="muCh_pt_m" doratio="1" logy="1" cmspublic="y" opt="e1" oflow="0" uflow="0" title="" ytitle="Events / 10 GeV" xtitle="p^{#mu}_{T} [GeV]" yrange="10,2000000"  xbin="8">
+    <item dir="PFlow/RecoSteps/lep_tau/OS">pt_m_9</item>
+  </id>
+  <id tag="muCh_eta_m" doratio="1" logy="0" cmspublic="y" opt="e1" oflow="0" uflow="0" title="" ytitle="Events" xtitle="#eta^{#mu}" yrange="0,200000" xrange="-2.6,2.6" xbin="2">
+    <item dir="PFlow/RecoSteps/lep_tau/OS">eta_m_9</item>
+  </id>
+
+  <!-- DeltaR between lepton and jet -->
+   <id tag="muCh_DR1_m_jet" doratio="1" logy="1" cmspublic="y" opt="e1" oflow="0" uflow="0" title="" ytitle="Events" xrange="0,6" xtitle="#Delta R (#mu, jet)" yrange="10,2000000"  >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">DR1_lepton_jet_9</item>
+  </id>
+   <id tag="muCh_DR2_m_jet" doratio="1" logy="1" cmspublic="y" opt="e1" oflow="0" uflow="0" title="" ytitle="Events" xrange="0,6" xtitle="#Delta R (#mu, jet)" yrange="10,2000000" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">DR2_lepton_jet_9</item>
+  </id>
+   <id tag="muCh_DR3_m_jet" doratio="1" logy="1" cmspublic="y" opt="e1" oflow="0" uflow="0" title="" ytitle="Events" xrange="0,6" xtitle="#Delta R (#mu, jet)" yrange="10,2000000"  >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">DR3_lepton_jet_9</item>
+  </id>
+   <id tag="muCh_DRALL_m_jet" doratio="1" logy="1" cmspublic="y" opt="e1" oflow="0" uflow="0" title="" ytitle="Events" xrange="0,6" xtitle="#Delta R (#mu, jet)" yrange="10,2000000" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">DRALL_lepton_jet_9</item>
+  </id>
+
+
+  <!-- tau pt and eta distrubition -->
+
+  <id tag="muCh_pt_t_OS" doratio="1" logy="1" cmspublic="y" opt="e1" oflow="1" uflow="0" xbin="4" title="" ytitle="Events / 10 GeV"
+  xtitle="p^{#tau}_{T} [GeV]" yrange="0.1,10000" xrange="20,350">
+    <item dir="PFlow/RecoSteps/lep_tau/OS">pt_t_9</item>
+  </id> 
+
+  <id tag="muCh_eta_t_OS" doratio="1" logy="0" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events" xtitle="#eta^{#tau}" xbin="1" yrange="0,400">
+    <item dir="PFlow/RecoSteps/lep_tau/OS">eta_t_9</item>
+  </id> 
+
+  <!-- delta phi and deltar between muon and tau -->
+  <id tag="muCh_dphi_mutau_OS" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events" xtitle="#Delta#phi(#mu,#tau)" xbin="2" yrange="0.1,250">
+    <item dir="PFlow/RecoSteps/lep_tau/OS">Dphi_lepton_tau_9</item>
+  </id> 
+  <id tag="muCh_dr_mutau_OS" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events" xtitle="#Delta R(#mu,#tau)" xbin="2" yrange="0.1,600" xrange="0.,6.">
+    <item dir="PFlow/RecoSteps/lep_tau/OS">DR_lepton_tau_9</item>
+  </id> 
+
+
+<!-- R after OS -->
+
+
+  <id tag="muCh_rc_t_OS" doratio="0" logy="0" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="a.u." xtitle="p^{lead.track}/E^{#tau}" norm="1" xbin="2" yrange="0,0.4">
+    <item dir="PFlow/RecoSteps/lep_tau/OS">rc_t_9</item>
+  </id> 
+
+  <!-- W transverse mass distribition  -->
+  <id tag="muCh_adphi_lm" doratio="1" logy="1" cmspublic="y"  oflow="0" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="|#Delta#phi^{lep-met}|"
+   yrange="0.1,1000" xrange="0,4" xbin="4" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">Dphi_lepton_met_9</item>
+  </id> 
+
+  <id tag="muCh_adphi_tm" doratio="1" logy="1" cmspublic="y"  oflow="0" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="|#Delta#phi^{tau-met}|"
+   yrange="0.1,1000" xrange="0,4" xbin="4" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">Dphi_tau_met_9</item>
+  </id> 
+
+  <id tag="muCh_dphi_lm" doratio="1" logy="1" cmspublic="y"  oflow="0" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="#Delta#phi^{lep-met}"
+   yrange="0.1,10000" xrange="-4,4" xbin="4" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">w_mass_deltaphi_9</item>
+  </id> 
+
+  <id tag="muCh_mt_lm" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="M^{lep-met}_{T} [GeV]" yrange="0.1,6000"  xbin="16" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">w_mass_9</item>
+  </id> 
+
+  <id tag="muCh_mt_tm" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="M^{tau-met}_{T} [GeV]" yrange="0.1,6000"  xbin="16" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">w_mass_tau_9</item>
+  </id> 
+
+  <id tag="muCh_mt_max" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="max(M^{lep-met}_{T},M^{tau-met}_{T}) [GeV]" yrange="0.1,6000" xbin="32" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">w_mass_max_9</item>
+  </id> 
+
+  <id tag="muCh_mt_min" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="min(M^{lep-met}_{T},M^{tau-met}_{T}) [GeV]" yrange="0.1,6000" xbin="32" xrange="0,300">
+    <item dir="PFlow/RecoSteps/lep_tau/OS">w_mass_min_9</item>
+  </id> 
+
+
+  <!-- jet distribition  -->
+  <id tag="muCh_pt_j" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 10 GeV" xtitle="p^{jets}_{T} [GeV]" yrange="10,20000000" xrange="35,500" xbin="8" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">pt_j_9</item>
+  </id> 
+
+  <id tag="muCh_pt_bj" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 10 GeV" xtitle="p^{bjets}_{T}
+  [GeV]" yrange="10,2000000" xrange="35,500" xbin="4" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">pt_bj_9</item>
+  </id> 
+
+  <id tag="muCh_pt_j1" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 10 GeV" xtitle="p^{lead jet}_{T}
+  [GeV]" yrange="10,600000" xrange="35,500" xbin="8" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">pt_j1_9</item>
+  </id> 
+
+  <id tag="muCh_pt_j2" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="p^{sublead jet}_{T}
+  [GeV]" yrange="10,600000" xrange="35,500" xbin="4" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">pt_j2_9</item>
+  </id> 
+
+  <id tag="muCh_pt_j3" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="p^{sub-sub lead jet}_{T}
+  [GeV]" yrange="10,600000" xrange="35,500" xbin="4" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">pt_j3_9</item>
+  </id> 
+
+  <id tag="muCh_eta_j" doratio="1" logy="0" cmspublic="y" oflow="0" uflow="0" title="" ytitle="Events" xtitle="#eta^{jets}" xrange="-2.8,2.8" yrange="1,400000" xbin="2" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">eta_j_9</item>
+  </id> 
+
+  <id tag="muCh_eta_j1" doratio="1" logy="0" cmspublic="y" oflow="0" uflow="0" title="" ytitle="Events" xtitle="#eta^{jets}" xrange="-2.8,2.8" yrange="1,200000" xbin="2" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">eta_j1_9</item>
+  </id> 
+
+  <id tag="muCh_eta_j2" doratio="1" logy="0" cmspublic="y" oflow="0" uflow="0" title="" ytitle="Events" xtitle="#eta^{jets}" xrange="-2.8,2.8" yrange="1,200000" xbin="2" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">eta_j2_9</item>
+  </id> 
+
+  <id tag="muCh_eta_j3" doratio="1" logy="0" cmspublic="y" oflow="0" uflow="0" title="" ytitle="Events" xtitle="#eta^{jets}" xrange="-2.8,2.8" yrange="1,200000" xbin="2" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">eta_j3_9</item>
+  </id> 
+
+
+
+
+  <id tag="muCh_multiplicity_j" doratio="1" logy="1" cmspublic="y" oflow="0" title="" ytitle="Events" xrange="2,6" xtitle="Jet multiplicity" yrange="10,1000000000">
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >multiplicity_j_9</item>
+  </id>
+
+  <id tag="muCh_btagmultiplicity_j" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  yrange="10,10000000" xtitle="N_{b-tags}">
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >btagmultiplicity_j_9</item>
+  </id>
+
+  <id tag="muCh_correctedbtagmultiplicity_j" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  yrange="10,10000000" xtitle="N_{b-tags}">
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >corrected_btagmultiplicity_j_9</item>
+  </id>
+
+
+  <id tag="muCh_btagmultiplicity_j_1b" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  yrange="0.01,10000" xrange="1,5" xtitle="N_{b-tags}">
+    <item dir="PFlow/RecoSteps/lep_tau/1 btag" >btagmultiplicity_j_7</item>
+  </id>
+
+  <id tag="muCh_correctedbtagmultiplicity_j_1b" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  yrange="0.01,10000" xrange="1,5" xtitle="N_{b-tags}">
+    <item dir="PFlow/RecoSteps/lep_tau/1 btag" >corrected_btagmultiplicity_j_7</item>
+  </id>
+
+  <id tag="muCh_corrected_btagmultiplicity_j_OS" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  yrange="0.01,10000" xrange="1,5" xtitle="N_{b-tags}">
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >corrected_btagmultiplicity_j_9</item>
+  </id>
+
+  <id tag="muCh_btagmultiplicity_j_OS" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  yrange="0.01,10000" xrange="1,5" xtitle="N_{b-tags}">
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >btagmultiplicity_j_9</item>
+  </id>
+
+
+
+  <id tag="muCh_btag_j" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  xrange="0,1.2" xtitle="Combined Secondary Vertex b-tag" yrange="100,1000000" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >btag_j_9</item>
+  </id>
+
+  <id tag="muCh_m_muj1" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  xtitle="M(#mu, lead jet)" yrange="0.1,1000000000" xbin="2">
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >m_muj1_9</item>
+  </id>
+
+
+  <id tag="muCh_m_mbj" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="M^{lep-bjet} [GeV]" yrange="0.1,10000000"  xbin="16" >
+    <item dir="PFlow/RecoSteps/lep_tau/1 btag">m_mubj_7</item>
+  </id> 
+
+  <id tag="muCh_max_m_muj" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="max M^{lep-jet} [GeV]" yrange="0.1,10000000"  xbin="16" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">max_m_muj_9</item>
+  </id> 
+
+
+
+
+
+  <id tag="muCh_mjj" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  xtitle="M(j, j)" yrange="0.1,100000" xrange="0,1200" xbin="8">
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >mjj_9</item>
+  </id>
+  <id tag="muCh_mjjb" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  xtitle="M(j, j, b)" yrange="0.1,100000" xrange="0,1200" xbin="8">
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >mjjb_9</item>
+  </id>
+
+
+
+  <id tag="muCh_sumpt_taub" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="p_{T}^{\tau} + p_{T}^{b} [GeV]" yrange="0.1,5000" xrange="35,1000" xbin="16" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">sumpt_taub_9</item>
+  </id> 
+  <id tag="muCh_sumpt_jj" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="p_{T}^{jet1} + p_{T}^{jet2} [GeV]" yrange="0.1,1000" xrange="35,1000" xbin="16" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">sumpt_jj_9</item>
+  </id> 
+
+  <id tag="muCh_m_taub" doratio="1" logy="1" cmspublic="y"  oflow="1" uflow="0" title="" ytitle="Events / 5 GeV" xtitle="M^{#tau-bjet} [GeV]" yrange="0.1,10000"  xbin="16" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS">m_taub_9</item>
+  </id> 
+
+<!--  <id tag="muCh_m_muj1" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="M(j, j)"  xtitle="M(j, j, b)" yrange="0.1,100000" >
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >mjjb_mjj_9</item>
+  </id>
+-->
+
+  <id tag="muCh_m_lepj_all" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  xtitle="M(l, j)" yrange="0.1,100000" xrange="0,1200" xbin="16">
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >m_lepj_all_9</item>
+  </id>
+  <id tag="muCh_m_lepj_min" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  xtitle="M(l, j)" yrange="0.1,100000" xrange="0,1200" xbin="16">
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >m_lepj_min_9</item>
+  </id>
+  <id tag="muCh_m_lepj_max" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  xtitle="M(l, j)" yrange="0.1,100000" xrange="0,1200" xbin="16">
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >m_lepj_max_9</item>
+  </id>
+  <id tag="muCh_m_lepj_delta" doratio="1" logy="1" cmspublic="y" oflow="1" title="" ytitle="Events"  xtitle="|M(#tau, j) - M(#mu, j)|" yrange="0.1,100000" xrange="0,1200" xbin="16">
+    <item dir="PFlow/RecoSteps/lep_tau/OS" >m_lepj_delta_9</item>
+  </id>
+<!-- 
+ h2 = new TH2D("m_lepj_mmj_mtj","m_lepj_mmj_mtj; M(#tau,j); M(#mu, j);",400,0.,1600., 400, 0., 1600. ); addHistoToMonitors(h2,h2->GetName(), stepsMons, keys);
+  h2 = new TH2D("m_lepj_delta_mtj","m_lepj_delta_mtj; M(#tau,j);|M(#tau,j)-M(#mu,j)|;",400,0.,1600., 4000, 0., 400. ); addHistoToMonitors(h2,h2->GetName(), stepsMons, keys);
+-->
+
+
+</monitor>
