@@ -6,10 +6,14 @@
       
       \version  $Id: physicsAnalysis.cc,v 1.22 2013/04/19 15:13:00 vischia Exp $                                                                                                       
 */
+#include "LIP/TopTaus/include/gConfiguration.hh"
+#include "LIP/TopTaus/include/CentralProcessor.hh"
 
 #include "LIP/TopTaus/interface/CutflowAnalyzer.hh"
 #include "LIP/TopTaus/interface/HistogramPlotter.hh"
 #include "LIP/TopTaus/interface/SingleStepAnalyzer.hh"
+#include "LIP/TopTaus/interface/TauDileptonTableBuilder.hh"
+#include "LIP/TopTaus/interface/CommonDefinitions.hh"
 
 // System includes	
 #include <string>
@@ -37,10 +41,7 @@ physicsAnalysis test/physicsAnalysisParSets_cfg.py doTables --> draw tables
 */
 
 //
-int main(int argc, char* argv[])
-{
-  printf("the file got modified\n");
-// load framework libraries
+int main(int argc, char* argv[]){
   gSystem->Load( "libFWCoreFWLite" );
   AutoLibraryLoader::enable();
   
@@ -49,41 +50,18 @@ int main(int argc, char* argv[])
     std::cout << "Usage : " << argv[0] << " parameters_cfg.py action" << std::endl;
     return 0;
   }
-  
-  
-  //  // Get input arguments
-  //  string sDoDatacards("");
-  //  bool doDatacards(false);
-  
-  //  for(int i=3;i<argc;i++){
-  //    string arg(argv[i]);
-  //    //    if(arg.find("--help")        !=string::npos) { printHelp(); return -1;}                                                                                                                                  
-  //    if(arg.find("--doDatacards") !=string::npos) { sDoDatacards = argv[i+1];}
-  //    //check arguments // FIXME: implement --blah bih                             
-  //  }
-  //  if(sDoDatacards == "true")
-  //    doDatacards=true;
-  //  else if(sDoDatacards == "false")
-  //    doDatacards=false;
-  //  else{
-  //    cout << "Error. DoDatacards value not defined. Defaulting to false (tables mode)" << endl;
-  //    doDatacards=false;
-  //  }
-  
-  
-  
+  gConfiguration -> SetConfiguration(argv[1]);
+  CentralProcessor * centralprocessor = new CentralProcessor();
   string parSet(argv[1]);
   string runOn(argv[2]);
 
   std::cout << "Requested to run on " << runOn << ". Cfg file is: " << parSet << endl;
   
   const edm::ParameterSet &pSet = edm::readPSetsFrom(parSet)->getParameter<edm::ParameterSet>("PhysicsAnalysisParSet");
-  printf("probe A\n");
   double tauPtCut = pSet.getParameter<double>("tauPtCut");
   bool eChONmuChOFF = pSet.getParameter<bool>("eChONmuChOFF");
  commondefinitions::eChONmuChOFF_  = eChONmuChOFF;
 
-  printf("physicsAnalysis eChONmuChOFF %u\n", eChONmuChOFF);
   bool noUncertainties = pSet.getParameter<bool>("noUncertainties");
   bool doWPlusJetsAnalysis = pSet.getParameter<bool>("doWPlusJetsAnalysis");
   bool computePDFWeights = pSet.getParameter<bool>("computePDFWeights");
@@ -98,7 +76,8 @@ int main(int argc, char* argv[])
 
   
   if(runOn == "spy_misidentifiedTau" || runOn == "spy_data" || runOn == "spy_ww" || runOn == "spy_wz" || runOn == "spy_zz" || runOn == "spy_dyvv" || runOn == "spy_singletop" || runOn == "spy_ttbar_mcbkg" || runOn == "spy_ttbar_Xtau" || runOn == "spy_zjets_from50" || runOn == "spy_jets_10to50" || runOn == "spyHadd" || runOn == "spyPlots"){ // Put it here in order to avoid loading a full instance of CutflowAnalyzer in memory
-    
+    // spy_data spy_ww spy_wz spy_zz spy_dyvv spy_singletop spy_ttbar_mcbkg spy_ttbar_Xtau spy_zjets_from50 spy-zjets_10to50
+
     SingleStepAnalyzer* analyzeThis = new SingleStepAnalyzer(noUncertainties, spyInputArea, spyOutputArea, puFileName, runRange, eChONmuChOFF); 
     
     if(runOn == "spy_misidentifiedTau") analyzeThis->process_spy_misidentifiedTau();
@@ -134,9 +113,14 @@ int main(int argc, char* argv[])
     
     return 0;
   }
-  printf("probe C\n");
+  if (runOn == "spyTables"){
+    gConfiguration -> SetEnvironment_spy();  
+    TauDileptonTableBuilder *tableBuilder = new TauDileptonTableBuilder();
+    tableBuilder -> spy_table_number_events();
+    return 0;
+  }
+
   CutflowAnalyzer* analyzer = new CutflowAnalyzer( tauPtCut, noUncertainties, doWPlusJetsAnalysis, inputArea, outputArea, puFileName, runRange, brHtaunu, brHtb /*parSet*/, eChONmuChOFF, computePDFWeights );
-  printf("probe D\n");
   std::cout << "Analyzer has been set with a cut on tau pt of " << tauPtCut << " GeV/c " << std::endl;
 
   
@@ -281,7 +265,6 @@ int main(int argc, char* argv[])
     analyzer->summaryTable( notDetailed, true, heavyhiggs, false, false, false, produceDatacards, withShapes, withStatShapes, unsplit);
   }
   else if(runOn == "doPlots"){
-    printf("will doPlots\n");
 //    PlotStyle sty();
 //    sty.setTDRStyle();
       
@@ -341,7 +324,6 @@ int main(int argc, char* argv[])
     a.parse(samples_tautaubb,mt,outFolderTautaubb);      
     a.parse(samples_tautaubb,jets,outFolderTautaubb); 
     a.parse(samples_tautaubb,yields,outFolderTautaubb);
-    printf("    a.parse(samples_tautaubb,yields,outFolderTautaubb);\n");
 
 
     //a.parse(samples,limits,outFolder);      

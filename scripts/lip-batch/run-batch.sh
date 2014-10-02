@@ -3,12 +3,12 @@
 archbin=x86_64
 SCRAM_ARCH=slc5_amd64_gcc462
 # 2011: SCRAM_ARCH=slc5_amd64_gcc434
-GLOBUS_LOCATION=/opt/globus/
-EDG_WL_LOCATION=/opt/edg/
-VO_CMS_SW_DIR=/cvmfs/cms.cern.ch/
+GLOBUS_LOCATION=/opt/globus
+EDG_WL_LOCATION=/opt/edg
+VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
 
 
-SCRIPTS=$LIPCMS_BASE/scripts/lip-batch/
+SCRIPTS=$LIPCMS_BASE/scripts/lip-batch
 
 source $VO_CMS_SW_DIR/cmsset_default.sh
 

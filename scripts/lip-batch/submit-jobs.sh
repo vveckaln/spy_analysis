@@ -1,6 +1,7 @@
 #!/bin/bash
 
-LIPCMS_BASE=/exper-sw/cmst3/cmssw/users/vischia/chiggs/CMSSW_5_3_9/src/LIP/TopTaus/
+#LIPCMS_BASE=/exper-sw/cmst3/cmssw/users/vischia/chiggs/CMSSW_5_3_9/src/LIP/TopTaus/
+LIPCMS_BASE=/exper-sw/cmst3/cmssw/users/vveckaln/CMSSW_5_3_11/src/LIP/TopTaus
 myFolder=${LIPCMS_BASE}/scripts/lip-batch/
 
 cd $myFolder;
@@ -134,17 +135,19 @@ elif [ "${1}" = "top" ]; then
 	qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-singletop.sh ${i}
     done
 elif [ "${1}" = "spy" ]; then
-    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-data.sh
-    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-dyvv.sh
+    #qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-data.sh
+    #qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-dyvv.sh
+    echo going to submit
     qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-misidentifiedTau.sh
-    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-singletop.sh
-    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-ttbar-Xtau.sh
-    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-ttbar-mcbkg.sh
-    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-ww.sh
-    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-wz.sh
-    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-zjets_10to50.sh
-    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-zjets_from50.sh
-    qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-zz.sh
+    echo submitted
+    #qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-singletop.sh
+    #qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-ttbar-Xtau.sh
+    #qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-ttbar-mcbkg.sh
+    #qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-ww.sh
+    #qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-wz.sh
+    #qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-zjets_10to50.sh
+    #qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-zjets_from50.sh
+    #qsub -v LIPCMS_BASE=${LIPCMS_BASE}    ./job-spy-zz.sh
 fi
 
 

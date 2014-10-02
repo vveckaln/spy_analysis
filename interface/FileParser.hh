@@ -19,7 +19,8 @@ public:
   FileParser();
   
   void clear();
-  
+  vector <TString>* parse(const char * input_xml_file);
+  const char* process_child(TXMLEngine *, XMLNodePointer_t );
   void parse( TString, TString);
   
   void process(       TXMLEngine*, XMLNodePointer_t  );

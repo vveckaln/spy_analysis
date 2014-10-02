@@ -32,10 +32,10 @@ PhysicsAnalysisParSet = cms.PSet(
     # puFileName = cms.string("/exper-sw/cmst3/cmssw/users/vischia/chiggs/CMSSW_5_3_9/src/LIP/TopTaus/data/pileup/MyDataPileupHistogram_70300_100bins_true.root"),
     runRange = cms.string("ABCD"),
 
-    spyInputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/tauDileptonSpyFiles_2014-06-25_CMSSW_5_3_9/spyInput/"), #electrons 
+    spyInputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/tauDileptonSpyFiles_2014-06-25_CMSSW_5_3_9/spyInput/"), 
     spyOutputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/viesturs/spy_output/"),
 
-
+# spyOutputArea = cms.string("/lustre/ncg.ingrid.pt/cmslocal/samples/tauDileptonSpyFiles_2014-06-25_CMSSW_5_3_9/spyOutput/viesturs/"),
 
     # Only for tables
     # Multiplied by 10!!!

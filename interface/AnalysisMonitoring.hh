@@ -38,11 +38,8 @@ class AnalysisMonitoring : public TauDileptonTableBuilder, public HistogramBuild
   
 public:
   
-<<<<<<< HEAD
-  AnalysisMonitoring(double tauPtCut, TString inputArea, TString outputArea) :  TauDileptonTableBuilder(), HistogramBuilder(), SampleProcessor(tauPtCut, inputArea, outputArea) { printf("constructing AnalysisMonitoring \n"); outFile_=0; }
-=======
+
   AnalysisMonitoring(double tauPtCut, TString inputArea, TString outputArea, bool eChONmuChOFF) :  TauDileptonTableBuilder(), HistogramBuilder(), SampleProcessor(tauPtCut, inputArea, outputArea, eChONmuChOFF) { outFile_=0; }
->>>>>>> upstream/master
   
   void buildStructures();
   void buildTrees(TFile*);

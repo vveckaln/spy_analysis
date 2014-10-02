@@ -2,6 +2,7 @@
 #define _TauDileptonTableBuilder_hh
 
 #include "LIP/TopTaus/interface/Utilities.hh"
+#include "LIP/TopTaus/interface/CommonDefinitions.hh"
 
 #if !defined(__CINT__) || defined(__MAKECINT__)
 
@@ -30,7 +31,7 @@ namespace tableutils{
     void doDatacards(vector<double>, vector<vector<double> >, vector<vector<double> >, vector<vector<double> >, vector<double>, bool, bool, bool, string);
     void doDatacardInput();
     void doDatacard();
-
+    void spy_table_number_events();
     
   };
   

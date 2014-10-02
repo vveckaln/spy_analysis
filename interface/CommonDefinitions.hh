@@ -5,9 +5,7 @@
 // xsecs and their errors should remain here. Or in SampleProcessor.
 
 #include <TString.h>
-
 namespace commondefinitions{
-
   enum tanc_fr_Disc     { TANCFR_ONE   = 24, TANCFR_HALF   = 25, TANCFR_QUARTER = 26, TANCFR_TENTH = 27 };
   
   enum tau_hpsIso_Disc  { HPS_LOOSEISO = 25, HPS_MEDIUMISO = 26, HPS_TIGHTISO   = 27 };
